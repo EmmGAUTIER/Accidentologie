@@ -1,0 +1,2398 @@
+{
+ "Num_Acc": {
+  "name": "Num_Acc",
+  "label": "Num\u00e9ro d'identifiant de l'accident",
+  "description": "Identifiant de l'accident identique \u00e0 celui du fichier caract\u00e9ristiques repris pour chacun des usagers d\u00e9crits impliqu\u00e9s dans l'accident",
+  "explain": "Ce champ contient le num\u00e9ro de l'ann\u00e9e sur 4 chiffres et un num\u00e9ro d'ordre sur 8 chiffres.  Ce champ est un champ d'index et utilis\u00e9 pour les jointures. Il n'explique rien. Nous v\u00e9rifions qu'il est unique dans chaque rubrique.",
+  "dtype": "int64",
+  "index": 0,
+  "decision": "Nous supprimons ce champ, apr\u00e8s avoir fait les jointures"
+ },
+ "an": {
+  "name": "an",
+  "label": "Ann\u00e9e de l'accident",
+  "explain": "L'ann\u00e9e de l'accident est cod\u00e9e avec 4 chiffres de 2018 \u00e0 2022. Elle est cod\u00e9e avec 2 chiffres avant.",
+  "dtype": "int64",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "vertical"
+  },
+  "index": 14
+ },
+ "mois": {
+  "name": "mois",
+  "dtype": "int64",
+  "label": "Mois de l'accident",
+  "description": "Le mois est cod\u00e9 avec un entier de 1 \u00e0 12. La p\u00e9riode de confinement a  modifi\u00e9 la r\u00e9partition mensuelle, en r\u00e9duisant les accidents au printemps 2022. ",
+  "decision": "Il faut r\u00e9quilibrer.",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "vertical"
+  },
+  "index": 13,
+  "values": {
+   "1": "janvier",
+   "2": "f\u00e9vrier",
+   "3": "mars",
+   "4": "avril",
+   "5": "mai",
+   "6": "juin",
+   "7": "juillet",
+   "8": "ao\u00fbt",
+   "9": "septembre",
+   "10": "octobre",
+   "11": "novembre",
+   "12": "d\u00e9cembre"
+  }
+ },
+ "jour": {
+  "name": "jour",
+  "dtype": "int64",
+  "label": "Jour du mois de l'accident",
+  "explain": "La r\u00e9partition montre une r\u00e9duction du nombre d'accidents en fin de mois.",
+  "decision": "Faut-il garder cette variable ?",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "vertical"
+  },
+  "index": 12
+ },
+ "jsem": {
+  "name": "jsem",
+  "dtype": "int64",
+  "label": "Jour de la semaine",
+  "explain": " Le jour de la semaine est cod\u00e9 avec un entier de 1 \u00e0 7. Il a \u00e9t\u00e9 ajoute lors du pr\u00e9-traitement.",
+  "index": 16,
+  "values": {
+   "1": "lundi",
+   "2": "mardi",
+   "3": "mercredi",
+   "4": "jeudi",
+   "5": "vendredi",
+   "6": "samedi",
+   "7": "dimanche"
+  },
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "vertical"
+  }
+ },
+ "hrmn": {
+  "name": "hrmn",
+  "dtype": "object",
+  "label": "Heure de l'accident",
+  "explain": "L'heure est cod\u00e9e de avec les heures de 0 \u00e0 24 et les minutes au format HH:MM. La r\u00e9partition des minutes est tr\u00e8s irr\u00e9guli\u00e8re.",
+  "d\u00e9cision": "Nous supprimons les minutes et gardons uniquement les heures (de 0 \u00e0 23)",
+  "index": 15
+ },
+ "lum": {
+  "name": "lum",
+  "dtype": "object",
+  "label": "Lumi\u00e8re",
+  "description": "Condition d'\u00e9clairage lorsque l'accident s'est produit",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "1": "plein jour",
+   "2": "Cr\u00e9puscule - aube",
+   "3": "Nuit sans \u00e9clairage public",
+   "4": "Nuit avec \u00e9clairage public non allum\u00e9",
+   "5": "Nuit avec \u00e9clairage public allum\u00e9"
+  },
+  "index": 16
+ },
+ "lum_1": {
+  "name": "lum_1",
+  "dtype": "bool",
+  "label": "Lumi\u00e8re_1"
+ },
+ "agg": {
+  "name": "agg",
+  "dtype": "int64",
+  "label": "Localisation",
+  "description": "Indication en ou hors agglom\u00e9ration",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "vertical"
+  },
+  "values": {
+   "1": "Hors agglom\u00e9ration",
+   "2": "En agglom\u00e9ration"
+  },
+  "index": 18
+ },
+ "int": {
+  "name": "int",
+  "dtype": "object",
+  "label": "Intersection",
+  "description": "Type d'intersection",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "1": "Hors intersection",
+   "2": "Intersection en X",
+   "3": "Intersection en T",
+   "4": "Intersection en Y",
+   "5": "Intersection \u00e0 plus de 4 branches",
+   "6": "Giratoire",
+   "7": "Place",
+   "8": "Passage \u00e0 niveau",
+   "9": "Autre intersection "
+  },
+  "index": 19
+ },
+ "atm": {
+  "name": "atm",
+  "dtype": "object",
+  "label": "Conditions atmosph\u00e9riques",
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "1": "Normale",
+   "2": "Pluie l\u00e9g\u00e8re",
+   "3": "Pluie forte",
+   "4": "Neige - gr\u00eale",
+   "5": "Brouillard - fum\u00e9e",
+   "6": "Vent fort - temp\u00eate",
+   "7": "Temps \u00e9blouissant",
+   "8": "Temps couvert",
+   "9": "Autre"
+  },
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 20
+ },
+ "col": {
+  "name": "col",
+  "dtype": "object",
+  "label": "Type de collision",
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "1": "Deux v\u00e9hicules - frontale",
+   "2": "Deux v\u00e9hicules \u2013 par l\u2019arri\u00e8re",
+   "3": "Deux v\u00e9hicules \u2013 par le cot\u00e9",
+   "4": "Trois v\u00e9hicules et plus \u2013 en cha\u00eene",
+   "5": "Trois v\u00e9hicules et plus - collisions multiples",
+   "6": "Autre collision",
+   "7": "Sans collision"
+  },
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 21
+ },
+ "com": {
+  "name": "com",
+  "dtype": "object",
+  "index": 10
+ },
+ "adr": {
+  "name": "adr",
+  "dtype": "object",
+  "label": "Adresse postale",
+  "description": "adresse postale pour les accidents survenus en agglom\u00e9ration",
+  "explain": "Cette variable comporte trop de modalit\u00e9s et n'est pas r\u00e9guli\u00e8rement retranscrite.",
+  "decision": "Nous \u00c9cartons cette variable.",
+  "index": 11
+ },
+ "gps": {
+  "name": "gps",
+  "dtype": "object",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 12
+ },
+ "lat": {
+  "name": "lat",
+  "dtype": "object",
+  "label": "Latitude",
+  "explain": "Le codage de la lattitude n'est pas uniformis\u00e9 et, de ce fait, n'est pas fiable.",
+  "D\u00e9cision": "Nous \u00e9cartons cette variable",
+  "index": 13
+ },
+ "long": {
+  "name": "long",
+  "dtype": "object",
+  "label": "longitude",
+  "explain": "Le codage de la longitude n'est pas uniformis\u00e9 et, de ce fait, n'est pas fiable.",
+  "D\u00e9cision": "Nous \u00e9cartons cette variable",
+  "index": 14
+ },
+ "dep": {
+  "name": "dep",
+  "label": "D\u00e9partement",
+  "description": "Code INSEE du d\u00e9partement, (2A : Corse du Sud - 2B : Haute Corse)",
+  "dtype": "object",
+  "index": 17
+ },
+ "Accident_Id": {
+  "name": "Accident_Id",
+  "dtype": "float64",
+  "index": 16
+ },
+ "catr": {
+  "name": "catr",
+  "dtype": "object",
+  "label": "Cat\u00e9gorie de route",
+  "values": {
+   "1": "Autoroute",
+   "2": "Route nationale",
+   "3": "Route d\u00e9partementale",
+   "4": "Voie communale",
+   "5": "Hors r\u00e9seau public",
+   "6": "Parc de stationnement ouvert \u00e0 la circulation publique",
+   "7": "Route de m\u00e9tropole urbaine",
+   "9": "Autre"
+  },
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 22
+ },
+ "voie": {
+  "name": "voie",
+  "dtype": "object",
+  "index": 2
+ },
+ "v1": {
+  "name": "v1",
+  "dtype": "float64",
+  "index": 3
+ },
+ "v2": {
+  "name": "v2",
+  "dtype": "object",
+  "index": 4
+ },
+ "circ": {
+  "name": "circ",
+  "dtype": "object",
+  "label": "R\u00e9gime de circulation",
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "1": "\u00c0 sens unique",
+   "2": "Bidirectionnelle",
+   "3": "\u00c0 chauss\u00e9es s\u00e9par\u00e9es",
+   "4": "Avec voies d'affectation variable"
+  },
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 23
+ },
+ "nbv": {
+  "name": "nbv",
+  "dtype": "object",
+  "label": "Nombre total de voies de circulation",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 24
+ },
+ "pr": {
+  "name": "pr",
+  "dtype": "object",
+  "index": 7
+ },
+ "pr1": {
+  "name": "pr1",
+  "dtype": "object",
+  "index": 8
+ },
+ "vosp": {
+  "name": "vosp",
+  "dtype": "object",
+  "label": "Pr\u00e9sence d'une voie r\u00e9serv\u00e9e",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "0": "Sans objet",
+   "1": "Piste cyclabe",
+   "2": "Bande cyclable",
+   "3": "Voie r\u00e9serv\u00e9e"
+  },
+  "index": 25
+ },
+ "prof": {
+  "name": "prof",
+  "dtype": "object",
+  "label": "D\u00e9clivit\u00e9",
+  "description": "Profil en long, d\u00e9clivit\u00e9 de la route \u00e0 l'ndroit de l'accident",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 26,
+  "values": {
+   "-1": "non renseign\u00e9",
+   "1": "plat",
+   "2": "pente",
+   "3": "sommet de c\u00f4te",
+   "4": "bas de c\u00f4te"
+  }
+ },
+ "plan": {
+  "name": "plan",
+  "dtype": "object",
+  "label": "trac\u00e9 en plan",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "1": "Partie rectiligne",
+   "2": "En courbe \u00e0 gauche",
+   "3": "En courbe \u00e0 droite",
+   "4": "En \"s\""
+  },
+  "index": 27
+ },
+ "lartpc": {
+  "name": "lartpc",
+  "dtype": "object",
+  "index": 12
+ },
+ "larrout": {
+  "name": "larrout",
+  "dtype": "object",
+  "index": 13
+ },
+ "surf": {
+  "name": "surf",
+  "dtype": "object",
+  "label": "\u00c9tat de la surface",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "1": "Normale",
+   "2": "mouill\u00e9e",
+   "3": "Flaques",
+   "4": "Inond\u00e9e",
+   "5": "Enneig\u00e9e",
+   "6": "Boue",
+   "7": "Verglac\u00e9e",
+   "8": "Corps gras - huile",
+   "9": "Autre"
+  },
+  "index": 28
+ },
+ "infra": {
+  "name": "infra",
+  "dtype": "object",
+  "label": "Am\u00e9nagement - Infrastructure",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "1": "Souterrain - tunnel",
+   "2": "Pont - autopont",
+   "3": "Bretelle d\u2019\u00e9changeur ou de raccordement",
+   "4": "Voie ferr\u00e9e",
+   "5": "Carrefour am\u00e9nag\u00e9",
+   "6": "Zone pi\u00e9tonne",
+   "7": "Zone de p\u00e9age",
+   "8": "Chantier",
+   "9": "Autres"
+  },
+  "index": 29
+ },
+ "situ": {
+  "name": "situ",
+  "dtype": "object",
+  "label": "Situation de l'accident",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "1": "Sur chauss\u00e9e",
+   "2": "Sur bande d\u2019arr\u00eat d\u2019urgence",
+   "3": "Sur accotement",
+   "4": "Sur trottoir",
+   "5": "Sur piste cyclable",
+   "6": "Sur autre voie sp\u00e9ciale",
+   "8": "Autre"
+  },
+  "index": 30
+ },
+ "env1": {
+  "name": "env1",
+  "dtype": "int32",
+  "label" : "Vitesse maximale autorisée",
+  "index": 17
+ },
+ "vma": {
+  "name": "vma",
+  "label" : "Vitesse maximale autorisée",
+  "dtype": "float64",
+  "values" : {
+  "20" : "20 km/h",
+  "30" : "30 km/h",
+  "50" : "50 km/h",
+  "60" : "60 km/h",
+  "70" : "70 km/h",
+  "80" : "80 km/h",
+  "90" : "90 km/h",
+  "110" : "110 km/h",
+  "110" : "110 km/h",
+  "130" : "130 km/h"
+  },
+  "index": 31
+ },
+ "place": {
+  "name": "place",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager",
+  "description": "",
+  "dtype": "object",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 0
+ },
+ "catu": {
+  "name": "catu",
+  "label": "Cat\u00e9gorie d'usager",
+  "dtype": "object",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "1": "Conducteur",
+   "2": "Passager",
+   "3": "Pi\u00e9ton",
+   "4": "Pi\u00e9ton en roller ou en trottinette  Voir Note"
+  },
+  "index": 1
+ },
+ "grav": {
+  "name": "grav",
+  "dtype": "object",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 2,
+  "values": {
+   "1": "indemne",
+   "2": "Tu\u00e9",
+   "3": "Bless\u00e9 hospitalis\u00e9",
+   "4": "Bless\u00e9 l\u00e9ger"
+  }
+ },
+ "sexe": {
+  "name": "sexe",
+  "dtype": "object",
+  "label": "Sexe",
+  "description": "Cette variable d\u00e9crit le sexe de l'usager",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "1": "Masculin",
+   "2": "F\u00e9minin"
+  },
+  "index": 3
+ },
+ "trajet": {
+  "name": "trajet",
+  "label": "Motif du d\u00e9placement",
+  "dtype": "object",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "0": "Non renseign\u00e9",
+   "1": "Domicile - travail",
+   "2": "Domicile - \u00e9cole",
+   "3": "Courses - Achats",
+   "4": "Utilisation professionnelle",
+   "5": "Promenade loisirs",
+   "9": "Autre"
+  },
+  "index": 5
+ },
+ "secu": {
+  "name": "secu",
+  "dtype": "object",
+  "values": {},
+  "index": 6
+ },
+ "locp": {
+  "name": "locp",
+  "dtype": "object",
+  "label": "Localisation du pi\u00e9ton",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "0": "Sans objet",
+   "1": "Sur la chauss\u00e9e, \u00e0 plus de 50 m du passage pi\u00e9ton",
+   "2": "Sur la chauss\u00e9e, \u00e0 \u2013 50 m du passage pi\u00e9ton",
+   "3": "Sur passage pi\u00e9ton sans signalisation lumineuse",
+   "4": "Sur passage pi\u00e9ton avec signalisation lumineuse",
+   "5": "Sur trottoir",
+   "6": "Sur accotement",
+   "7": "Sur refuge ou BAU ",
+   "8": "Sur contre all\u00e9e"
+  },
+  "index": 9
+ },
+ "actp": {
+  "name": "actp",
+  "dtype": "object",
+  "label": "Action du pi\u00e9ton",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "0": "non renseign\u00e9 ou sans objet",
+   "1": "Se d\u00e9pla\u00e7ant, sens v\u00e9hicule heurtant",
+   "2": "Se d\u00e9pla\u00e7ant, sens inverse du v\u00e9hicule",
+   "3": "Traversant",
+   "4": "Masqu\u00e9",
+   "5": "Jouant \u2013 courant",
+   "6": "Avec animal",
+   "9": "Autre"
+  },
+  "index": 10
+ },
+ "etatp": {
+  "name": "etatp",
+  "dtype": "object",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 11,
+  "values": {
+   "1": "Seul",
+   "2": "Accompagn\u00e9",
+   "3": "En groupe"
+  }
+ },
+ "an_nais": {
+  "name": "an_nais",
+  "dtype": "object",
+  "label": "Ann\u00e9e de naissance de l'usager",
+  "explain": "L'ann\u00e9e de naissance n'est pas toujours connue, c'est souvent le cas lors de la fuite d'une usager.",
+  "index": 4,
+  "decision": "Ne pourrais-t-on pas utiliser les nulls pour marquer les d\u00e9lits de fuite ? "
+ },
+ "num_veh": {
+  "name": "num_veh",
+  "label": "Identifiant de v\u00e9hicule, y compris pi\u00e9tons heurt\u00e9s",
+  "dtype": "object",
+  "index": 7
+ },
+ "id_vehicule": {
+  "name": "id_vehicule",
+  "label": "Identifiant unique de v\u00e9hicule, y compris pi\u00e9tons heurt\u00e9s",
+  "dtype": "object",
+  "index": 9
+ },
+ "secu1": {
+  "name": "secu1",
+  "dtype": "object",
+  "label": "\u00c9quipement de s\u00e9curit\u00e9 n\u00b0 1",
+  "description": "Le renseignement du caract\u00e8re indique la pr\u00e9sence et l\u2019utilisation de l\u2019\u00e9quipement de s\u00e9curit\u00e9",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "0": "Aucun \u00e9quipement",
+   "1": "Ceinture",
+   "2": "Casque",
+   "3": "Dispositif enfants",
+   "4": "Gilet r\u00e9fl\u00e9chissant",
+   "5": "Airbag (2RM/3RM)",
+   "6": "Gants (2RM/3RM)",
+   "7": "Gants + Airbag (2RM/3RM)",
+   "8": "Non d\u00e9terminable",
+   "9": "Autre"
+  },
+  "index": 6
+ },
+ "secu2": {
+  "name": "secu2",
+  "dtype": "object",
+  "index": 7,
+  "label": "\u00c9quipement de s\u00e9curit\u00e9 n\u00b0 2",
+  "description": "Le renseignement du caract\u00e8re indique la pr\u00e9sence et l\u2019utilisation de l\u2019\u00e9quipement de s\u00e9curit\u00e9",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "0": "Aucun \u00e9quipement",
+   "1": "Ceinture",
+   "2": "Casque",
+   "3": "Dispositif enfants",
+   "4": "Gilet r\u00e9fl\u00e9chissant",
+   "5": "Airbag (2RM/3RM)",
+   "6": "Gants (2RM/3RM)",
+   "7": "Gants + Airbag (2RM/3RM)",
+   "8": "Non d\u00e9terminable",
+   "9": "Autre"
+  }
+ },
+ "secu3": {
+  "name": "secu3",
+  "dtype": "object",
+  "index": 8,
+  "label": "\u00c9quipement de s\u00e9curit\u00e9 n\u00b0 3",
+  "description": "Le renseignement du caract\u00e8re indique la pr\u00e9sence et l\u2019utilisation de l\u2019\u00e9quipement de s\u00e9curit\u00e9",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "0": "Aucun \u00e9quipement",
+   "1": "Ceinture",
+   "2": "Casque",
+   "3": "Dispositif enfants",
+   "4": "Gilet r\u00e9fl\u00e9chissant",
+   "5": "Airbag (2RM/3RM)",
+   "6": "Gants (2RM/3RM)",
+   "7": "Gants + Airbag (2RM/3RM)",
+   "8": "Non d\u00e9terminable",
+   "9": "Autre"
+  }
+ },
+ "id_usager": {
+  "name": "id_usager",
+  "dtype": "object",
+  "index": 16
+ },
+ "senc": {
+  "name": "senc",
+  "label": "Sens de circulation",
+  "dtype": "object",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "non renseign\u00e9",
+   "0": "Inconnu",
+   "1": "PK ou PR ou num\u00e9ro d'adresse postale croisant",
+   "2": "PK ou PR ou num\u00e9ro d'adresse postale d\u00e9croisant",
+   "3": "Absence de rep\u00e8re"
+  },
+  "index": 32,
+  "decision": "Nous \u00e9cartons cette variable."
+ },
+ "catv": {
+  "name": "catv",
+  "label": "cat\u00e9gorie de v\u00e9hicule",
+  "dtype": "int64",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "01": "Bicyclette",
+   "02": "Cyclomoteur <50cm3",
+   "03": "Voiturette",
+   "04": "Ancienne r\u00e9f.",
+   "05": "Ancienne r\u00e9f.",
+   "06": "Ancienne r\u00e9f.",
+   "07": "VL seul",
+   "08": "Ancienne r\u00e9f.",
+   "09": "Ancienne r\u00e9f.",
+   "10": "VU seul 1,5T <= PTAC <= 3,5T avec ou sans remorque",
+   "11": "Ancienne r\u00e9f.",
+   "12": "Ancienne r\u00e9f.",
+   "13": "PL seul 3,5T <PTCA <= 7,5T",
+   "14": "PL seul > 7,5T",
+   "15": "PL > 3,5T + remorque",
+   "16": "Tracteur routier seul",
+   "17": "Tracteur routier + semi-remorque",
+   "18": "Ancienne r\u00e9f.",
+   "19": "Ancienne r\u00e9f.",
+   "20": "Engin sp\u00e9cial",
+   "21": "Tracteur agricole",
+   "30": "Scooter < 50 cm3",
+   "31": "Motocyclette entre 50 cm3 et 125 cm3",
+   "32": "Scooter > 50 cm3 et <= 125 cm3",
+   "33": "Motocyclette > 125 cm3",
+   "34": "Scooter > 125 cm3",
+   "35": "Quad l\u00e9ger <= 50 cm3",
+   "36": "Quad lourd > 50 cm3",
+   "37": "Autobus",
+   "38": "Autocar",
+   "39": "Train",
+   "40": "Tramway",
+   "99": "Autre v\u00e9hicule"
+  },
+  "index": 33,
+  "decision": "Nous utilisons cette variable."
+ },
+ "occutc": {
+  "name": "occutc",
+  "label": "Nombre d'occupants dans le transport en commun",
+  "dtype": "object",
+  "index": 2
+ },
+ "obs": {
+  "name": "obs",
+  "label": "Obstacle fixe heurt\u00e9",
+  "dtype": "object",
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "0": "Sans objet",
+   "1": "V\u00e9hicule en stationnement",
+   "2": "Arbre",
+   "3": "Glissi\u00e8re m\u00e9tallique",
+   "4": "Glissi\u00e8re b\u00e9ton",
+   "5": "Autre glissi\u00e8re",
+   "6": "B\u00e2timent, mur, pile de pont",
+   "7": "Support de signalisation verticale ou poste d\u2019appel d\u2019urgence",
+   "8": "Poteau",
+   "9": "Mobilier urbain",
+   "10": "Parapet",
+   "11": "\u00celot, refuge, borne haute",
+   "12": "Bordure de trottoir",
+   "13": "Foss\u00e9, talus, paroi rocheuse",
+   "14": "Autre obstacle fixe sur chauss\u00e9e",
+   "15": "Autre obstacle fixe sur trottoir ou accotement",
+   "16": "Sortie de chauss\u00e9e sans obstacle",
+   "17": "Buse \u2013 t\u00eate d\u2019aqueduc"
+  },
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 34
+ },
+ "obsm": {
+  "name": "obsm",
+  "label": "Obstacle mobile heurt\u00e9",
+  "dtype": "object",
+  "index": 35,
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "0": "Aucun",
+   "1": "Pi\u00e9ton",
+   "2": "V\u00e9hicule",
+   "4": "V\u00e9hicule sur rail",
+   "5": "Animal domestique",
+   "6": "Animal sauvage",
+   "9": "Autre"
+  },
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  }
+ },
+ "choc": {
+  "name": "choc",
+  "label": "Point de choc initial",
+  "dtype": "object",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "Non Renseign\u00e9",
+   "0": "Aucun",
+   "1": "Avant",
+   "2": "Avant droit",
+   "3": "Avant gauche",
+   "4": "Arri\u00e8re",
+   "5": "Arri\u00e8re droit",
+   "6": "Arri\u00e8re gauche",
+   "7": "C\u00f4t\u00e9 droit",
+   "8": "C\u00f4t\u00e9 gauche",
+   "9": "Chocs multiples (tonneaux)"
+  },
+  "index": 36
+ },
+ "manv": {
+  "name": "manv",
+  "label": "Man\u0153uvre principale avant l'accident",
+  "dtype": "object",
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "0": "Inconnue",
+   "1": "Sans changement de direction",
+   "2": "M\u00eame sens, m\u00eame fille",
+   "3": "Entre 2 files",
+   "4": "En marche arri\u00e8re",
+   "5": "\u00c0 contresens",
+   "6": "En franchissant le terre-plein central",
+   "7": "Dans le couloir bus, dans le m\u00eame sens",
+   "8": "Dans le couloir bus, dans le sens inverse",
+   "9": "En s'ins\u00e9rant",
+   "10": "En faisant demi-tour sur la chauss\u00e9e",
+   "11": "Changeant de file \u00e0 gauche",
+   "12": "Changeant de file \u00e0 droite",
+   "13": "D\u00e9port\u00e9 \u00e0 gauche",
+   "14": "D\u00e9port\u00e9 \u00e0 droite",
+   "15": "Tournant \u00e0 gauche",
+   "16": "Tournant \u00e0 droite",
+   "17": "D\u00e9passant \u00e0 gauche",
+   "18": "D\u00e9passant \u00e0 droite",
+   "19": "Traversant la chauss\u00e9e",
+   "20": "Man\u0153uvre de stationnement",
+   "21": "Man\u0153uvre d'\u00e9vitement",
+   "22": "Ouverture de porte",
+   "23": "Arr\u00eat\u00e9 (hors stationnement)",
+   "24": "En stationnement avec occupants)",
+   "25": "Circulant sur trottoir",
+   "26": "Autres man\u0153uvres"
+  },
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "index": 37
+ },
+ "motor": {
+  "name": "motor",
+  "label": "Type de motorisation",
+  "dtype": "object",
+  "graphe": {
+   "type": "bar",
+   "order": "value",
+   "orient": "horizontal"
+  },
+  "values": {
+   "-1": "Non renseign\u00e9",
+   "0": "Inconnue",
+   "1": "Hydrocarbures",
+   "2": "Hybride \u00e9lectrique",
+   "3": "\u00c9lectrique",
+   "4": "Hydrog\u00e8ne",
+   "5": "Humaine",
+   "6": "Autre"
+  },
+  "index": 9
+ },
+ "actp_1": {
+  "name": "actp_1",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton : Se d\u00e9pla\u00e7ant, sens v\u00e9hicule heurtant"
+ },
+ "actp_2": {
+  "name": "actp_2",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton : Se d\u00e9pla\u00e7ant, sens inverse du v\u00e9hicule"
+ },
+ "actp_3": {
+  "name": "actp_3",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton : Traversant"
+ },
+ "actp_4": {
+  "name": "actp_4",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton : Masqu\u00e9"
+ },
+ "actp_5": {
+  "name": "actp_5",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton : Jouant \u2013 courant"
+ },
+ "actp_6": {
+  "name": "actp_6",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton : Avec animal"
+ },
+ "actp_7": {
+  "name": "actp_7",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton"
+ },
+ "actp_8": {
+  "name": "actp_8",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton"
+ },
+ "actp_9": {
+  "name": "actp_9",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton : Autre"
+ },
+ "actp_A": {
+  "name": "actp_A",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton"
+ },
+ "agg_1": {
+  "name": "agg_1",
+  "dtype": "bool",
+  "label": "Localisation : Hors agglom\u00e9ration"
+ },
+ "agg_2": {
+  "name": "agg_2",
+  "dtype": "bool",
+  "label": "Localisation : En agglom\u00e9ration"
+ },
+ "catu_1": {
+  "name": "catu_1",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie d'usager : Conducteur"
+ },
+ "catu_2": {
+  "name": "catu_2",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie d'usager : Passager"
+ },
+ "catu_3": {
+  "name": "catu_3",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie d'usager : Pi\u00e9ton"
+ },
+ "lum_2": {
+  "name": "lum_2",
+  "dtype": "bool",
+  "label": "Lumi\u00e8re : Cr\u00e9puscule - aube"
+ },
+ "lum_3": {
+  "name": "lum_3",
+  "dtype": "bool",
+  "label": "Lumi\u00e8re : Nuit sans \u00e9clairage public"
+ },
+ "lum_4": {
+  "name": "lum_4",
+  "dtype": "bool",
+  "label": "Lumi\u00e8re : Nuit avec \u00e9clairage public non allum\u00e9"
+ },
+ "lum_5": {
+  "name": "lum_5",
+  "dtype": "bool",
+  "label": "Lumi\u00e8re : Nuit avec \u00e9clairage public allum\u00e9"
+ },
+ "trajet_1": {
+  "name": "trajet_1",
+  "dtype": "bool",
+  "label": "Motif du d\u00e9placement"
+ },
+ "trajet_2": {
+  "name": "trajet_2",
+  "dtype": "bool",
+  "label": "Motif du d\u00e9placement"
+ },
+ "trajet_3": {
+  "name": "trajet_3",
+  "dtype": "bool",
+  "label": "Motif du d\u00e9placement"
+ },
+ "trajet_4": {
+  "name": "trajet_4",
+  "dtype": "bool",
+  "label": "Motif du d\u00e9placement"
+ },
+ "trajet_5": {
+  "name": "trajet_5",
+  "dtype": "bool",
+  "label": "Motif du d\u00e9placement"
+ },
+ "locp_1": {
+  "name": "locp_1",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton"
+ },
+ "locp_2": {
+  "name": "locp_2",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton"
+ },
+ "locp_3": {
+  "name": "locp_3",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton"
+ },
+ "locp_4": {
+  "name": "locp_4",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton"
+ },
+ "locp_5": {
+  "name": "locp_5",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton"
+ },
+ "locp_6": {
+  "name": "locp_6",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton"
+ },
+ "locp_7": {
+  "name": "locp_7",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton"
+ },
+ "actp_B": {
+  "name": "actp_B",
+  "dtype": "bool",
+  "label": "Action du pi\u00e9ton"
+ },
+ "catv_7": {
+  "name": "catv_7",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Véhicule léger"
+ },
+ "catv_17": {
+  "name": "catv_17",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Tracteur routier + semi-remorque"
+ },
+ "catv_33": {
+  "name": "catv_33",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : motocyclette >125 cm2"
+ },
+ "catv_42": {
+  "name": "catv_42",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : 3RM, 50 à 125 cm2"
+ },
+ "catv_30": {
+  "name": "catv_30",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : scooter < 50 cm2"
+ },
+ "catv_37": {
+  "name": "catv_37",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Autobus"
+ },
+ "catv_32": {
+  "name": "catv_32",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : scooter 50 à 125 cm2"
+ },
+ "catv_50": {
+  "name": "catv_50",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : EDP (trotinette,...) à moteur"
+ },
+ "catv_38": {
+  "name": "catv_38",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Autocar"
+ },
+ "catv_10": {
+  "name": "catv_10",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : VU seul 1,5T <= PTAC <= 3,5T avec ou sans remorque"
+ },
+ "catv_1": {
+  "name": "catv_1",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Bicyclette"
+ },
+ "catv_40": {
+  "name": "catv_40",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Tramway"
+ },
+ "catv_15": {
+  "name": "catv_15",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : PL > 3,5T + remorque"
+ },
+ "catv_14": {
+  "name": "catv_14",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : PL seul > 7,5T"
+ },
+ "catv_99": {
+  "name": "catv_99",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : autre véhicule"
+ },
+ "catv_2": {
+  "name": "catv_2",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : cyclomoteur < 50 cm2"
+ },
+ "catv_80": {
+  "name": "catv_80",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : VAE"
+ },
+ "catv_34": {
+  "name": "catv_34",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Scooter > 125cm2"
+ },
+ "catv_60": {
+  "name": "catv_60",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : EDP (Trotinette, ...) sans moteur"
+ },
+ "catv_31": {
+  "name": "catv_31",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Motocyclette > 50 cm2 et <= 125 cm2"
+ },
+ "catv_21": {
+  "name": "catv_21",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Tracteur agricole"
+ },
+ "catv_3": {
+  "name": "catv_3",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : voiturette"
+ },
+ "catv_13": {
+  "name": "catv_13",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule poids lourd seul 3,5T < PTAC <= 7,5T"
+ },
+ "catv_20": {
+  "name": "catv_20",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : engin spécial"
+ },
+ "catv_43": {
+  "name": "catv_43",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : 3RM > 125 cm2"
+ },
+ "catv_36": {
+  "name": "catv_36",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Quad lourd > 50 cm2"
+ },
+ "catv_39": {
+  "name": "catv_39",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : train"
+ },
+ "catv_16": {
+  "name": "catv_16",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : tracteur routier seul"
+ },
+ "catv_35": {
+  "name": "catv_35",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : Quad léger < 50 cm2"
+ },
+ "catv_41": {
+  "name": "catv_41",
+  "dtype": "bool",
+  "label": "cat\u00e9gorie de v\u00e9hicule : 3RM <= 50 cm2"
+ },
+ "choc_5": {
+  "name": "choc_5",
+  "dtype": "bool",
+  "label": "Point de choc initial : Arri\u00e8re droit"
+ },
+ "choc_3": {
+  "name": "choc_3",
+  "dtype": "bool",
+  "label": "Point de choc initial : Avant gauche"
+ },
+ "choc_1": {
+  "name": "choc_1",
+  "dtype": "bool",
+  "label": "Point de choc initial : Avant"
+ },
+ "choc_4": {
+  "name": "choc_4",
+  "dtype": "bool",
+  "label": "Point de choc initial : Arri\u00e8re"
+ },
+ "choc_2": {
+  "name": "choc_2",
+  "dtype": "bool",
+  "label": "Point de choc initial : Avant droit"
+ },
+ "choc_0": {
+  "name": "choc_0",
+  "dtype": "bool",
+  "label": "Point de choc initial : Aucun"
+ },
+ "choc_8": {
+  "name": "choc_8",
+  "dtype": "bool",
+  "label": "Point de choc initial : C\u00f4t\u00e9 gauche"
+ },
+ "choc_6": {
+  "name": "choc_6",
+  "dtype": "bool",
+  "label": "Point de choc initial : Arri\u00e8re gauche"
+ },
+ "choc_7": {
+  "name": "choc_7",
+  "dtype": "bool",
+  "label": "Point de choc initial : C\u00f4t\u00e9 droit"
+ },
+ "choc_9": {
+  "name": "choc_9",
+  "dtype": "bool",
+  "label": "Point de choc initial : Chocs multiples (tonneaux)"
+ },
+ "choc_-1": {
+  "name": "choc_-1",
+  "dtype": "bool",
+  "label": "Point de choc initial : Non Renseign\u00e9"
+ },
+ "circ_3": {
+  "name": "circ_3",
+  "dtype": "bool",
+  "label": "R\u00e9gime de circulation : \u00c0 chauss\u00e9es s\u00e9par\u00e9es"
+ },
+ "circ_1": {
+  "name": "circ_1",
+  "dtype": "bool",
+  "label": "R\u00e9gime de circulation : \u00c0 sens unique"
+ },
+ "circ_2": {
+  "name": "circ_2",
+  "dtype": "bool",
+  "label": "R\u00e9gime de circulation : Bidirectionnelle"
+ },
+ "circ_-1": {
+  "name": "circ_-1",
+  "dtype": "bool",
+  "label": "R\u00e9gime de circulation : Non renseign\u00e9"
+ },
+ "circ_4": {
+  "name": "circ_4",
+  "dtype": "bool",
+  "label": "R\u00e9gime de circulation : Avec voies d'affectation variable"
+ },
+ "col_2": {
+  "name": "col_2",
+  "dtype": "bool",
+  "label": "Type de collision : Deux v\u00e9hicules \u2013 par l\u2019arri\u00e8re"
+ },
+ "col_6": {
+  "name": "col_6",
+  "dtype": "bool",
+  "label": "Type de collision : Autre collision"
+ },
+ "col_4": {
+  "name": "col_4",
+  "dtype": "bool",
+  "label": "Type de collision : Trois v\u00e9hicules et plus \u2013 en cha\u00eene"
+ },
+ "col_3": {
+  "name": "col_3",
+  "dtype": "bool",
+  "label": "Type de collision : Deux v\u00e9hicules \u2013 par le cot\u00e9"
+ },
+ "col_5": {
+  "name": "col_5",
+  "dtype": "bool",
+  "label": "Type de collision : Trois v\u00e9hicules et plus - collisions multiples"
+ },
+ "col_7": {
+  "name": "col_7",
+  "dtype": "bool",
+  "label": "Type de collision : Sans collision"
+ },
+ "col_1": {
+  "name": "col_1",
+  "dtype": "bool",
+  "label": "Type de collision : Deux v\u00e9hicules - frontale"
+ },
+ "col_-1": {
+  "name": "col_-1",
+  "dtype": "bool",
+  "label": "Type de collision : Non renseign\u00e9"
+ },
+ "etatp_-1": {
+  "name": "etatp_-1",
+  "dtype": "bool",
+  "label": null
+ },
+ "etatp_1": {
+  "name": "etatp_1",
+  "dtype": "bool",
+  "label": null
+ },
+ "etatp_2": {
+  "name": "etatp_2",
+  "dtype": "bool",
+  "label": null
+ },
+ "etatp_3": {
+  "name": "etatp_3",
+  "dtype": "bool",
+  "label": null
+ },
+ "infra_2": {
+  "name": "infra_2",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure : Pont - autopont"
+ },
+ "infra_0": {
+  "name": "infra_0",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure"
+ },
+ "infra_9": {
+  "name": "infra_9",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure : Autres"
+ },
+ "infra_1": {
+  "name": "infra_1",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure : Souterrain - tunnel"
+ },
+ "infra_5": {
+  "name": "infra_5",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure : Carrefour am\u00e9nag\u00e9"
+ },
+ "infra_4": {
+  "name": "infra_4",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure : Voie ferr\u00e9e"
+ },
+ "infra_6": {
+  "name": "infra_6",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure : Zone pi\u00e9tonne"
+ },
+ "infra_3": {
+  "name": "infra_3",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure : Bretelle d\u2019\u00e9changeur ou de raccordement"
+ },
+ "infra_8": {
+  "name": "infra_8",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure : Chantier"
+ },
+ "infra_-1": {
+  "name": "infra_-1",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure"
+ },
+ "infra_7": {
+  "name": "infra_7",
+  "dtype": "bool",
+  "label": "Am\u00e9nagement - Infrastructure : Zone de p\u00e9age"
+ },
+ "int_1": {
+  "name": "int_1",
+  "dtype": "bool",
+  "label": "Intersection : Hors intersection"
+ },
+ "int_3": {
+  "name": "int_3",
+  "dtype": "bool",
+  "label": "Intersection : Intersection en T"
+ },
+ "int_9": {
+  "name": "int_9",
+  "dtype": "bool",
+  "label": "Intersection : Autre intersection "
+ },
+ "int_4": {
+  "name": "int_4",
+  "dtype": "bool",
+  "label": "Intersection : Intersection en Y"
+ },
+ "int_2": {
+  "name": "int_2",
+  "dtype": "bool",
+  "label": "Intersection : Intersection en X"
+ },
+ "int_6": {
+  "name": "int_6",
+  "dtype": "bool",
+  "label": "Intersection : Giratoire"
+ },
+ "int_5": {
+  "name": "int_5",
+  "dtype": "bool",
+  "label": "Intersection : Intersection \u00e0 plus de 4 branches"
+ },
+ "int_7": {
+  "name": "int_7",
+  "dtype": "bool",
+  "label": "Intersection : Place"
+ },
+ "int_8": {
+  "name": "int_8",
+  "dtype": "bool",
+  "label": "Intersection : Passage \u00e0 niveau"
+ },
+ "int_-1": {
+  "name": "int_-1",
+  "dtype": "bool",
+  "label": "Intersection"
+ },
+ "locp_-1": {
+  "name": "locp_-1",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton"
+ },
+ "locp_0": {
+  "name": "locp_0",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton : Sans objet"
+ },
+ "locp_8": {
+  "name": "locp_8",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton : Sur contre all\u00e9e"
+ },
+ "locp_9": {
+  "name": "locp_9",
+  "dtype": "bool",
+  "label": "Localisation du pi\u00e9ton"
+ },
+ "lum_-1": {
+  "name": "lum_-1",
+  "dtype": "bool",
+  "label": "Lumi\u00e8re"
+ },
+ "manv_23": {
+  "name": "manv_23",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Arr\u00eat\u00e9 (hors stationnement)"
+ },
+ "manv_11": {
+  "name": "manv_11",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Changeant de file \u00e0 gauche"
+ },
+ "manv_0": {
+  "name": "manv_0",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Inconnue"
+ },
+ "manv_2": {
+  "name": "manv_2",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : M\u00eame sens, m\u00eame fille"
+ },
+ "manv_21": {
+  "name": "manv_21",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Man\u0153uvre d'\u00e9vitement"
+ },
+ "manv_1": {
+  "name": "manv_1",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Sans changement de direction"
+ },
+ "manv_9": {
+  "name": "manv_9",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : En s'ins\u00e9rant"
+ },
+ "manv_26": {
+  "name": "manv_26",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Autres man\u0153uvres"
+ },
+ "manv_15": {
+  "name": "manv_15",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Tournant \u00e0 gauche"
+ },
+ "manv_17": {
+  "name": "manv_17",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : D\u00e9passant \u00e0 gauche"
+ },
+ "manv_4": {
+  "name": "manv_4",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : En marche arri\u00e8re"
+ },
+ "manv_12": {
+  "name": "manv_12",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Changeant de file \u00e0 droite"
+ },
+ "manv_16": {
+  "name": "manv_16",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Tournant \u00e0 droite"
+ },
+ "manv_19": {
+  "name": "manv_19",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Traversant la chauss\u00e9e"
+ },
+ "manv_13": {
+  "name": "manv_13",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : D\u00e9port\u00e9 \u00e0 gauche"
+ },
+ "manv_14": {
+  "name": "manv_14",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : D\u00e9port\u00e9 \u00e0 droite"
+ },
+ "manv_3": {
+  "name": "manv_3",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Entre 2 files"
+ },
+ "manv_10": {
+  "name": "manv_10",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : En faisant demi-tour sur la chauss\u00e9e"
+ },
+ "manv_5": {
+  "name": "manv_5",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : \u00c0 contresens"
+ },
+ "manv_24": {
+  "name": "manv_24",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : En stationnement avec occupants)"
+ },
+ "manv_18": {
+  "name": "manv_18",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : D\u00e9passant \u00e0 droite"
+ },
+ "manv_20": {
+  "name": "manv_20",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Man\u0153uvre de stationnement"
+ },
+ "manv_7": {
+  "name": "manv_7",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Dans le couloir bus, dans le m\u00eame sens"
+ },
+ "manv_22": {
+  "name": "manv_22",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Ouverture de porte"
+ },
+ "manv_25": {
+  "name": "manv_25",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Circulant sur trottoir"
+ },
+ "manv_-1": {
+  "name": "manv_-1",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Non renseign\u00e9"
+ },
+ "manv_6": {
+  "name": "manv_6",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : En franchissant le terre-plein central"
+ },
+ "manv_8": {
+  "name": "manv_8",
+  "dtype": "bool",
+  "label": "Man\u0153uvre principale avant l'accident : Dans le couloir bus, dans le sens inverse"
+ },
+ "motor_1": {
+  "name": "motor_1",
+  "dtype": "bool",
+  "label": "Type de motorisation : Hydrocarbures"
+ },
+ "motor_6": {
+  "name": "motor_6",
+  "dtype": "bool",
+  "label": "Type de motorisation : Autre"
+ },
+ "motor_0": {
+  "name": "motor_0",
+  "dtype": "bool",
+  "label": "Type de motorisation : Inconnue"
+ },
+ "motor_3": {
+  "name": "motor_3",
+  "dtype": "bool",
+  "label": "Type de motorisation : \u00c9lectrique"
+ },
+ "motor_5": {
+  "name": "motor_5",
+  "dtype": "bool",
+  "label": "Type de motorisation : Humaine"
+ },
+ "motor_2": {
+  "name": "motor_2",
+  "dtype": "bool",
+  "label": "Type de motorisation : Hybride \u00e9lectrique"
+ },
+ "motor_-1": {
+  "name": "motor_-1",
+  "dtype": "bool",
+  "label": "Type de motorisation : Non renseign\u00e9"
+ },
+ "motor_4": {
+  "name": "motor_4",
+  "dtype": "bool",
+  "label": "Type de motorisation : Hydrog\u00e8ne"
+ },
+ "obs_0": {
+  "name": "obs_0",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Sans objet"
+ },
+ "obs_1": {
+  "name": "obs_1",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : V\u00e9hicule en stationnement"
+ },
+ "obs_4": {
+  "name": "obs_4",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Glissi\u00e8re b\u00e9ton"
+ },
+ "obs_14": {
+  "name": "obs_14",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Autre obstacle fixe sur chauss\u00e9e"
+ },
+ "obs_9": {
+  "name": "obs_9",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Mobilier urbain"
+ },
+ "obs_6": {
+  "name": "obs_6",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : B\u00e2timent, mur, pile de pont"
+ },
+ "obs_15": {
+  "name": "obs_15",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Autre obstacle fixe sur trottoir ou accotement"
+ },
+ "obs_13": {
+  "name": "obs_13",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Foss\u00e9, talus, paroi rocheuse"
+ },
+ "obs_8": {
+  "name": "obs_8",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Poteau"
+ },
+ "obs_2": {
+  "name": "obs_2",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Arbre"
+ },
+ "obs_16": {
+  "name": "obs_16",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Sortie de chauss\u00e9e sans obstacle"
+ },
+ "obs_12": {
+  "name": "obs_12",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Bordure de trottoir"
+ },
+ "obs_3": {
+  "name": "obs_3",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Glissi\u00e8re m\u00e9tallique"
+ },
+ "obs_7": {
+  "name": "obs_7",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Support de signalisation verticale ou poste d\u2019appel d\u2019urgence"
+ },
+ "obs_17": {
+  "name": "obs_17",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Buse \u2013 t\u00eate d\u2019aqueduc"
+ },
+ "obs_11": {
+  "name": "obs_11",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : \u00celot, refuge, borne haute"
+ },
+ "obs_-1": {
+  "name": "obs_-1",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Non renseign\u00e9"
+ },
+ "obs_5": {
+  "name": "obs_5",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Autre glissi\u00e8re"
+ },
+ "obs_10": {
+  "name": "obs_10",
+  "dtype": "bool",
+  "label": "Obstacle fixe heurt\u00e9 : Parapet"
+ },
+ "obsm_2": {
+  "name": "obsm_2",
+  "dtype": "bool",
+  "label": "Obstacle mobile heurt\u00e9 : V\u00e9hicule"
+ },
+ "obsm_0": {
+  "name": "obsm_0",
+  "dtype": "bool",
+  "label": "Obstacle mobile heurt\u00e9 : Aucun"
+ },
+ "obsm_1": {
+  "name": "obsm_1",
+  "dtype": "bool",
+  "label": "Obstacle mobile heurt\u00e9 : Pi\u00e9ton"
+ },
+ "obsm_9": {
+  "name": "obsm_9",
+  "dtype": "bool",
+  "label": "Obstacle mobile heurt\u00e9 : Autre"
+ },
+ "obsm_-1": {
+  "name": "obsm_-1",
+  "dtype": "bool",
+  "label": "Obstacle mobile heurt\u00e9 : Non renseign\u00e9"
+ },
+ "obsm_6": {
+  "name": "obsm_6",
+  "dtype": "bool",
+  "label": "Obstacle mobile heurt\u00e9 : Animal sauvage"
+ },
+ "obsm_4": {
+  "name": "obsm_4",
+  "dtype": "bool",
+  "label": "Obstacle mobile heurt\u00e9 : V\u00e9hicule sur rail"
+ },
+ "obsm_5": {
+  "name": "obsm_5",
+  "dtype": "bool",
+  "label": "Obstacle mobile heurt\u00e9 : Animal domestique"
+ },
+ "place_2": {
+  "name": "place_2",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "place_1": {
+  "name": "place_1",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "place_10": {
+  "name": "place_10",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "place_3": {
+  "name": "place_3",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "place_4": {
+  "name": "place_4",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "place_7": {
+  "name": "place_7",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "place_9": {
+  "name": "place_9",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "place_6": {
+  "name": "place_6",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "place_8": {
+  "name": "place_8",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "place_5": {
+  "name": "place_5",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "place_-1": {
+  "name": "place_-1",
+  "dtype": "bool",
+  "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager"
+ },
+ "plan_2": {
+  "name": "plan_2",
+  "dtype": "bool",
+  "label": "trac\u00e9 en plan : En courbe \u00e0 gauche"
+ },
+ "plan_3": {
+  "name": "plan_3",
+  "dtype": "bool",
+  "label": "trac\u00e9 en plan : En courbe \u00e0 droite"
+ },
+ "plan_1": {
+  "name": "plan_1",
+  "dtype": "bool",
+  "label": "trac\u00e9 en plan : Partie rectiligne"
+ },
+ "plan_4": {
+  "name": "plan_4",
+  "dtype": "bool",
+  "label": "trac\u00e9 en plan : En \"s\""
+ },
+ "plan_-1": {
+  "name": "plan_-1",
+  "dtype": "bool",
+  "label": "trac\u00e9 en plan : Non renseign\u00e9"
+ },
+ "prof_1": {
+  "name": "prof_1",
+  "dtype": "bool",
+  "label": "D\u00e9clivit\u00e9 : plat"
+ },
+ "prof_4": {
+  "name": "prof_4",
+  "dtype": "bool",
+  "label": "D\u00e9clivit\u00e9 : bas de c\u00f4te"
+ },
+ "prof_2": {
+  "name": "prof_2",
+  "dtype": "bool",
+  "label": "D\u00e9clivit\u00e9 : pente"
+ },
+ "prof_3": {
+  "name": "prof_3",
+  "dtype": "bool",
+  "label": "D\u00e9clivit\u00e9 : sommet de c\u00f4te"
+ },
+ "prof_-1": {
+  "name": "prof_-1",
+  "dtype": "bool",
+  "label": "D\u00e9clivit\u00e9 : non renseign\u00e9"
+ },
+ "senc_2": {
+  "name": "senc_2",
+  "dtype": "bool",
+  "label": "Sens de circulation : PK ou PR ou num\u00e9ro d'adresse postale d\u00e9croisant"
+ },
+ "senc_1": {
+  "name": "senc_1",
+  "dtype": "bool",
+  "label": "Sens de circulation : PK ou PR ou num\u00e9ro d'adresse postale croisant"
+ },
+ "senc_3": {
+  "name": "senc_3",
+  "dtype": "bool",
+  "label": "Sens de circulation : Absence de rep\u00e8re"
+ },
+ "senc_0": {
+  "name": "senc_0",
+  "dtype": "bool",
+  "label": "Sens de circulation : Inconnu"
+ },
+ "senc_-1": {
+  "name": "senc_-1",
+  "dtype": "bool",
+  "label": "Sens de circulation : non renseign\u00e9"
+ },
+ "situ_1": {
+  "name": "situ_1",
+  "dtype": "bool",
+  "label": "Situation de l'accident : Sur chauss\u00e9e"
+ },
+ "situ_2": {
+  "name": "situ_2",
+  "dtype": "bool",
+  "label": "Situation de l'accident : Sur bande d\u2019arr\u00eat d\u2019urgence"
+ },
+ "situ_4": {
+  "name": "situ_4",
+  "dtype": "bool",
+  "label": "Situation de l'accident : Sur trottoir"
+ },
+ "situ_6": {
+  "name": "situ_6",
+  "dtype": "bool",
+  "label": "Situation de l'accident : Sur autre voie sp\u00e9ciale"
+ },
+ "situ_8": {
+  "name": "situ_8",
+  "dtype": "bool",
+  "label": "Situation de l'accident : Autre"
+ },
+ "situ_3": {
+  "name": "situ_3",
+  "dtype": "bool",
+  "label": "Situation de l'accident : Sur accotement"
+ },
+ "situ_5": {
+  "name": "situ_5",
+  "dtype": "bool",
+  "label": "Situation de l'accident : Sur piste cyclable"
+ },
+ "situ_-1": {
+  "name": "situ_-1",
+  "dtype": "bool",
+  "label": "Situation de l'accident : Non renseign\u00e9"
+ },
+ "trajet_0": {
+  "name": "trajet_0",
+  "dtype": "bool",
+  "label": "Motif du d\u00e9placement : Non renseign\u00e9"
+ },
+ "trajet_9": {
+  "name": "trajet_9",
+  "dtype": "bool",
+  "label": "Motif du d\u00e9placement : Autre"
+ },
+ "trajet_-1": {
+  "name": "trajet_-1",
+  "dtype": "bool",
+  "label": "Motif du d\u00e9placement : Non renseign\u00e9"
+ },
+ "vosp_0": {
+  "name": "vosp_0",
+  "dtype": "bool",
+  "label": "Pr\u00e9sence d'une voie r\u00e9serv\u00e9e : Sans objet"
+ },
+ "vosp_1": {
+  "name": "vosp_1",
+  "dtype": "bool",
+  "label": "Pr\u00e9sence d'une voie r\u00e9serv\u00e9e : Piste cyclabe"
+ },
+ "vosp_3": {
+  "name": "vosp_3",
+  "dtype": "bool",
+  "label": "Pr\u00e9sence d'une voie r\u00e9serv\u00e9e : Voie r\u00e9serv\u00e9e"
+ },
+ "vosp_2": {
+  "name": "vosp_2",
+  "dtype": "bool",
+  "label": "Pr\u00e9sence d'une voie r\u00e9serv\u00e9e : Bande cyclable"
+ },
+ "vosp_-1": {
+  "name": "vosp_-1",
+  "dtype": "bool",
+  "label": "Pr\u00e9sence d'une voie r\u00e9serv\u00e9e : Non renseign\u00e9"
+ },
+ "atm_1": {
+  "name": "atm_1",
+  "dtype": "bool",
+  "label": "Conditions atmosph\u00e9riques : Normale"
+ },
+ "atm_2": {
+  "name": "atm_2",
+  "dtype": "bool",
+  "label": "Conditions atmosph\u00e9riques : Pluie l\u00e9g\u00e8re"
+ },
+ "atm_3": {
+  "name": "atm_3",
+  "dtype": "bool",
+  "label": "Conditions atmosph\u00e9riques : Pluie forte"
+ },
+ "atm_4": {
+  "name": "atm_4",
+  "dtype": "bool",
+  "label": "Conditions atmosph\u00e9riques : Neige - gr\u00eale"
+ },
+ "atm_5": {
+  "name": "atm_5",
+  "dtype": "bool",
+  "label": "Conditions atmosph\u00e9riques : Brouillard - fum\u00e9e"
+ },
+ "atm_6": {
+  "name": "atm_6",
+  "dtype": "bool",
+  "label": "Conditions atmosph\u00e9riques : Vent fort - temp\u00eate"
+ },
+ "atm_7": {
+  "name": "atm_7",
+  "dtype": "bool",
+  "label": "Conditions atmosph\u00e9riques : Temps \u00e9blouissant"
+ },
+ "atm_8": {
+  "name": "atm_8",
+  "dtype": "bool",
+  "label": "Conditions atmosph\u00e9riques : Temps couvert"
+ },
+ "catr_1": {
+  "name": "catr_1",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie de route : Autoroute"
+ },
+ "catr_2": {
+  "name": "catr_2",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie de route : Route nationale"
+ },
+ "catr_3": {
+  "name": "catr_3",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie de route : Route d\u00e9partementale"
+ },
+ "catr_4": {
+  "name": "catr_4",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie de route : Voie communale"
+ },
+ "catr_5": {
+  "name": "catr_5",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie de route : Hors r\u00e9seau public"
+ },
+ "catr_6": {
+  "name": "catr_6",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie de route : Parc de stationnement ouvert \u00e0 la circulation publique"
+ },
+ "catr_7": {
+  "name": "catr_7",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie de route : Route de m\u00e9tropole urbaine"
+ },
+ "catr_8": {
+  "name": "catr_8",
+  "dtype": "bool",
+  "label": "Cat\u00e9gorie de route"
+ },
+ "jsem_6": {
+  "name": "jsem_6",
+  "dtype": "bool",
+  "label": "Jour de la semaine"
+ },
+ "jsem_4": {
+  "name": "jsem_4",
+  "dtype": "bool",
+  "label": "Jour de la semaine"
+ },
+ "jsem_5": {
+  "name": "jsem_5",
+  "dtype": "bool",
+  "label": "Jour de la semaine"
+ },
+ "jsem_3": {
+  "name": "jsem_3",
+  "dtype": "bool",
+  "label": "Jour de la semaine"
+ },
+ "jsem_1": {
+  "name": "jsem_1",
+  "dtype": "bool",
+  "label": "Jour de la semaine"
+ },
+ "jsem_2": {
+  "name": "jsem_2",
+  "dtype": "bool",
+  "label": "Jour de la semaine"
+ },
+ "jsem_7": {
+  "name": "jsem_7",
+  "dtype": "bool",
+  "label": "Jour de la semaine"
+ },
+ "mois_11": {
+  "name": "mois_11",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_9": {
+  "name": "mois_9",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_7": {
+  "name": "mois_7",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_2": {
+  "name": "mois_2",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_1": {
+  "name": "mois_1",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_5": {
+  "name": "mois_5",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_4": {
+  "name": "mois_4",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_8": {
+  "name": "mois_8",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_6": {
+  "name": "mois_6",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_10": {
+  "name": "mois_10",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_3": {
+  "name": "mois_3",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "mois_12": {
+  "name": "mois_12",
+  "dtype": "bool",
+  "label": "Mois de l'accident"
+ },
+ "ferie": {
+  "name": "ferie",
+  "dtype": "bool",
+  "label": "Jour f\u00e9ri\u00e9"
+ },
+ "secu_ceinture": {
+  "name": "secu_ceinture",
+  "dtype": "bool",
+  "label": "\u00c9l\u00e9ment de s\u00e9curit\u00e9 : ceinture"
+ },
+ "secu_casque": {
+  "name": "secu_casque",
+  "dtype": "bool",
+  "label": "\u00c9l\u00e9ment de s\u00e9curit\u00e9 : casque"
+ },
+ "secu_dispenfant": {
+  "name": "secu_dispenfant",
+  "dtype": "bool",
+  "label": "\u00c9l\u00e9ment de s\u00e9curit\u00e9 : dispositif pour enfant"
+ },
+ "secu_gilet": {
+  "name": "secu_gilet",
+  "dtype": "bool",
+  "label": "\u00c9l\u00e9ment de s\u00e9curit\u00e9 : gilet"
+ },
+ "secu_airbag23RM": {
+  "name": "secu_airbag23RM",
+  "dtype": "bool",
+  "label": "\u00c9l\u00e9ment de s\u00e9curit\u00e9 : airbag23RM"
+ },
+ "secu_gants": {
+  "name": "secu_gants",
+  "dtype": "bool",
+  "label": "\u00c9l\u00e9ment de s\u00e9curit\u00e9 : gants"
+ },
+ "age_enfant": {
+  "name": "age_enfant",
+  "dtype": "bool",
+  "label": "\u00c2ge : enfant"
+ },
+ "age_jeune": {
+  "name": "age_jeune",
+  "dtype": "bool",
+  "label": "\u00c2ge : jeune"
+ },
+ "age_adulte": {
+  "name": "age_adulte",
+  "dtype": "bool",
+  "label": "\u00c2ge : adulte"
+ },
+ "age_3age": {
+  "name": "age_3age",
+  "dtype": "bool",
+  "label": "\u00c2ge : 3\u00e8me age"
+ },
+ "hr_matin": {
+  "name": "hr_matin",
+  "dtype": "bool",
+  "label": "Heure : matin"
+ },
+ "hr_midi": {
+  "name": "hr_midi",
+  "dtype": "bool",
+  "label": "Heure : midi"
+ },
+ "hr_am": {
+  "name": "hr_am",
+  "dtype": "bool",
+  "label": "Heure : apr\u00e8s-midi"
+ },
+ "hr_soir": {
+  "name": "hr_soir",
+  "dtype": "bool",
+  "label": "Heure : soir"
+ },
+ "hr_nuit": {
+  "name": "hr_nuit",
+  "dtype": "bool",
+  "label": "Heure : nuit"
+ },
+ "sexe_m": {
+  "name": "sexe_m",
+  "dtype": "bool",
+  "label": "Sexe : Masculin"
+ },
+ "sexe_f": {
+  "name": "sexe_f",
+  "dtype": "bool",
+  "label": "Sexe : f\u00e9minin"
+ },
+ "nbv_1": {
+  "name": "nbv_1",
+  "dtype": "bool",
+  "label": "Nombre de voies : 1"
+ },
+ "nbv_2": {
+  "name": "nbv_2",
+  "dtype": "bool",
+  "label": "Nombre de voies : 2"
+ },
+ "nbv_3": {
+  "name": "nbv_3",
+  "dtype": "bool",
+  "label": "Nombre de voies : 3"
+ },
+ "nbv_4": {
+  "name": "nbv_4",
+  "dtype": "bool",
+  "label": "Nombre de voies : 4"
+ },
+ "nbv_plus": {
+  "name": "nbv_plus",
+  "dtype": "bool",
+  "label": "Nombre de voies : 5 et plus"
+ },
+ "surf_norm": {
+  "name": "surf_norm",
+  "dtype": "bool",
+  "label": "\u00c9tat de la surface : normale"
+ },
+ "surf_mouil": {
+  "name": "surf_mouil",
+  "dtype": "bool",
+  "label": "\u00c9tat de la surface : mouill\u00e9e"
+ },
+ "surf_gliss": {
+  "name": "surf_gliss",
+  "dtype": "bool",
+  "label": "\u00c9tat de la surface : glissante"
+ },
+ "surf_autre": {
+  "name": "surf_autre",
+  "dtype": "bool",
+  "label": "\u00c9tat de la surface : autre"
+ },
+ "vma_30" : {
+  "name": "vma_30",
+  "dtype": "bool",
+  "label": "Vitesse maximale autorisée : 30 km/h"
+ },
+ "vma_50" : {
+  "name": "vma_50",
+  "dtype": "bool",
+  "label": "Vitesse maximale autorisée : 50 km/h"
+  },
+ "vma_60" : {
+  "name": "vma_60",
+  "dtype": "bool",
+  "label": "Vitesse maximale autorisée : 60 km/h"
+  },
+ "vma_70" : {
+  "name": "vma_70",
+  "dtype": "bool",
+  "label": "Vitesse maximale autorisée : 70 km/h"
+  },
+ "vma_80" : {
+  "name": "vma_80",
+  "dtype": "bool",
+  "label": "Vitesse maximale autorisée : 80 km/h"
+  },
+ "vma_90" : {
+  "name": "vma_90",
+  "dtype": "bool",
+  "label": "Vitesse maximale autorisée : 90 km/h"
+  },
+ "vma_100" : {
+  "name": "vma_100",
+  "dtype": "bool",
+  "label": "Vitesse maximale autorisée : 100 km/h"
+  },
+ "vma_110" : {
+  "name": "vma_110",
+  "dtype": "bool",
+  "label": "Vitesse maximale autorisée : 110 km/h"
+  },
+ "vma_130" : {
+  "name": "vma_130",
+  "dtype": "bool",
+  "label": "Vitesse maximale autorisée : 130 km/h"
+  }
+}
