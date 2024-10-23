@@ -38,6 +38,9 @@ df_0 = pd.DataFrame([[0] * len(columns)], columns=columns)
 
 @st.cache_data
 def read_data():
+
+    dfd, SVC, pca, X, scaler, DP = None, None, None, None, None, None
+
     try:
         dfd = pd.read_csv("data/processed/data.csv", sep = '\t', index_col = None)
         X = dfd.drop(['grav_grave'], axis = 1)
