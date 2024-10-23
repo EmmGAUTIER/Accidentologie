@@ -48,7 +48,7 @@ def read_data():
         scaler = StandardScaler()
         X = scaler.fit_transform(X)
     except Exception :
-        dfd, X = None, None
+        pca, dfd, X = None, None, None
         pass
 
     try : 
