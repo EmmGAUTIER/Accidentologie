@@ -56,10 +56,11 @@ def read_data():
 
     try : 
         SVC = joblib.load("models/SVC.mdl")
-        #pca = joblib.load()
     except Exception:
         SVC, pca = None, None
         pass
+
+        pca = joblib.load("models/")
 
     try:
         scaler = joblib.load("../models/acc_scaler.mdl")
@@ -158,6 +159,9 @@ if page == pages[3] :
     choix = ["Conducteur", "Passager", "Piéton"]
     catu = st.selectbox("Catégorie d'usager", choix)
     st.write(f"Catégorie d'usager {catu}")
+    df_0["catu_1"] = 0
+    df_0["catu_2"] = 0
+    df_0["catu_3"] = 0
     if catu == choix[0] : 
         df_0["catu_1"]  = 1
     elif catu== choix[1] : 
@@ -168,13 +172,16 @@ if page == pages[3] :
     choix = ["Normale", "Mouillée", "glissante", "autre"]
     chps = ["surf_norm", "surf_mouil", "surf_gliss", "surf_autre"]
     surf = st.selectbox("Catégorie d'usager", choix)
+    df_0["surf_norm"] = 0
+    df_0["surf_mouil"] = 0
+    df_0["surf_gliss"] = 0
+    df_0["surf_autre"] = 0
     chp = chps[choix.index(surf)]
     df_0[chp] = 1
     st.write (f"choix : {surf} champ : {chp}")
 
-    Xp = pca.transform(df_0)
     Xp = scaler.transform(Xp)
-    ypred = SVC.predict(Xp)
+    ypred = DP.predict(Xp)
 
     st.write(f"Prédiction : {ypred}")
 
