@@ -117,21 +117,23 @@ if page == pages[1] :
 if page == pages[2] :
     st.write("### Modélisation par SVC")
 
+    Xp = df_0
+
     choix = ["Conducteur", "Passager", "Piéton"]
     catu = st.selectbox("Catégorie d'usager", choix)
     st.write(f"Catégorie d'usager {catu}")
     if catu == choix[0] : 
-        df_0["catu_1"]  = 1
+        Xp["catu_1"]  = 1
     elif catu== choix[1] : 
-        df_0["catu_2"]  = 1
+        Xp["catu_2"]  = 1
     else:
-        df_0["catu_3"]  = 1
+        Xp["catu_3"]  = 1
 
     choix = ["Normale", "Mouillée", "glissante", "autre"]
     chps = ["surf_norm", "surf_mouil", "surf_gliss", "surf_autre"]
     surf = st.selectbox("Catégorie d'usager", choix)
     chp = chps[choix.index(surf)]
-    df_0[chp] = 1
+    Xp[chp] = 1
     st.write (f"choix : {surf} champ : {chp}")
 
 
@@ -153,26 +155,25 @@ if page == pages[2] :
 if page == pages[3] :
     st.write("### Modélisation par Deep Learning")
 
-    st.text(str(df_0.columns))
+    Xp = df_0
 
     choix = ["Conducteur", "Passager", "Piéton"]
     catu = st.selectbox("Catégorie d'usager", choix)
     st.write(f"Catégorie d'usager {catu}")
     if catu == choix[0] : 
-        df_0["catu_1"]  = 1
+        Xp["catu_1"]  = 1
     elif catu== choix[1] : 
-        df_0["catu_2"]  = 1
+        Xp["catu_2"]  = 1
     else:
-        df_0["catu_3"]  = 1
+        Xp["catu_3"]  = 1
 
     choix = ["Normale", "Mouillée", "glissante", "autre"]
     chps = ["surf_norm", "surf_mouil", "surf_gliss", "surf_autre"]
     surf = st.selectbox("Catégorie d'usager", choix)
     chp = chps[choix.index(surf)]
-    df_0[chp] = 1
+    Xp[chp] = 1
     st.write (f"choix : {surf} champ : {chp}")
 
-    Xp = pca.transform(df_0)
     Xp = scaler.transform(Xp)
     ypred = SVC.predict(Xp)
 
