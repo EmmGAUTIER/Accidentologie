@@ -38,8 +38,6 @@ df_0 = pd.DataFrame([[0] * len(columns)], columns=columns)
 
 @st.cache_data
 def read_data():
-    
-    dfd, SVC, pca, X, scaler, DP = None, None, None, None, None, None 
     try:
         dfd = pd.read_csv("data/processed/data.csv", sep = '\t', index_col = None)
         X = dfd.drop(['grav_grave'], axis = 1)
@@ -50,7 +48,7 @@ def read_data():
         scaler = StandardScaler()
         X = scaler.fit_transform(X)
     except Exception :
-        pca, dfd, X = None, None, None
+        dfd, X = None, None
         pass
 
     try : 
@@ -67,12 +65,7 @@ def read_data():
         DP = None
         pass
 
-    return {"data"   : dfd,
-            "SVC"    : SVC,
-            "PCA"    : pca,
-            "X"      : X,
-            "scaler" : scaler,
-            "DP"     : DP}
+    return {"data" : dfd, "SVC" : SVC, "PCA" : pca, "X" : X, "scaler" : scaler, "DP" : DP}
 
 llll = read_data()
 SVC = llll["SVC"]
