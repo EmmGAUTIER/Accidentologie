@@ -1,13 +1,26 @@
 # Accidentologie - Étude des circonstances des accidents de la route et de leur impact.
 
-Erika Méronville
-Emmanuel Gautier
+Erika Méronville - Emmanuel Gautier
 
 Première page streamlit :
 https://fev24cdsaccidents-fnkswybzpjcy3a8zft6hy9.streamlit.app/
 
+=============================
 
+Ce répertoire présente le processus de mise en oeuvre d'un projet de machine learning portant sur les accidents de la route en France au cours de la période de 2005 à 2022. Plus précisément, l’objectif principal consiste à explorer, préparer et modéliser un jeu de données complet dans le but de prédire la gravité des accidents routiers en fonction des circonstances qui les entourent.
 
+Pour cela, on se basera sur les éléments recueillis (sur www.data.gouv.fr) qui se composent d'un ensemble de fichiers portant sur 4 rubriques complémentaires :
+— caractéristiques : informations générales sur les circonstances de l’accident ;
+— lieux : détails sur l’emplacement de l’accident ;
+— véhicules : informations sur les véhicules impliqués ;
+— usagers : données sur les personnes impliquées dans l’accident.
+
+Notre démarche consistera à appliquer les étapes clés suivantes :
+— exploration initiale des données : examen de la structure, des types de variables, et des valeurs pour chaque fichier ;
+— analyse détaillée de chaque variable : étude de la distribution, des valeurs manquantes, des outliers, et de l’évolution temporelle ;
+— identification des problèmes potentiels : repérage des incohérences, des changements de codification, et des valeurs aberrantes ;
+— proposition de prétraitement : suggestions pour le nettoyage, la transformation et la création de nouvelles variables.
+— modélisation : application de modèles de machine learning et évaluation de leurs performances à l’aide de métriques.
 
 
 Project Name
