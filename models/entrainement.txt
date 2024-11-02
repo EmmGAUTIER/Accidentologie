@@ -1,0 +1,484 @@
+2024-11-01 11:11:04.989056
+ Tailles           | Total  |  graves (True)   | Non graves (False)
+                   |        | nombre | prop    | nombre |  prop
+Jeu d'entraînement | 142113 |  71012 |  49.97% |  71101 |  50.03%
+Jeu de test        |  35529 |  17809 |  50.13% |  17720 |  49.87%
+Total              | 177642 |  88821 |  50.00% |  88821 |  50.00%
+
+Nombre de variables explicatives (après PCA) :    100
+
+-----  Classification à support de vecteurs  [ 1/11]  -----
+
+Paramètres essayés : 
+
+SVC()
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+
+Prédiction :
+Durée                           : 41 min 30 s
+Score sur le jeu d'entraînement :  0.8500%
+Score sur le jeu de test        :  0.7813
+Scores f1                       :  0.7703   0.7913
+              precision    recall  f1-score   support
+
+       False       0.81      0.74      0.77     17720
+        True       0.76      0.83      0.79     17809
+
+    accuracy                           0.78     35529
+   macro avg       0.78      0.78      0.78     35529
+weighted avg       0.78      0.78      0.78     35529
+
+
+Pas de feature_importances_
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False           13029   4691
+True             3080  14729
+[[36.67145149 13.20329871]
+ [ 8.66897464 41.45627516]]
+
+Enregistrement du modèle entraîné : SVC.mdl , 65892763octets, 62Mo
+
+-----  Régression logistique  [ 2/11]  -----
+
+Paramètres essayés : 
+     solver          : ['liblinear', 'lbfgs']
+     C               : [0.003, 0.005, 0.01, 0.02, 0.04]
+
+LogisticRegression(max_iter=10000)
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+  C                    : 0.003
+  solver               : lbfgs
+
+Prédiction :
+Durée                           : 0 s
+Score sur le jeu d'entraînement :  0.7552%
+Score sur le jeu de test        :  0.7546
+Scores f1                       :  0.7504   0.7586
+              precision    recall  f1-score   support
+
+       False       0.76      0.74      0.75     17720
+        True       0.75      0.77      0.76     17809
+
+    accuracy                           0.75     35529
+   macro avg       0.75      0.75      0.75     35529
+weighted avg       0.75      0.75      0.75     35529
+
+
+Pas de feature_importances_
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False           13106   4614
+True             4106  13703
+[[36.88817586 12.98657435]
+ [11.55675645 38.56849334]]
+
+Enregistrement du modèle entraîné : LogisticRegression.mdl , 1647octets, 0Mo
+
+-----  Hist Gradient Boosting Classifier  [ 3/11]  -----
+
+Paramètres essayés : 
+     max_leaf_nodes  : [None, 15, 31, 63]
+     l2_regularization : [0.001, 0.01, 0.1, 1, 10]
+
+HistGradientBoostingClassifier(random_state=421)
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+  l2_regularization    : 10
+  max_leaf_nodes       : None
+
+Prédiction :
+Durée                           : 1 min 6 s
+Score sur le jeu d'entraînement :  0.9735%
+Score sur le jeu de test        :  0.7738
+Scores f1                       :  0.7655   0.7816
+              precision    recall  f1-score   support
+
+       False       0.79      0.74      0.77     17720
+        True       0.76      0.81      0.78     17809
+
+    accuracy                           0.77     35529
+   macro avg       0.78      0.77      0.77     35529
+weighted avg       0.77      0.77      0.77     35529
+
+
+Pas de feature_importances_
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False           13116   4604
+True             3432  14377
+[[36.91632188 12.95842833]
+ [ 9.6597146  40.4655352 ]]
+
+Enregistrement du modèle entraîné : HistGradientBoostingClassifier.mdl , 23726238octets, 22Mo
+
+-----  LGBMClassifier        [ 4/11]  -----
+
+Paramètres essayés : 
+     boosting_type   : ['gbdt', 'dart', 'goss']
+
+LGBMClassifier(random_state=421, verbosity=-1)
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+  boosting_type        : gbdt
+
+Prédiction :
+Durée                           : 4 s
+Score sur le jeu d'entraînement :  0.7864%
+Score sur le jeu de test        :  0.7696
+Scores f1                       :  0.7595   0.7789
+              precision    recall  f1-score   support
+
+       False       0.79      0.73      0.76     17720
+        True       0.75      0.81      0.78     17809
+
+    accuracy                           0.77     35529
+   macro avg       0.77      0.77      0.77     35529
+weighted avg       0.77      0.77      0.77     35529
+
+
+feature importances non utilisable
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False           12923   4797
+True             3388  14421
+[[36.37310366 13.50164654]
+ [ 9.5358721  40.58937769]]
+
+Enregistrement du modèle entraîné : LGBMClassifier.mdl , 363206octets, 0Mo
+
+-----  Arbre de décision     [ 5/11]  -----
+
+Paramètres essayés : 
+     criterion       : ['gini', 'entropy', 'log_loss']
+     splitter        : ['best', 'random']
+
+DecisionTreeClassifier(random_state=123)
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+  criterion            : entropy
+  splitter             : best
+
+Prédiction :
+Durée                           : 37 s
+Score sur le jeu d'entraînement :  0.9997%
+Score sur le jeu de test        :  0.6769
+Scores f1                       :  0.6759   0.6780
+              precision    recall  f1-score   support
+
+       False       0.68      0.68      0.68     17720
+        True       0.68      0.68      0.68     17809
+
+    accuracy                           0.68     35529
+   macro avg       0.68      0.68      0.68     35529
+weighted avg       0.68      0.68      0.68     35529
+
+
+feature importances non utilisable
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False           11967   5753
+True             5725  12084
+[[33.682344   16.1924062 ]
+ [16.11359734 34.01165245]]
+
+Enregistrement du modèle entraîné : DecisionTreeClassifier.mdl , 2127305octets, 2Mo
+
+-----  Extra Trees Classifier  [ 6/11]  -----
+
+Paramètres essayés : 
+
+ExtraTreesClassifier()
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+
+Prédiction :
+Durée                           : 35 s
+Score sur le jeu d'entraînement :  0.9997%
+Score sur le jeu de test        :  0.7668
+Scores f1                       :  0.7624   0.7710
+              precision    recall  f1-score   support
+
+       False       0.77      0.75      0.76     17720
+        True       0.76      0.78      0.77     17809
+
+    accuracy                           0.77     35529
+   macro avg       0.77      0.77      0.77     35529
+weighted avg       0.77      0.77      0.77     35529
+
+
+feature importances non utilisable
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False           13292   4428
+True             3859  13950
+[[37.41169186 12.46305835]
+ [10.86154972 39.26370008]]
+
+Enregistrement du modèle entraîné : ExtraTreesClassifier.mdl , 692188809octets, 660Mo
+
+-----  Bagging Classifier    [ 7/11]  -----
+
+Paramètres essayés : 
+
+BaggingClassifier()
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+
+Prédiction :
+Durée                           : 4 min 25 s
+Score sur le jeu d'entraînement :  0.9878%
+Score sur le jeu de test        :  0.7352
+Scores f1                       :  0.7428   0.7272
+              precision    recall  f1-score   support
+
+       False       0.72      0.77      0.74     17720
+        True       0.75      0.70      0.73     17809
+
+    accuracy                           0.74     35529
+   macro avg       0.74      0.74      0.73     35529
+weighted avg       0.74      0.74      0.73     35529
+
+
+Pas de feature_importances_
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False           13583   4137
+True             5271  12538
+[[38.23074108 11.64400912]
+ [14.83576796 35.28948183]]
+
+Enregistrement du modèle entraîné : BaggingClassifier.mdl , 17583960octets, 16Mo
+
+-----  Plus proches voisins  [ 8/11]  -----
+
+Paramètres essayés : 
+     metric          : ['minkowski', 'manhattan', 'chebyshev']
+
+KNeighborsClassifier()
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+  metric               : manhattan
+
+Prédiction :
+Durée                           : 0 s
+Score sur le jeu d'entraînement :  0.8238%
+Score sur le jeu de test        :  0.7364
+Scores f1                       :  0.7300   0.7425
+              precision    recall  f1-score   support
+
+       False       0.75      0.71      0.73     17720
+        True       0.73      0.76      0.74     17809
+
+    accuracy                           0.74     35529
+   macro avg       0.74      0.74      0.74     35529
+weighted avg       0.74      0.74      0.74     35529
+
+
+Pas de feature_importances_
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False           12661   5059
+True             4306  13503
+[[35.6356779  14.23907231]
+ [12.11967688 38.00557291]]
+
+Enregistrement du modèle entraîné : KNeighborsClassifier.mdl , 114828118octets, 109Mo
+
+-----  Forêt aléatoire       [ 9/11]  -----
+
+Paramètres essayés : 
+
+RandomForestClassifier(random_state=421)
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+
+Prédiction :
+Durée                           : 3 min 40 s
+Score sur le jeu d'entraînement :  0.9997%
+Score sur le jeu de test        :  0.7667
+Scores f1                       :  0.7603   0.7727
+              precision    recall  f1-score   support
+
+       False       0.78      0.74      0.76     17720
+        True       0.76      0.79      0.77     17809
+
+    accuracy                           0.77     35529
+   macro avg       0.77      0.77      0.77     35529
+weighted avg       0.77      0.77      0.77     35529
+
+
+feature importances non utilisable
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False           13150   4570
+True             3720  14089
+[[37.01201835 12.86273185]
+ [10.47032002 39.65492978]]
+
+Enregistrement du modèle entraîné : RandomForestClassifier.mdl , 242568969octets, 231Mo
+
+-----  Gradient Boosting Classifier  [10/11]  -----
+
+Paramètres essayés : 
+     loss            : ['log_loss', 'exponential']
+     criterion       : ['friedman_mse', 'squared_error']
+
+GradientBoostingClassifier(random_state=421)
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+  criterion            : friedman_mse
+  loss                 : log_loss
+
+Prédiction :
+Durée                           : 9 min 53 s
+Score sur le jeu d'entraînement :  0.7591%
+Score sur le jeu de test        :  0.7524
+Scores f1                       :  0.7433   0.7609
+              precision    recall  f1-score   support
+
+       False       0.77      0.72      0.74     17720
+        True       0.74      0.79      0.76     17809
+
+    accuracy                           0.75     35529
+   macro avg       0.75      0.75      0.75     35529
+weighted avg       0.75      0.75      0.75     35529
+
+
+feature importances non utilisable
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False           12733   4987
+True             3810  13999
+[[35.83832925 14.03642095]
+ [10.72363421 39.40161558]]
+
+Enregistrement du modèle entraîné : GradientBoostingClassifier.mdl , 193628octets, 0Mo
+
+-----  Dummy Classifier      [11/11]  -----
+
+Paramètres essayés : 
+
+DummyClassifier(random_state=421, strategy='uniform')
+Entraînement avec GridSearchCV : Recherche des meilleurs paramètres
+
+Paramètres retenus :
+
+Prédiction :
+Durée                           : 0 s
+Score sur le jeu d'entraînement :  0.4990%
+Score sur le jeu de test        :  0.5024
+Scores f1                       :  0.5014   0.5033
+              precision    recall  f1-score   support
+
+       False       0.50      0.50      0.50     17720
+        True       0.50      0.50      0.50     17809
+
+    accuracy                           0.50     35529
+   macro avg       0.50      0.50      0.50     35529
+weighted avg       0.50      0.50      0.50     35529
+
+
+Pas de feature_importances_
+
+Matrice de confusion :
+Classe prédite  False  True 
+Classe réelle               
+False            8891   8829
+True             8852   8957
+[[25.02462777 24.85012244]
+ [24.91485828 25.21039151]]
+
+Enregistrement du modèle entraîné : DummyClassifier.mdl , 583octets, 0Mo
+
+
+   Modele                               libelle   duree_GSCV duree_GSCV_str  \
+0     SVC  Classification à support de vecteurs  2490.896237    41 min 30 s   
+1      LR                 Régression logistique     0.439238            0 s   
+2     HGB     Hist Gradient Boosting Classifier    66.728202      1 min 6 s   
+3    LGBM                        LGBMClassifier     4.903222            4 s   
+4      DT                     Arbre de décision    37.421534           37 s   
+5      ET                Extra Trees Classifier    35.196060           35 s   
+6     BAG                    Bagging Classifier   265.991584     4 min 25 s   
+7     KNN                  Plus proches voisins     0.026815            0 s   
+8      RF                       Forêt aléatoire   220.022372     3 min 40 s   
+9      GB          Gradient Boosting Classifier   593.870193     9 min 53 s   
+10  BIDON                      Dummy Classifier     0.000000            0 s   
+
+    score_ent  score_test  score_f1_0  score_f1_1  score_auc  score_precision  \
+0    0.849979    0.781277    0.770286    0.791265   0.781162         0.783624   
+1    0.755167    0.754567    0.750372    0.758623   0.754529         0.754774   
+2    0.973542    0.773819    0.765496    0.781571   0.773735         0.775022   
+3    0.786402    0.769625    0.759484    0.778945   0.769524         0.771339   
+4    0.999683    0.676940    0.675873    0.678000   0.676936         0.676938   
+5    0.999683    0.766754    0.762353    0.770995   0.766712         0.767029   
+6    0.987784    0.735202    0.742768    0.727178   0.735281         0.736167   
+7    0.823830    0.736413    0.730014    0.742515   0.736358         0.736834   
+8    0.999683    0.766669    0.760335    0.772677   0.766608         0.767284   
+9    0.759128    0.752399    0.743251    0.760919   0.752315         0.753512   
+10   0.498955    0.502350    0.501424    0.503273   0.502349         0.502349   
+
+    ...  score_fbeta_b2       tn       tnpc      fp       fppc      fn  \
+0   ...        0.812357  13029.0  36.671451  4691.0  13.203299  3080.0   
+1   ...        0.765078  13106.0  36.888176  4614.0  12.986574  4106.0   
+2   ...        0.796801  13116.0  36.916322  4604.0  12.958428  3432.0   
+3   ...        0.797146  12923.0  36.373104  4797.0  13.501647  3388.0   
+4   ...        0.678320  11967.0  33.682344  5753.0  16.192406  5725.0   
+5   ...        0.778338  13292.0  37.411692  4428.0  12.463058  3859.0   
+6   ...        0.713108  13583.0  38.230741  4137.0  11.644009  5271.0   
+7   ...        0.751854  12661.0  35.635678  5059.0  14.239072  4306.0   
+8   ...        0.783636  13150.0  37.012018  4570.0  12.862732  3720.0   
+9   ...        0.775809  12733.0  35.838329  4987.0  14.036421  3810.0   
+10  ...        0.503078   8891.0  25.024628  8829.0  24.850122  8852.0   
+
+         fnpc       tp       tppc   taille_mdl  
+0    8.668975  14729.0  41.456275   65892763.0  
+1   11.556756  13703.0  38.568493       1647.0  
+2    9.659715  14377.0  40.465535   23726238.0  
+3    9.535872  14421.0  40.589378     363206.0  
+4   16.113597  12084.0  34.011652    2127305.0  
+5   10.861550  13950.0  39.263700  692188809.0  
+6   14.835768  12538.0  35.289482   17583960.0  
+7   12.119677  13503.0  38.005573  114828118.0  
+8   10.470320  14089.0  39.654930  242568969.0  
+9   10.723634  13999.0  39.401616     193628.0  
+10  24.914858   8957.0  25.210392        583.0  
+
+[11 rows x 22 columns]
+
+
+Temps total 294 min 6 s.
+
+2024-11-01 16:05:11.531997
