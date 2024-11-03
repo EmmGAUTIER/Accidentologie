@@ -192,11 +192,11 @@ if page == pages[2] :
 
     # st.dataframe(df_0)
   
-    Xp = pca.transform(df_0)
-    Xp = scaler.transform(Xp)
-    ypred = SVC.predict(Xp)
+    #Xp = pca.transform(df_0)
+    #Xp = scaler.transform(Xp)
+    #ypred = SVC.predict(Xp)
 
-    st.write(f"Prédiction : {ypred}")
+    #st.write(f"Prédiction : {ypred}")
 
 
 ##############################################################################
