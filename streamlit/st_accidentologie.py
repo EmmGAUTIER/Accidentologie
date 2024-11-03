@@ -2,8 +2,12 @@ import streamlit as st
 
 import pandas as pd
 import numpy as np
+
 from sklearn.decomposition         import PCA
 from sklearn.preprocessing         import StandardScaler
+
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 import joblib
 
@@ -42,33 +46,45 @@ def read_data():
     dfd, SVC, pca, X, scaler, DP = None, None, None, None, None, None
 
     try:
-        dfd = pd.read_csv("data/processed/data.csv", sep = '\t', index_col = None)
-        X = dfd.drop(['grav_grave'], axis = 1)
-        y= dfd.grav_grave
-        pca = PCA(n_components=100)
-        pca.fit(X)
-        X = pca.transform(X)
-        scaler = StandardScaler()
-        X = scaler.fit_transform(X)
+        # dfd = pd.read_csv("data/processed/data.csv", sep = '\t', index_col = None)
+        # X = dfd.drop(['grav_grave'], axis = 1)
+        # y= dfd.grav_grave
+        # pca = PCA(n_components=100)
+        # pca.fit(X)
+        # X = pca.transform(X)
+        # scaler = StandardScaler()
+        # X = scaler.fit_transform(X)
+        pass
     except Exception :
         dfd, X = None, None
-        pass
 
     try : 
         SVC = joblib.load("models/SVC.mdl")
         #pca = joblib.load()
     except Exception:
         SVC, pca = None, None
-        pass
 
     try:
         scaler = joblib.load("../models/acc_scaler.mdl")
         DP = tf.saved_model.load("../models/acc_DeepLearning.h5")
     except Exception:
         DP = None
-        pass
 
-    return {"data" : dfd, "SVC" : SVC, "PCA" : pca, "X" : X, "scaler" : scaler, "DP" : DP}
+    ##########################################################################
+    # Lectures des synthèses pour la visualisation de données
+    #
+    # Données synthétiques car plus rapide et faible espace de stockage
+    #
+    try:
+        df_evol_grav = pd.read_csv("data/processed/evol_grav.csv", sep = '\t')
+    except Exception:
+        df_evol_grav = None
+
+    # La fonction est "décorée" avec @st.cache_data pour éviter les relectures
+    # à chaque affichage d'une page. Les résultats renvoyés avec return sont
+    # alors mis en cache. les resultats sont donc mis dans un dictionnaire.
+    return {"data" : dfd, "SVC" : SVC, "PCA" : pca, "X" : X,
+            "scaler" : scaler, "DP" : DP, "evol_grav" : df_evol_grav }
 
 llll = read_data()
 SVC = llll["SVC"]
@@ -76,6 +92,7 @@ df = llll["data"]
 pca = llll["PCA"]
 X = llll["X"]
 scaler = llll["scaler"]
+df_evol_grav = llll["evol_grav"]
 
 ##############################################################################
 #
@@ -95,18 +112,54 @@ if page == pages[0] :
 
 if page == pages[1] :
     st.write("### Visualisation")
-    # L'affichage du DataFrame n'est pas interressant à cause du trop grand nombre de variables.
-    # st.dataframe(df.head(10))
-    st.write (f"Nombre d'observation : {df.shape[0]}")
-    st.write (f"Nombre de variables  : {df.shape[1]}")
 
-    choix = ["Conducteur", "Passager", "Piéton"]
-    catu = st.selectbox("Catégorie d'usager", choix)
+    st.write ("## Évolution sur 18 ans des nombres d'usagers impliqués")
 
-    nom_var = "catu_"+str(choix.index(catu) + 1)
-    valc = df[df[nom_var] == True].grav_grave.value_counts()
+    annee = df_evol_grav["annee"].max()
+    annee = st.selectbox("Année : ", df_evol_grav["annee"])
 
-    st.write (valc)
+    mod_grav_nb = df_evol_grav[df_evol_grav["annee"] == annee][["grav_1", "grav_2", "grav_3", "grav_4"]]
+
+    fig = plt.figure(figsize=(10, 6))
+    plt.title("Répartition de la gravité")
+
+    mod_grav_nb = mod_grav_nb.rename(columns = {"grav_1" : "Indemne", "grav_2" : "Tués",
+                         "grav_3" : "Blessés hospitalisés", "grav_4" : "Blessés legers"})
+    sns.barplot (mod_grav_nb)
+    #plt.ylim(0, df_evol_grav[["grav_1", "grav_2", "grav_3", "grav_4"]].max())
+    plt.ylim(0, df_evol_grav["grav_1"].max())
+
+    st.pyplot(fig)
+
+    df_base100 = df_evol_grav 
+    df_base100["grav_1"] = 100. * df_base100["grav_1"] / df_base100.loc[0, "grav_1"]
+    df_base100["grav_2"] = 100. * df_base100["grav_2"] / df_base100.loc[0, "grav_2"]
+    df_base100["grav_3"] = 100. * df_base100["grav_3"] / df_base100.loc[0, "grav_3"]
+    df_base100["grav_4"] = 100. * df_base100["grav_4"] / df_base100.loc[0, "grav_4"]
+    # st.dataframe(df_base100)
+    #st.write(f"Base grav_1 {df_base100.loc[0, 'grav_1']}")
+    fig = plt.figure(figsize=(10, 6))
+    sns.lineplot(data=df_base100 , x='annee', y='grav_1', label = "Indemmes", color = "green")
+    sns.lineplot(data=df_base100 , x='annee', y='grav_2', label = "Tués", color = "red")
+    sns.lineplot(data=df_base100 , x='annee', y='grav_3', label = "blessé hospitalisé", color = "orange")
+    sns.lineplot(data=df_base100 , x='annee', y='grav_4', label = "blessé léger", color = "blue")
+    plt.title("Évolution des nombres de personnes impliquées dans un accident de circulation selon gravité")
+    plt.xlabel("Année")
+    plt.xticks (df_base100["annee"])
+    plt.ylabel("Pourcentage")
+    plt.legend(title='Position')
+    plt.grid()
+    #plt.show()
+    st.pyplot(fig)
+
+
+    #choix = ["Conducteur", "Passager", "Piéton"]
+    #catu = st.selectbox("Catégorie d'usager", choix)
+
+    #nom_var = "catu_"+str(choix.index(catu) + 1)
+    #valc = df[df[nom_var] == True].grav_grave.value_counts()
+
+    #st.write (valc)
 
 ##############################################################################
 #
