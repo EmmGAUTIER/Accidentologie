@@ -13,7 +13,7 @@ import joblib
 
 st.title ("Accidentologie")
 st.sidebar.title("Sommaire")
-pages=["Présentation", "Data Vizualization", "Modélisation pas SVC", "Modélisation par Deep Learning"]
+pages=["Présentation", "Data Vizualization", "Modélisation par SVC", "Modélisation par Deep Learning"]
 page=st.sidebar.radio("Aller vers", pages)
 
 columns =["ferie","secu_ceinture","secu_casque","secu_dispenfant","secu_gilet","secu_airbag23RM","secu_gants","age_enfant","age_jeune","age_adulte","age_3age","hr_matin","hr_midi","hr_am","hr_soir","hr_nuit","sexe_m","sexe_f","nbv_1","nbv_2","nbv_3",
