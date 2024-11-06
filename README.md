@@ -1,11 +1,11 @@
-# Accidentologie - Étude des circonstances des accidents de la route et de leur impact.
+# Accidentologie - Étude des circonstances des accidents de la route en France de 2005 à 2022
 
 Erika Méronville - Emmanuel Gautier
 
 Première page streamlit :
 https://fev24cdsaccidents-fnkswybzpjcy3a8zft6hy9.streamlit.app/
 
-=============================
+------------
 
 Ce répertoire présente le processus de mise en oeuvre d'un projet de machine learning portant sur les accidents de la route en France au cours de la période de 2005 à 2022. Plus précisément, l’objectif principal consiste à explorer, préparer et modéliser un jeu de données complet dans le but de prédire la gravité des accidents routiers en fonction des circonstances qui les entourent.
 
@@ -23,12 +23,7 @@ Notre démarche consistera à appliquer les étapes clés suivantes :
 — modélisation : application de modèles de machine learning et évaluation de leurs performances à l’aide de métriques.
 
 
-Project Name
-==============================
-
-This repo is a Starting Pack for DS projects. You can rearrange the structure to make it fits your project.
-
-Project Organization
+Organisation
 ------------
 
     ├── LICENSE
@@ -38,7 +33,10 @@ Project Organization
     │   └── raw            <- The original, immutable data dump.
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │
+    │   ├── régression logistique
+    |   ├── multiples modèles de classification
+    |   └── deep learning
+    |
     ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
     │                         the creator's name, and a short `-` delimited description, e.g.
     │                         `1.0-alban-data-exploration`.
