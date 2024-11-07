@@ -7,9 +7,9 @@ https://fev24cdsaccidents-fnkswybzpjcy3a8zft6hy9.streamlit.app/
 
 ------------
 
-Ce répertoire se rapporte à notre projet de machine learning qui a été réalisé au cours de notre formation de Data Scienctist dispensée par ([DataScientest](https://datascientest.com/)).
+Ce répertoire réunit les éléments concernant la réalisation de notre projet de machine learning au cours de notre formation dispensée par ([DataScientest](https://datascientest.com/)).
 
-Il présente le processus de mise en oeuvre du projet portant sur les accidents de la route en France au cours de la période de 2005 à 2022. Plus précisément, l’objectif principal consiste à explorer, préparer et modéliser un jeu de données complet dans le but de prédire la gravité des accidents routiers en fonction des circonstances qui les entourent.
+Il porte sur le thème des accidents de la route en France au cours de la période de 2005 à 2022. Plus précisément, l’objectif principal consiste à explorer, préparer et modéliser un jeu de données complet dans le but de prédire la gravité des accidents routiers en fonction des circonstances qui les entourent.
 
 Pour cela, on se basera sur les éléments recueillis (sur www.data.gouv.fr) qui se composent d'un ensemble de fichiers portant sur 4 rubriques complémentaires :
 — caractéristiques : informations générales sur les circonstances de l’accident ;
