@@ -86,13 +86,13 @@ Contient le rapport final au format pdf
 
 ------------
 # Exécution des notebooks
-  1. Télécharger les données des accidents de la route en France sur le site [www.data.gouv.fr](https://www.data.gouv.fr/fr/)
-  2. Créer les dossiers suivants dans votre environnement Jupyter Notebook :
+1. Télécharger les données des accidents de la route en France sur le site [www.data.gouv.fr](https://www.data.gouv.fr/fr/)
+2. Créer les dossiers suivants dans votre environnement Jupyter Notebook :
     - `data/raw/` : pour les fichiers CSV téléchargés
     - `data/processed/` : pour les fichiers générés lors du preprocessing
-  3. Installer les dépendances nécessaires : `pip install -r requirements.txt`
-  4. Copier les notebooks du repository GitHub dans votre environnement Jupyter Notebook
-  5. Exécuter les notebooks dans l'ordre indiqué
+3. Installer les dépendances nécessaires : `pip install -r requirements.txt`
+4. Copier les notebooks du repository GitHub dans votre environnement Jupyter Notebook
+5. Exécuter les notebooks dans l'ordre indiqué
 
  Nota bene : Les fichiers de données étant volumineux, ils ne sont pas inclus dans ce repository.
  Veillez à bien les télécharger et les placer dans le dossier `data/raw/` avant d'exécuter les notebooks.
