@@ -9,7 +9,7 @@ https://fev24cdsaccidents-fnkswybzpjcy3a8zft6hy9.streamlit.app/
 # Présentation
 
 Ce repository réunit les éléments concernant notre projet de machine learning que nous avons réalisé lors de notre formation dispensée par 
-([DataScientest](https://datascientest.com/)).
+[DataScientest](https://datascientest.com/).
 
 Plus précisément, ce projet porte sur le thème des accidents de la route en France au cours de la période de 2005 à 2022. Les données ainsi que 
 leur description sont disponibles sur le site www.data.gouv.fr.
@@ -62,12 +62,12 @@ en fonction des circonstances qui les entourent.
     - SVM : score AUC-ROC de 0.781 et recall pour vrais positifs de 0.827
     - Gradient Boosting : bonne performance avec temps de calcul raisonnable
 
-*06_modelisation_3* :
+*06_modelisation_3.ipynb* :
  - modèle Deep Learning (réseau de neurones) avec architecture optimisée
  - bonne performance (score AUC-ROC de 0.857 et recall pour vrais positifs de 0.81)
 
 ## models
-Résultats de tous les modèles entrainés
+Contient les résultats de tous les modèles entrainés
 
 ## references
  - desc_fic_raw.json : informations sur les fichiers sources
@@ -86,13 +86,13 @@ Contient le rapport final au format pdf
 
 ------------
 # Exécution des notebooks
- 1. Télécharger les données des accidents de la route en France sur [www.data.gouv.fr](https://www.data.gouv.fr/fr/)
- 2. Créer les dossiers suivants dans votre environnement Jupyter Notebook :
-   - `data/raw/` : pour les fichiers CSV téléchargés
-   - `data/processed/` : pour les fichiers générés lors du preprocessing
- 3. Installer les dépendances nécessaires : `pip install -r requirements.txt`
- 4. Copier les notebooks du repository GitHub dans votre environnement Jupyter Notebook
- 5. Exécuter les notebooks dans l'ordre indiqué
+  1. Télécharger les données des accidents de la route en France sur le site [www.data.gouv.fr](https://www.data.gouv.fr/fr/)
+  2. Créer les dossiers suivants dans votre environnement Jupyter Notebook :
+    - `data/raw/` : pour les fichiers CSV téléchargés
+    - `data/processed/` : pour les fichiers générés lors du preprocessing
+  3. Installer les dépendances nécessaires : `pip install -r requirements.txt`
+  4. Copier les notebooks du repository GitHub dans votre environnement Jupyter Notebook
+  5. Exécuter les notebooks dans l'ordre indiqué
 
  Nota bene : Les fichiers de données étant volumineux, ils ne sont pas inclus dans ce repository.
  Veillez à bien les télécharger et les placer dans le dossier `data/raw/` avant d'exécuter les notebooks.
