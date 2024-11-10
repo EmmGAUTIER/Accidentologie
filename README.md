@@ -16,9 +16,9 @@ leur description sont disponibles sur le site www.data.gouv.fr.
 
 Ces données concernent 72 dataframes au total, soit 1 dataframe par année et par rubrique.
 Un changement de codage de la gravité entre 2018 et 2019 nous contraint de ne retenir
-que les données de 2019 à 2022, soit quatre années.
+que les données de 2019 à 2022, soit les quatre dernières années.
 
-Voici les rubriques concernées :
+Voici les rubriques concernées par l'étude :
 
  — caracteristiques : qui prend en compte les circonstances générales de l’accident.
 
@@ -71,7 +71,7 @@ en fonction des circonstances qui les entourent.
  - bonne performance (score AUC-ROC de 0.857 et recall pour vrais positifs de 0.81)
 
 ## models
-Contient les principaux les modèles entrainés. Les modèles trop volumineux n'y sont pas.
+Contient les principaux modèles entrainés. Les modèles trop volumineux n'y sont pas.
 
 ## references
  - desc_fic_raw.json : informations sur les fichiers sources permettant leur chargement en DataFrames.
