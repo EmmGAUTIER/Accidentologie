@@ -1,70 +1,95 @@
 # Accidentologie - Étude des circonstances des accidents de la route en France de 2005 à 2022
 
-Erika Méronville - Emmanuel Gautier
+Emmanuel Gautier - Erika Méronville
 
-Première page streamlit :
+Vers la page streamlit :
 https://fev24cdsaccidents-fnkswybzpjcy3a8zft6hy9.streamlit.app/
 
 ------------
+# Présentation
 
-Ce répertoire réunit les éléments concernant la réalisation de notre projet de machine learning au cours de notre formation dispensée par ([DataScientest](https://datascientest.com/)).
+Ce repository réunit les éléments concernant notre projet de machine learning que nous avons réalisé au cours de notre formation dispensée par ([DataScientest](https://datascientest.com/)).
 
-Il porte sur le thème des accidents de la route en France au cours de la période de 2005 à 2022 et, l’objectif principal consiste à explorer, préparer et modéliser un jeu de données complet dans le but de prédire la gravité des accidents routiers en fonction des circonstances qui les entourent.
+Plus précisément, ce projet porte sur le thème des accidents de la route en France au cours de la période de 2005 à 2022. Les données ainsi que leur description sont disponibles sur le site www.data.gouv.fr.
 
-Pour cela, on se basera sur les éléments recueillis (sur www.data.gouv.fr) qui se composent d'un ensemble de fichiers portant sur 4 rubriques complémentaires :
-— caractéristiques : informations générales sur les circonstances de l’accident ;
-— lieux : détails sur l’emplacement de l’accident ;
-— véhicules : informations sur les véhicules impliqués ;
-— usagers : données sur les personnes impliquées dans l’accident.
+Ces données concernent 72 dataframes au total, soit 1 dataframe par année et par rubrique. Voici les rubriques concernées :
 
-Notre démarche consistera à appliquer les étapes clés suivantes :
-— exploration initiale des données : examen de la structure, des types de variables, et des valeurs pour chaque fichier ;
-— analyse détaillée de chaque variable : étude de la distribution, des valeurs manquantes, des outliers, et de l’évolution temporelle ;
-— identification des problèmes potentiels : repérage des incohérences, des changements de codification, et des valeurs aberrantes ;
-— proposition de prétraitement : suggestions pour le nettoyage, la transformation et la création de nouvelles variables.
-— modélisation : application de modèles de machine learning et évaluation de leurs performances à l’aide de métriques.
+ — caracteristiques : qui prend en compte les circonstances générales de l’accident.
 
+ — lieux : qui décrit l’endroit de l’accident.
 
-Organisation
+ — vehicules : qui énonce les véhicules impliqués dans l’accident.
+
+ — usagers : qui relate les usagers impliqués dans l’accident.
+
+L’objectif principal consiste à explorer, préparer et modéliser le jeu de données complet dans le but de prédire la gravité des accidents routiers en fonction des circonstances qui les entourent.
+
 ------------
+# Architecture
 
-    ├── LICENSE
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data               <- Should be in your computer but not on Github (only in .gitignore)
-    │   ├── processed      <- The final, canonical data sets for modeling.
-    │   └── raw            <- The original, immutable data dump.
-    │
-    ├── models             <- Trained and serialized models, model predictions, or model summaries
-    │   ├── régression logistique
-    |   ├── multiples modèles de classification
-    |   └── deep learning
-    |
-    ├── notebooks          <- Jupyter notebooks. Naming convention is a number (for ordering),
-    │                         the creator's name, and a short `-` delimited description, e.g.
-    │                         `1.0-alban-data-exploration`.
-    │
-    ├── references         <- Data dictionaries, manuals, links, and all other explanatory materials.
-    │
-    ├── reports            <- The reports that you'll make during this project as PDF
-    │   └── figures        <- Generated graphics and figures to be used in reporting
-    │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
-    │
-    ├── src                <- Source code for use in this project.
-    │   ├── __init__.py    <- Makes src a Python module
-    │   │
-    │   ├── features       <- Scripts to turn raw data into features for modeling
-    │   │   └── build_features.py
-    │   │
-    │   ├── models         <- Scripts to train models and then use trained models to make
-    │   │   │                 predictions
-    │   │   ├── predict_model.py
-    │   │   └── train_model.py
-    │   │
-    │   ├── visualization  <- Scripts to create exploratory and results oriented visualizations
-    │   │   └── visualize.py
+## notebooks 
 
---------
+*01_exploration* : 
+ - examen de la structure et des types de variables pour chaque fichier, 
+ - étude de la distribution, des valeurs manquantes, des outliers et de l’évolution temporelle
+ - repérage des incohérences, des changements de codification et des valeurs aberrantes
 
-<p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+*02_preprocessing_1* :
+ - restructuration des dataframes, harmonisation des types de données et fusion des données des différentes rubriques
+ - création de nouvelles variables et élimination de certaines variables jugées non pertinentes
+
+*04_preprocessing_2* :
+ - catégorisation et dichotomisation des variables pertinentes
+ - traitement des valeurs manquantes et aberrantes
+ - équilibrage des classes pour la variable cible et réduction de dimensionnalité par PCA (100 composantes)
+
+*03_modelisation_1*
+ - modèle de référence basé sur le premier preprocessing : régression logistique
+ - très faible performance (accuracy de 59%) et limitations en termes de relations non linéaires
+
+*05_modelisation_2*
+ - multiples modèles de classification sur le deuxième preprocessing
+ - comparaison entre plusieurs modèles :
+        - SVC (Support Vector Classification)
+        - Régression logistique
+        - Gradient Boosting
+        - Arbres de décision
+        - Random Forest, etc.
+ - meilleurs résultats par rapport au premier preprocessing :
+        - SVM : score AUC-ROC de 0.781 et recall pour vrais positifs de 0.827
+        - Gradient Boosting : bonne performance avec temps de calcul raisonnable
+
+*06_modelisation_3*
+ - modèle Deep Learning (réseau de neurones) avec architecture optimisée
+ - bonne performance (score AUC-ROC de 0.857 et recall pour vrais positifs de 0.81)
+
+## models
+Résultats de tous les modèles entrainés
+
+## references
+ - desc_fic_raw.json : informations sur les fichiers sources
+ - desc_vars.json : dictionnaire des variables et modalités
+
+## reports
+Contient le rapport final au format pdf
+
+------------
+# Meilleurs résultats des modèles entrainés
+| N° Entrainement | Nom du Modèle | AUC-ROC | Recall (Vrais Positifs) |
+|-----------------|---------------|---------|-------------------------|
+| 1 | Régression Logistique | 0.59 | - |
+| 2 | SVM | 0.781 | 0.827 |
+| 3 | Deep Learning | 0.857 | 0.81 |
+
+------------
+# Exécution des notebooks
+ 1. Télécharger les données des accidents de la route en France sur [data.gouv.fr](https://www.data.gouv.fr/fr/)
+ 2. Créer les dossiers suivants dans votre environnement Jupyter Notebook :
+   - `data/raw/` : pour les fichiers CSV téléchargés
+   - `data/processed/` : pour les fichiers générés lors du preprocessing
+ 3. Installer les dépendances `pip install -r requirements.txt`
+ 4. Copier les notebooks du repository GitHub dans votre environnement Jupyter Notebook
+ 5. Exécuter les notebooks dans l'ordre indiqué
+
+ Nota bene : Les fichiers de données étant volumineux, ils ne sont pas inclus dans ce repository.
+ Veillez à bien les télécharger et les placer dans le dossier `data/raw/` avant d'exécuter les notebooks.
