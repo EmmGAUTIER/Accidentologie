@@ -8,13 +8,17 @@ https://fev24cdsaccidents-fnkswybzpjcy3a8zft6hy9.streamlit.app/
 ------------
 # Présentation
 
-Ce repository réunit les éléments concernant notre projet de machine learning que nous avons réalisé lors de notre formation dispensée par 
+Ce dépôt réunit les éléments de notre projet de machine learning que nous avons réalisé lors de notre formation dispensée par 
 [DataScientest](https://datascientest.com/).
 
 Plus précisément, ce projet porte sur le thème des accidents de la route en France au cours de la période de 2005 à 2022. Les données ainsi que 
 leur description sont disponibles sur le site www.data.gouv.fr.
 
-Ces données concernent 72 dataframes au total, soit 1 dataframe par année et par rubrique. Voici les rubriques concernées :
+Ces données concernent 72 dataframes au total, soit 1 dataframe par année et par rubrique.
+Un changement de codage de la gravité entre 2018 et 2019 nous contraint de ne retenir
+que les données de 2019 à 2022, soit quatre années.
+
+Voici les rubriques concernées :
 
  — caracteristiques : qui prend en compte les circonstances générales de l’accident.
 
@@ -32,25 +36,25 @@ en fonction des circonstances qui les entourent.
 
 ## notebooks 
 
-*01_exploration.ipynb* : 
+*11_Exploration.ipynb* : 
  - examen de la structure et des types de variables pour chaque fichier, 
  - étude de la distribution, des valeurs manquantes, des outliers et de l’évolution temporelle
  - repérage des incohérences, des changements de codification et des valeurs aberrantes
 
-*02_preprocessing_1.ipynb* :
+*21_preprocessing_1.ipynb* :
  - restructuration des dataframes, harmonisation des types de données et fusion des données des différentes rubriques
  - création de nouvelles variables et élimination de certaines variables jugées non pertinentes
 
-*04_preprocessing_2.ipynb* :
+*22_preprocessing_2.ipynb* :
  - catégorisation et dichotomisation des variables pertinentes
  - traitement des valeurs manquantes et aberrantes
  - équilibrage des classes pour la variable cible et réduction de dimensionnalité par PCA (100 composantes)
 
-*03_modelisation_1.ipynb* :
+*31_Modelisation_LR.ipynb* :
  - modèle de référence basé sur le premier preprocessing : régression logistique
  - très faible performance (accuracy de 59%) et limitations en termes de relations non linéaires
 
-*05_modelisation_2.ipynb* :
+*32_modelisation_ML.ipynb* :
 - multiples modèles de classification sur le deuxième preprocessing
 - comparaison entre plusieurs modèles :
     - SVC (Support Vector Classification)
@@ -62,16 +66,16 @@ en fonction des circonstances qui les entourent.
     - SVM : score AUC-ROC de 0.781 et recall pour vrais positifs de 0.827
     - Gradient Boosting : bonne performance avec temps de calcul raisonnable
 
-*06_modelisation_3.ipynb* :
+*33_modelisation_3.ipynb* :
  - modèle Deep Learning (réseau de neurones) avec architecture optimisée
  - bonne performance (score AUC-ROC de 0.857 et recall pour vrais positifs de 0.81)
 
 ## models
-Contient les résultats de tous les modèles entrainés
+Contient les principaux les modèles entrainés. Les modèles trop volumineux n'y sont pas.
 
 ## references
- - desc_fic_raw.json : informations sur les fichiers sources
- - desc_vars.json : dictionnaire des variables et modalités
+ - desc_fic_raw.json : informations sur les fichiers sources permettant leur chargement en DataFrames.
+ - desc_vars.json : dictionnaire des variables et modalités avec types de variables et libellés explicites.
 
 ## reports
 Contient le rapport final au format pdf
