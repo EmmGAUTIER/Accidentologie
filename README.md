@@ -51,17 +51,16 @@ en fonction des circonstances qui les entourent.
  - très faible performance (accuracy de 59%) et limitations en termes de relations non linéaires
 
 *05_modelisation_2.ipynb* :
- - multiples modèles de classification sur le deuxième preprocessing
- - comparaison entre plusieurs modèles :
-  - SVC (Support Vector Classification)
-  - Régression logistique
-  - Gradient Boosting
-  - Arbres de décision
-  - Random Forest, etc.
-
- - meilleurs résultats par rapport au premier preprocessing :
-  - SVM : score AUC-ROC de 0.781 et recall pour vrais positifs de 0.827
-  - Gradient Boosting : bonne performance avec temps de calcul raisonnable
+- multiples modèles de classification sur le deuxième preprocessing
+- comparaison entre plusieurs modèles :
+    - SVC (Support Vector Classification)
+    - Régression logistique
+    - Gradient Boosting
+    - Arbres de décision
+    - Random Forest, etc.
+- meilleurs résultats par rapport au premier preprocessing :
+    - SVM : score AUC-ROC de 0.781 et recall pour vrais positifs de 0.827
+    - Gradient Boosting : bonne performance avec temps de calcul raisonnable
 
 *06_modelisation_3* :
  - modèle Deep Learning (réseau de neurones) avec architecture optimisée
