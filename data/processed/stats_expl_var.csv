@@ -1,0 +1,148 @@
+	count	modalite	rubrique	variable
+1	134490	Avant	véhicules	choc
+3	55117	Avant gauche	véhicules	choc
+2	45406	Avant droit	véhicules	choc
+4	37060	Arrière	véhicules	choc
+8	25984	Côté gauche	véhicules	choc
+0	23912	Aucun	véhicules	choc
+7	22266	Côté droit	véhicules	choc
+6	13240	Arrière gauche	véhicules	choc
+5	10631	Arrière droit	véhicules	choc
+9	5281	Chocs multiples (tonneaux)	véhicules	choc
+-1	197	Non Renseigné	véhicules	choc
+7	220813	7	véhicules	catv
+33	29406	Motocyclette > 125 cm3	véhicules	catv
+10	25593	VU seul 1,5T <= PTAC <= 3,5T avec ou sans remorque	véhicules	catv
+1	20956	1	véhicules	catv
+2	14082	2	véhicules	catv
+30	11729	Scooter < 50 cm3	véhicules	catv
+32	8663	Scooter > 50 cm3 et <= 125 cm3	véhicules	catv
+31	6714	Motocyclette entre 50 cm3 et 125 cm3	véhicules	catv
+50	5116	50	véhicules	catv
+34	4117	Scooter > 125 cm3	véhicules	catv
+15	3659	PL > 3,5T + remorque	véhicules	catv
+14	2793	PL seul > 7,5T	véhicules	catv
+17	2703	Tracteur routier + semi-remorque	véhicules	catv
+37	2488	Autobus	véhicules	catv
+3	2293	3	véhicules	catv
+43	1995	43	véhicules	catv
+80	1793	80	véhicules	catv
+99	1722	Autre véhicule	véhicules	catv
+13	1474	PL seul 3,5T <PTCA <= 7,5T	véhicules	catv
+0	1030	0	véhicules	catv
+21	963	Tracteur agricole	véhicules	catv
+60	754	60	véhicules	catv
+36	662	Quad lourd > 50 cm3	véhicules	catv
+38	586	Autocar	véhicules	catv
+20	503	Engin spécial	véhicules	catv
+40	479	Tramway	véhicules	catv
+16	134	Tracteur routier seul	véhicules	catv
+39	121	Train	véhicules	catv
+35	90	Quad léger <= 50 cm3	véhicules	catv
+42	83	42	véhicules	catv
+41	57	41	véhicules	catv
+-1	13	-1	véhicules	catv
+-1	488588	Non renseigné	usagers	secu3
+9	3549	Autre	usagers	secu3
+0	1330	Aucun équipement	usagers	secu3
+6	250	Gants (2RM/3RM)	usagers	secu3
+8	235	Non déterminable	usagers	secu3
+1	87	Ceinture	usagers	secu3
+4	71	Gilet réfléchissant	usagers	secu3
+5	38	Airbag (2RM/3RM)	usagers	secu3
+2	15	Casque	usagers	secu3
+7	12	Gants + Airbag (2RM/3RM)	usagers	secu3
+3	7	Dispositif enfants	usagers	secu3
+-1	193509	Non renseigné	usagers	secu2
+0	189789	Aucun équipement	usagers	secu2
+8	50941	Non déterminable	usagers	secu2
+6	44898	Gants (2RM/3RM)	usagers	secu2
+5	5771	Airbag (2RM/3RM)	usagers	secu2
+4	4845	Gilet réfléchissant	usagers	secu2
+9	1481	Autre	usagers	secu2
+1	896	Ceinture	usagers	secu2
+2	841	Casque	usagers	secu2
+7	656	Gants + Airbag (2RM/3RM)	usagers	secu2
+3	555	Dispositif enfants	usagers	secu2
+1	292332	Ceinture	usagers	secu1
+2	91302	Casque	usagers	secu1
+8	59115	Non déterminable	usagers	secu1
+0	41182	Aucun équipement	usagers	secu1
+-1	5591	Non renseigné	usagers	secu1
+3	3158	Dispositif enfants	usagers	secu1
+9	535	Autre	usagers	secu1
+6	399	Gants (2RM/3RM)	usagers	secu1
+4	334	Gilet réfléchissant	usagers	secu1
+5	219	Airbag (2RM/3RM)	usagers	secu1
+7	15	Gants + Airbag (2RM/3RM)	usagers	secu1
+1	207354	indemne	usagers	grav
+4	197494	Blessé léger	usagers	grav
+3	75986	Blessé hospitalisé	usagers	grav
+2	13047	Tué	usagers	grav
+-1	301	-1	usagers	grav
+0	239557	Sans objet	usagers	locp
+-1	216753	-1	usagers	locp
+3	11777	Sur passage piéton sans signalisation lumineuse	usagers	locp
+2	8435	Sur la chaussée, à – 50 m du passage piéton	usagers	locp
+4	5678	Sur passage piéton avec signalisation lumineuse	usagers	locp
+1	5513	Sur la chaussée, à plus de 50 m du passage piéton	usagers	locp
+5	2928	Sur trottoir	usagers	locp
+9	1844	9	usagers	locp
+6	1109	Sur accotement	usagers	locp
+8	546	Sur contre allée	usagers	locp
+7	42	Sur refuge ou BAU 	usagers	locp
+5	182022	Promenade loisirs	usagers	trajet
+0	126473	Non renseigné	usagers	trajet
+1	65777	Domicile - travail	usagers	trajet
+4	46085	Utilisation professionnelle	usagers	trajet
+9	40459	Autre	usagers	trajet
+3	16057	Courses - Achats	usagers	trajet
+2	10409	Domicile - école	usagers	trajet
+-1	6900	Non renseigné	usagers	trajet
+1	182239	Sur chaussée	lieux	situ
+3	15951	Sur accotement	lieux	situ
+8	6570	Autre	lieux	situ
+5	4532	Sur piste cyclable	lieux	situ
+4	4365	Sur trottoir	lieux	situ
+6	2580	Sur autre voie spéciale	lieux	situ
+2	2025	Sur bande d’arrêt d’urgence	lieux	situ
+-1	142	Non renseigné	lieux	situ
+1	176178	Normale	lieux	surf
+2	38758	mouillée	lieux	surf
+9	1247	Autre	lieux	surf
+7	831	Verglacée	lieux	surf
+8	364	Corps gras - huile	lieux	surf
+3	350	Flaques	lieux	surf
+5	346	Enneigée	lieux	surf
+6	170	Boue	lieux	surf
+4	96	Inondée	lieux	surf
+-1	64	Non renseigné	lieux	surf
+2	135784	Bidirectionnelle	lieux	circ
+1	38155	À sens unique	lieux	circ
+3	30905	À chaussées séparées	lieux	circ
+-1	12184	Non renseigné	lieux	circ
+4	1376	Avec voies d'affectation variable	lieux	circ
+4	92236	Voie communale	lieux	catr
+3	81132	Route départementale	lieux	catr
+1	20748	Autoroute	lieux	catr
+2	14031	Route nationale	lieux	catr
+7	6881	Route de métropole urbaine	lieux	catr
+6	1563	Parc de stationnement ouvert à la circulation publique	lieux	catr
+9	1538	Autre	lieux	catr
+5	275	Hors réseau public	lieux	catr
+1	174396	Normale	caractéristiques	atm
+2	23250	Pluie légère	caractéristiques	atm
+8	8237	Temps couvert	caractéristiques	atm
+3	4645	Pluie forte	caractéristiques	atm
+7	4010	Temps éblouissant	caractéristiques	atm
+5	1509	Brouillard - fumée	caractéristiques	atm
+9	1046	Autre	caractéristiques	atm
+4	675	Neige - grêle	caractéristiques	atm
+6	614	Vent fort - tempête	caractéristiques	atm
+-1	22	Non renseigné	caractéristiques	atm
+1	146712	plein jour	caractéristiques	lum
+5	34150	Nuit avec éclairage public allumé	caractéristiques	lum
+3	21310	Nuit sans éclairage public	caractéristiques	lum
+2	14287	Crépuscule - aube	caractéristiques	lum
+4	1938	Nuit avec éclairage public non allumé	caractéristiques	lum
+-1	7	-1	caractéristiques	lum

@@ -13,9 +13,13 @@ import joblib
 
 st.title ("Accidentologie")
 st.sidebar.title("Sommaire")
-pages=["Présentation", "Data Vizualization", "Modélisation par SVC", "Modélisation par Deep Learning"]
+pages=["Présentation", "Data Vizualization", "Modélisation pas SVC", "Modélisation par Deep Learning"]
 page=st.sidebar.radio("Aller vers", pages)
 
+# Le jeu de données a un taille trop importante  (environ 160Mo) ne peut être enregistré sur le dépôt github.
+# Il faut cepandant un dataframe avec un ligne pour faire le prédiction avec un exemple.
+# Il faudra enregistrer un dataFrame vide ou avec une ligne avec des 0
+# La liste des colonnes à enregistrer dans un fichier
 columns =["ferie","secu_ceinture","secu_casque","secu_dispenfant","secu_gilet","secu_airbag23RM","secu_gants","age_enfant","age_jeune","age_adulte","age_3age","hr_matin","hr_midi","hr_am","hr_soir","hr_nuit","sexe_m","sexe_f","nbv_1","nbv_2","nbv_3",
 "nbv_4","nbv_plus","surf_norm","surf_mouil","surf_gliss","surf_autre","vma_30m","vma_40","vma_50","vma_60","vma_70","vma_80","vma_90","vma_110","vma_130","actp_1","actp_2","actp_3","actp_4","actp_5",
 "actp_6","actp_7","actp_8","actp_9","actp_A","actp_B","atm_1","atm_2","atm_3","atm_4","atm_5","atm_6","atm_7","atm_8","catr_1","catr_2","catr_3","catr_4","catr_5","catr_6","catr_7","catu_1","catu_2",
@@ -36,7 +40,7 @@ df_0 = pd.DataFrame([[0] * len(columns)], columns=columns)
 #  Lecture des données.
 #
 #  Cette lecture est réalisée par la fonction read_data().
-#  Pour éviter la relecture à chaque commande elle est décorée par @st.cache
+#  Pour éviter la relecture à chaque commande elle est décorée par @st.cache_data
 #
 ###############################################################################
 
@@ -76,7 +80,8 @@ def read_data():
     # Données synthétiques car plus rapide et faible espace de stockage
     #
     try:
-        df_evol_grav = pd.read_csv("data/processed/evol_grav.csv", sep = '\t')
+        df_evol_grav = pd.read_csv("data/processed/evol_grav.csv",  sep = '\t')
+        stats_expl_var = pd.read_csv("data/processed/stats_expl_var.csv", sep = '\t')
     except Exception:
         df_evol_grav = None
 
@@ -84,7 +89,8 @@ def read_data():
     # à chaque affichage d'une page. Les résultats renvoyés avec return sont
     # alors mis en cache. les resultats sont donc mis dans un dictionnaire.
     return {"data" : dfd, "SVC" : SVC, "PCA" : pca, "X" : X,
-            "scaler" : scaler, "DP" : DP, "evol_grav" : df_evol_grav }
+            "scaler" : scaler, "DP" : DP, "evol_grav" : df_evol_grav,
+            "stats_expl_var" : stats_expl_var}
 
 llll = read_data()
 SVC = llll["SVC"]
@@ -93,6 +99,7 @@ pca = llll["PCA"]
 X = llll["X"]
 scaler = llll["scaler"]
 df_evol_grav = llll["evol_grav"]
+stats_expl_var = llll["stats_expl_var"]
 
 ##############################################################################
 #
@@ -113,7 +120,7 @@ if page == pages[0] :
 if page == pages[1] :
     st.write("### Visualisation")
 
-    st.write ("## Évolution sur 18 ans des nombres d'usagers impliqués")
+    st.text ("### Évolution sur 18 ans des nombres d'usagers impliqués")
 
     annee = df_evol_grav["annee"].max()
     annee = st.selectbox("Année : ", df_evol_grav["annee"])
@@ -147,11 +154,20 @@ if page == pages[1] :
     plt.xlabel("Année")
     plt.xticks (df_base100["annee"])
     plt.ylabel("Pourcentage")
-    plt.legend(title='Position')
+    plt.legend(title='Modalités', loc = "upper center")
+    plt.axvline(x=2019, color='black', linestyle=(0, (5, 5)), linewidth=2)
+    plt.annotate("Changement\nde codification\nde notre var. cible", xy=(2019, 90),
+                  xytext = (2019.5, 95),
+                 arrowprops=dict(facecolor='black', arrowstyle='->', lw=1.5))
+
+    plt.annotate("Effet COVID",
+                 xy=(2020, 65),
+                 xytext=(2019, 75),
+                 arrowprops=dict(facecolor='black', arrowstyle='->', lw=1.5))
+
     plt.grid()
     #plt.show()
     st.pyplot(fig)
-
 
     #choix = ["Conducteur", "Passager", "Piéton"]
     #catu = st.selectbox("Catégorie d'usager", choix)
@@ -160,6 +176,27 @@ if page == pages[1] :
     #valc = df[df[nom_var] == True].grav_grave.value_counts()
 
     #st.write (valc)
+
+    st.write ("## Répartitions par modalités")
+
+    # TODO : trier la liste des rubriques par ordre alphabétique
+    rubriques = stats_expl_var["rubrique"].unique()
+    rubrique = st.selectbox("Rubrique : ", rubriques)
+    st.text (f"----> Rubrique  \"{rubrique}\"")
+    variables = stats_expl_var[stats_expl_var["rubrique"] == rubrique]["variable"].unique()
+    variable = st.selectbox("Variable : ", variables)
+
+    df1 = stats_expl_var[(stats_expl_var["rubrique"] == rubrique) & (stats_expl_var["variable"] == variable)]
+    df1["count"] = df1["count"].astype("int")
+    df1 = df1[["modalite", "count"]]
+    # st.dataframe (df1) # pour mise au point, à supprimer
+
+    fig = plt.figure(figsize=(10, 6))
+    plt.title(f"Répartition selon {variable}")
+
+    sns.barplot (df1, y = "modalite", x= "count", orient = "h")
+
+    st.pyplot(fig)
 
 ##############################################################################
 #
@@ -192,11 +229,11 @@ if page == pages[2] :
 
     # st.dataframe(df_0)
   
-    #Xp = pca.transform(df_0)
-    #Xp = scaler.transform(Xp)
-    #ypred = SVC.predict(Xp)
+    Xp = pca.transform(df_0)
+    Xp = scaler.transform(Xp)
+    ypred = SVC.predict(Xp)
 
-    #st.write(f"Prédiction : {ypred}")
+    st.write(f"Prédiction : {ypred}")
 
 
 ##############################################################################
