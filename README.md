@@ -3,7 +3,7 @@
 Emmanuel Gautier - Erika Méronville
 
 Vers la page streamlit :
-https://fev24cdsaccidents-fnkswybzpjcy3a8zft6hy9.streamlit.app/
+https://accidentologie-fkzj2g9g5tm5go8rrd6xpn.streamlit.app/
 
 ------------
 # Présentation
