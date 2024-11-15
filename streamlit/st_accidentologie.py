@@ -61,9 +61,9 @@ def read_data():
         df_zero        = pd.read_csv("data/processed/data_zero.csv",      sep = '\t')
         df_evol_grav   = pd.read_csv("data/processed/evol_grav.csv",      sep = '\t')
         stats_expl_var = pd.read_csv("data/processed/stats_expl_var.csv", sep = '\t')
-        st.write (f" --> df_zero 1 : {df_zero.shape[0]} x {df_zero.shape[1]}")
+        # st.write (f" --> df_zero 1 : {df_zero.shape[0]} x {df_zero.shape[1]}")
         X_zero = df_zero.drop(["grav_grave", "agg"], axis = 1)
-        st.write (f" --> df_zero 2 : {df_zero.shape[0]} x {df_zero.shape[1]}")
+        # st.write (f" --> df_zero 2 : {df_zero.shape[0]} x {df_zero.shape[1]}")
         #X_zero = df_zero.drop("agg",        axis = 1)
 
     except Exception as inst:
@@ -108,7 +108,30 @@ st.title ("Accidentologie")
 
 if page == pages[0] :
     st.header("Présentation du projet")
-    st.subheader("Notre travail.")
+    st.subheader("Notre mission")
+    st.write(
+"""
+Nous présentons notre projet de machine learning réalisé lors de notre formation dispensée par DataScientest.
+
+ce projet porte sur le thème des accidents de la route en France au cours de la période de 2005 à 2022.
+Les données ainsi que leur description sont disponibles sur le site www.data.gouv.fr.
+
+Ces données concernent 72 dataframes au total, soit 1 dataframe par année et par rubrique.
+Un changement de codage de la gravité entre 2018 et 2019 nous contraint de ne retenir que les données de 2019 à 2022, soit les quatre dernières années.
+
+Notre mission consiste à explorer, préparer et modéliser le jeu de données dans le but de prédire
+la gravité des accidents routiers en fonction des circonstances qui les entourent.
+"""
+)
+    st.subheader("Notre progression")
+    st.write(
+"""
+    Nous avons déjà réalisé l'exploration, la préparation et la modélisation des données.
+    Ce travail doit être accessible à tous, c'est l'objet de cette présentation avec streamlit en cours de réalisation.
+
+    Avec ce projet nous avons pu mettre en pratique les acquis de notre formation en réalisant un projet de data science complet.
+"""
+)
 
 ##############################################################################
 #
@@ -210,18 +233,21 @@ if page == pages[2] :
     else:
         Xp["catu_3"]  = 1
 
-    st.dataframe(Xp)
-
     #choix = ["Normale", "Mouillée", "glissante", "autre"]
     #chps = ["surf_norm", "surf_mouil", "surf_gliss", "surf_autre"]
     #surf = st.selectbox("Catégorie d'usager", choix)
     #chp = chps[choix.index(surf)]
     #Xp[chp] = 1
     #st.write (f"choix : {surf} champ : {chp}")
-
-
     # st.dataframe(df_0)
   
+    st.write ("Développement en cours.")
+    st.write ("Affichage du DataFrame avec une seule 'observation' destiné à la prédiction")
+
+    st.dataframe(Xp)
+ 
+    #st.write ("Avec la prédiction réalisée nous afficherons le résultat")
+
     #Xp = pca.transform(df_0)
     #Xp = scaler.transform(Xp)
     #ypred = SVC.predict(Xp)
@@ -264,8 +290,11 @@ if page == pages[3] :
     st.dataframe(Xp)
 
     Xp = scaler_DP.transform(Xp)
+
+    st.write ("Développement en cours")
+
     # TODO Activer après compilation de tensorflow
     # ypred = DP.predict(Xp)
 
-    st.write(f"Prédiction : {ypred}")
+    #st.write(f"Prédiction : {ypred}")
 
