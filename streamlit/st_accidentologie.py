@@ -9,7 +9,8 @@ from sklearn.preprocessing         import StandardScaler
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-import tensorflow as tf
+# TODO  activer après compilation de tensorflow
+# import tensorflow as tf
 
 import joblib
 
@@ -46,7 +47,8 @@ def read_data():
 
         scaler_DP = joblib.load("models/scaler_DP.joblib")
 
-        DP = tf.saved_model.load("models/acc_DeepLearning.h5")
+        # TODO activer après compilation de tensorflow
+        # DP = tf.saved_model.load("models/acc_DeepLearning.h5")
 
     except Exception as inst:
         st.write (inst.args)
@@ -262,7 +264,8 @@ if page == pages[3] :
     st.dataframe(Xp)
 
     Xp = scaler_DP.transform(Xp)
-    ypred = DP.predict(Xp)
+    # TODO Activer après compilation de tensorflow
+    # ypred = DP.predict(Xp)
 
     st.write(f"Prédiction : {ypred}")
 
