@@ -9,7 +9,7 @@ from sklearn.preprocessing         import StandardScaler
 import seaborn as sns
 import matplotlib.pyplot as plt
 
-#import tensorflow as tf
+import tensorflow as tf
 
 import joblib
 
