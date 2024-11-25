@@ -129,10 +129,7 @@ la gravité des accidents routiers en fonction des circonstances qui les entoure
     Nous avons déjà réalisé l'exploration, la préparation et la modélisation des données.
     Ce travail doit être accessible à tous, c'est l'objet de cette présentation avec streamlit en cours de réalisation.
 
-    C'est un travail en cours de réalisation; nous développons en ce moment à l'affichage
-    de prédictions avec  des valeurs saisies et ramanions le code.
-
-    Avec ce projet nous mettons en pratique les acquis de notre formation en réalisant un projet de data science complet.
+    Avec ce projet nous avons pu mettre en pratique les acquis de notre formation en réalisant un projet de data science complet.
 """
 )
 
