@@ -20,10 +20,8 @@
       { "nom": "caracteristiques-2020.csv", "sep": ";", "phase": "2" },
       { "nom": "carcteristiques-2021.csv", "sep": ";", "phase": "2" },
       { "nom": "carcteristiques-2022.csv", "sep": ";", "phase": "2",
-        "rename_cols": {
-          "Accident_Id": "Num_Acc"
-        }
-      }
+        "rename_cols": { "Accident_Id": "Num_Acc" } }, 
+      { "nom": "caract-2023.csv", "sep": ";", "phase": "3" }
     ],
     "dtypes": {
       "Accident_Id": "int64",
@@ -65,7 +63,8 @@
       { "nom": "usagers-2019.csv", "sep": ";", "phase": "2" },
       { "nom": "usagers-2020.csv", "sep": ";", "phase": "2" },
       { "nom": "usagers-2021.csv", "sep": ";", "phase": "2" },
-      { "nom": "usagers-2022.csv", "sep": ";", "phase": "2" }
+      { "nom": "usagers-2022.csv", "sep": ";", "phase": "2" },
+      { "nom": "usagers-2023.csv", "sep": ";", "phase": "3" }
     ],
     "dtypes": {
       "Num_Acc": "int64",
@@ -179,6 +178,11 @@
         "nom": "vehicules-2022.csv",
         "sep": ";",
         "phase": "2"
+      },
+      {
+        "nom": "vehicules-2023.csv",
+        "sep": ";",
+        "phase": "3"
       }
     ],
     "dtypes": {
@@ -287,6 +291,11 @@
         "nom": "lieux-2022.csv",
         "sep": ";",
         "phase": "2"
+      },
+      {
+        "nom": "lieux-2023.csv",
+        "sep": ";",
+        "phase": "3"
       }
     ],
     "dtypes": {
