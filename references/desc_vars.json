@@ -482,6 +482,17 @@
   "name": "place",
   "label": "Place dans le v\u00e9hicule occup\u00e9e par l'usager",
   "description": "",
+  "values" : {
+  "1" : "Avant gauche",
+  "2" : "Avant droite",
+  "3" : "Arrière droite",
+  "4" : "Arrière gauche",
+  "5" : "Arrière milieu",
+  "6" : "Avant milieu",
+  "7" : "Gauche",
+  "8" : "Milieu",
+  "9" : "Droite"
+  },
   "dtype": "object",
   "graphe": {
    "type": "bar",
@@ -510,6 +521,7 @@
  "grav": {
   "name": "grav",
   "dtype": "object",
+  "label" : "gravité",
   "graphe": {
    "type": "bar",
    "order": "value",
@@ -563,6 +575,7 @@
  "secu": {
   "name": "secu",
   "dtype": "object",
+  "label" : "Élément de sécurité",
   "values": {},
   "index": 6
  },
@@ -938,32 +951,32 @@
  "actp_1": {
   "name": "actp_1",
   "dtype": "bool",
-  "label": "Action du pi\u00e9ton : Se d\u00e9pla\u00e7ant, sens v\u00e9hicule heurtant"
+  "label": "Pi\u00e9ton : Se d\u00e9pl., sens v\u00e9h. heurtant"
  },
  "actp_2": {
   "name": "actp_2",
   "dtype": "bool",
-  "label": "Action du pi\u00e9ton : Se d\u00e9pla\u00e7ant, sens inverse du v\u00e9hicule"
+  "label": "Pi\u00e9ton : Se d\u00e9pl., sens inverse v\u00e9h."
  },
  "actp_3": {
   "name": "actp_3",
   "dtype": "bool",
-  "label": "Action du pi\u00e9ton : Traversant"
+  "label": "Pi\u00e9ton : Traversant"
  },
  "actp_4": {
   "name": "actp_4",
   "dtype": "bool",
-  "label": "Action du pi\u00e9ton : Masqu\u00e9"
+  "label": "Pi\u00e9ton : Masqu\u00e9"
  },
  "actp_5": {
   "name": "actp_5",
   "dtype": "bool",
-  "label": "Action du pi\u00e9ton : Jouant \u2013 courant"
+  "label": "Pi\u00e9ton : Jouant \u2013 courant"
  },
  "actp_6": {
   "name": "actp_6",
   "dtype": "bool",
-  "label": "Action du pi\u00e9ton : Avec animal"
+  "label": "Pi\u00e9ton : Avec animal"
  },
  "actp_7": {
   "name": "actp_7",
@@ -1033,27 +1046,27 @@
  "trajet_1": {
   "name": "trajet_1",
   "dtype": "bool",
-  "label": "Motif du d\u00e9placement"
+  "label": "Motif du d\u00e9placement : Domicile - travail"
  },
  "trajet_2": {
   "name": "trajet_2",
   "dtype": "bool",
-  "label": "Motif du d\u00e9placement"
+  "label": "Motif du d\u00e9placement : Domicile - école"
  },
  "trajet_3": {
   "name": "trajet_3",
   "dtype": "bool",
-  "label": "Motif du d\u00e9placement"
+  "label": "Motif du d\u00e9placement : Courses - achats"
  },
  "trajet_4": {
   "name": "trajet_4",
   "dtype": "bool",
-  "label": "Motif du d\u00e9placement"
+  "label": "Motif du d\u00e9placement : utilisation professionnelle"
  },
  "trajet_5": {
   "name": "trajet_5",
   "dtype": "bool",
-  "label": "Motif du d\u00e9placement"
+  "label": "Motif du d\u00e9placement : promanade - loisirs"
  },
  "locp_1": {
   "name": "locp_1",
@@ -1098,152 +1111,152 @@
  "catv_7": {
   "name": "catv_7",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Véhicule léger"
+  "label": "Véhicule : Véhicule léger"
  },
  "catv_17": {
   "name": "catv_17",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Tracteur routier + semi-remorque"
+  "label": "Véhicule : Tracteur routier + semi-remorque"
  },
  "catv_33": {
   "name": "catv_33",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : motocyclette >125 cm2"
+  "label": "Véhicule : motocyclette >125 cm2"
  },
  "catv_42": {
   "name": "catv_42",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : 3RM, 50 à 125 cm2"
+  "label": "Véhicule : 3RM, 50 à 125 cm2"
  },
  "catv_30": {
   "name": "catv_30",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : scooter < 50 cm2"
+  "label": "Véhicule : scooter < 50 cm2"
  },
  "catv_37": {
   "name": "catv_37",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Autobus"
+  "label": "Véhicule : Autobus"
  },
  "catv_32": {
   "name": "catv_32",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : scooter 50 à 125 cm2"
+  "label": "Véhicule : scooter 50 à 125 cm2"
  },
  "catv_50": {
   "name": "catv_50",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : EDP (trotinette,...) à moteur"
+  "label": "Véhicule : EDP (trotinette,...) à moteur"
  },
  "catv_38": {
   "name": "catv_38",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Autocar"
+  "label": "Véhicule : Autocar"
  },
  "catv_10": {
   "name": "catv_10",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : VU seul 1,5T <= PTAC <= 3,5T avec ou sans remorque"
+  "label": "Véhicule : VU seul 1,5T à 3,5T"
  },
  "catv_1": {
   "name": "catv_1",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Bicyclette"
+  "label": "Véhicule : Bicyclette"
  },
  "catv_40": {
   "name": "catv_40",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Tramway"
+  "label": "Véhicule : Tramway"
  },
  "catv_15": {
   "name": "catv_15",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : PL > 3,5T + remorque"
+  "label": "Véhicule : PL > 3,5T + remorque"
  },
  "catv_14": {
   "name": "catv_14",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : PL seul > 7,5T"
+  "label": "Véhicule : PL seul > 7,5T"
  },
  "catv_99": {
   "name": "catv_99",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : autre véhicule"
+  "label": "Véhicule : autre véhicule"
  },
  "catv_2": {
   "name": "catv_2",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : cyclomoteur < 50 cm2"
+  "label": "Véhicule : cyclomoteur < 50 cm2"
  },
  "catv_80": {
   "name": "catv_80",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : VAE"
+  "label": "Véhicule : VAE"
  },
  "catv_34": {
   "name": "catv_34",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Scooter > 125cm2"
+  "label": "Véhicule : Scooter > 125cm2"
  },
  "catv_60": {
   "name": "catv_60",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : EDP (Trotinette, ...) sans moteur"
+  "label": "Véhicule : EDP (Trotinette, ...) sans moteur"
  },
  "catv_31": {
   "name": "catv_31",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Motocyclette > 50 cm2 et <= 125 cm2"
+  "label": "Véhicule : Motocyclette 50 à 125 cm2"
  },
  "catv_21": {
   "name": "catv_21",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Tracteur agricole"
+  "label": "Véhicule : Tracteur agricole"
  },
  "catv_3": {
   "name": "catv_3",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : voiturette"
+  "label": "Véhicule : voiturette"
  },
  "catv_13": {
   "name": "catv_13",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule poids lourd seul 3,5T < PTAC <= 7,5T"
+  "label": "Véhicule : Poids lourd seul 3,5T à 7,5T"
  },
  "catv_20": {
   "name": "catv_20",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : engin spécial"
+  "label": "Véhicule : engin spécial"
  },
  "catv_43": {
   "name": "catv_43",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : 3RM > 125 cm2"
+  "label": "Véhicule : 3RM > 125 cm2"
  },
  "catv_36": {
   "name": "catv_36",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Quad lourd > 50 cm2"
+  "label": "Véhicule : Quad lourd > 50 cm2"
  },
  "catv_39": {
   "name": "catv_39",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : train"
+  "label": "Véhicule : train"
  },
  "catv_16": {
   "name": "catv_16",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : tracteur routier seul"
+  "label": "Véhicule : tracteur routier seul"
  },
  "catv_35": {
   "name": "catv_35",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : Quad léger < 50 cm2"
+  "label": "Véhicule : Quad léger < 50 cm2"
  },
  "catv_41": {
   "name": "catv_41",
   "dtype": "bool",
-  "label": "cat\u00e9gorie de v\u00e9hicule : 3RM <= 50 cm2"
+  "label": "Véhicule : 3RM <= 50 cm2"
  },
  "choc_5": {
   "name": "choc_5",
@@ -2083,37 +2096,37 @@
  "catr_1": {
   "name": "catr_1",
   "dtype": "bool",
-  "label": "Cat\u00e9gorie de route : Autoroute"
+  "label": "Route: : Autoroute"
  },
  "catr_2": {
   "name": "catr_2",
   "dtype": "bool",
-  "label": "Cat\u00e9gorie de route : Route nationale"
+  "label": "Route: : Route nationale"
  },
  "catr_3": {
   "name": "catr_3",
   "dtype": "bool",
-  "label": "Cat\u00e9gorie de route : Route d\u00e9partementale"
+  "label": "Route: : Route d\u00e9partementale"
  },
  "catr_4": {
   "name": "catr_4",
   "dtype": "bool",
-  "label": "Cat\u00e9gorie de route : Voie communale"
+  "label": "Route: : Voie communale"
  },
  "catr_5": {
   "name": "catr_5",
   "dtype": "bool",
-  "label": "Cat\u00e9gorie de route : Hors r\u00e9seau public"
+  "label": "Route: : Hors r\u00e9seau public"
  },
  "catr_6": {
   "name": "catr_6",
   "dtype": "bool",
-  "label": "Cat\u00e9gorie de route : Parc de stationnement ouvert \u00e0 la circulation publique"
+  "label": "Route: : Parc de stationnement ouvert \u00e0 la circulation publique"
  },
  "catr_7": {
   "name": "catr_7",
   "dtype": "bool",
-  "label": "Cat\u00e9gorie de route : Route de m\u00e9tropole urbaine"
+  "label": "Route: : Route de m\u00e9tropole urbaine"
  },
  "catr_8": {
   "name": "catr_8",
@@ -2123,97 +2136,92 @@
  "jsem_6": {
   "name": "jsem_6",
   "dtype": "bool",
-  "label": "Jour de la semaine"
+  "label": "Jour : samedi"
  },
  "jsem_4": {
   "name": "jsem_4",
   "dtype": "bool",
-  "label": "Jour de la semaine"
+  "label": "Jour : jeudi"
  },
  "jsem_5": {
   "name": "jsem_5",
   "dtype": "bool",
-  "label": "Jour de la semaine"
- },
- "jsem_3": {
-  "name": "jsem_3",
-  "dtype": "bool",
-  "label": "Jour de la semaine"
+  "label": "Jour : vendredi"
  },
  "jsem_1": {
   "name": "jsem_1",
   "dtype": "bool",
-  "label": "Jour de la semaine"
+  "label": "Jour : lundi"
  },
  "jsem_2": {
   "name": "jsem_2",
   "dtype": "bool",
-  "label": "Jour de la semaine"
+  "label": "Jour : mardi"
  },
  "jsem_7": {
   "name": "jsem_7",
   "dtype": "bool",
-  "label": "Jour de la semaine"
+  "label": "Jour : dimanche"
  },
  "mois_11": {
   "name": "mois_11",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : janvier"
  },
  "mois_9": {
   "name": "mois_9",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : septembre"
  },
  "mois_7": {
   "name": "mois_7",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : juillet"
  },
  "mois_2": {
   "name": "mois_2",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : février"
  },
  "mois_1": {
   "name": "mois_1",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : janvier"
  },
  "mois_5": {
   "name": "mois_5",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : mai"
  },
  "mois_4": {
   "name": "mois_4",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : avril"
  },
  "mois_8": {
   "name": "mois_8",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : août"
  },
  "mois_6": {
   "name": "mois_6",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : juin"
  },
  "mois_10": {
   "name": "mois_10",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : octobre"
  },
  "mois_3": {
   "name": "mois_3",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : mars"
  },
  "mois_12": {
   "name": "mois_12",
   "dtype": "bool",
-  "label": "Mois de l'accident"
+  "label": "Mois : décembre"
  },
  "ferie": {
   "name": "ferie",
