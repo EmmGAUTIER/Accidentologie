@@ -46,8 +46,46 @@ caracteristiques, lieux, usagers, vehicules, df = load_data()
 st.title("Accidentologie")
 
 st.sidebar.title("Sommaire")
-pages=["Exploration", "Visualisation", "Preprocessing", "Modélisation", "Prédiction (démo)"]
+pages=["Le projet", "Exploration", "Visualisation", "Preprocessing", "Modélisation", "Prédiction (démo)"]
 page=st.sidebar.radio("Aller vers", pages)
+
+
+
+##############################################################################
+#
+# Page : Présentation du projet
+#
+##############################################################################
+
+if page == pages[0] :
+    st.header("Le projet")
+    st.subheader("Notre mission")
+    st.write(
+"""
+Nous présentons notre projet de machine learning réalisé lors de notre formation dispensée par DataScientest.
+
+Ce projet porte sur le thème des accidents de la route en France au cours de la période de 2005 à 2022.
+Les données ainsi que leur description sont disponibles sur le site www.data.gouv.fr.
+
+Ces données concernent 72 dataframes au total, soit 1 dataframe par année et par rubrique.
+Un changement de codage de la gravité entre 2018 et 2019 nous contraint de ne retenir que les données de 2019 à 2022, soit les quatre dernières années.
+
+Notre mission consiste à explorer, préparer et modéliser le jeu de données dans le but de prédire
+la gravité des accidents routiers en fonction des circonstances qui les entourent.
+"""
+)
+    st.subheader("Notre progression")
+    st.write(
+"""
+    Nous avons déjà réalisé l'exploration, la préparation et la modélisation des données.
+    Ce travail doit être accessible à tous : c'est l'objet de cette présentation avec streamlit en cours de réalisation.
+
+    Une partie du travail reste en cours de réalisation ; nous développons en ce moment l'affichage
+    de prédictions avec des valeurs saisies et remanions le code.
+
+    Avec ce projet, nous mettons en pratique les acquis de notre formation en réalisant un projet de data science complet.
+"""
+)
 
 
 
@@ -57,7 +95,7 @@ page=st.sidebar.radio("Aller vers", pages)
 #
 ##############################################################################
 
-if page == pages[0]:
+if page == pages[1]:
     st.header("Exploration")
     
     st.write("72 dataframes chargés* :")
@@ -65,6 +103,9 @@ if page == pages[0]:
     st.write("- 18 datasets par rubrique : une pour chaque année de 2005 à 2022")
     st.write("(*) source : [data.gouv.fr](https://www.data.gouv.fr/en/datasets/bases-de-donnees-annuelles-des-accidents-corporels-de-la-circulation-routiere-annees-de-2005-a-2022/)")
     st.write("")
+
+    image7 = Image.open("exploration_11.png")
+    st.image(image7, caption="Processus d'uniformisation des données", width=750)
 
     # Liste des DataFrames et leurs noms
     dataframes = {'caracteristiques': caracteristiques, 'lieux': lieux, 'usagers': usagers, 'vehicules': vehicules}
@@ -122,8 +163,11 @@ if page == pages[0]:
                 stats2_vehicules = pd.read_csv("stats2_vehicules.csv", sep = '\t', index_col=0)
                 st.dataframe(stats2_vehicules.T)
 
-    # Appeler la fonction d'affichage d'un DataFrame sélectionné
+    # Appeler la fonction d'affichage du DataFrame sélectionné
     afficher_dataframe(dataframes[nom_dataframe], nom_dataframe)
+
+    image8 = Image.open("exploration_12.png")
+    st.image(image8, caption="Processus d'exploration des données", width=550)
 
 
 
@@ -133,7 +177,7 @@ if page == pages[0]:
 #
 ##############################################################################
 
-elif page == pages[1]:
+elif page == pages[2]:
     st.header("Visualisation")
    
     merged_df = pd.merge(caracteristiques, lieux, on='Num_Acc', how='inner')
@@ -269,610 +313,640 @@ def process_uploaded_file(_file):
             st.error(f"Erreur lors du traitement du fichier : {str(e)}")
     return None
 
-if page == pages[2]:
+
+if page == pages[3]:
     st.header("Étapes de preprocessing des données")
 
     # Définition des fonctions de chargement et preprocessing
-    def load_and_merge_dataframes(uploaded_files):
-        dataframes = {}
-        expected_files = ['caracteristiques', 'lieux', 'usagers', 'vehicules']
+    #def load_and_merge_dataframes(uploaded_files):
+        #dataframes = {}
+        #expected_files = ['caracteristiques', 'lieux', 'usagers', 'vehicules']
         
         # Chargement
-        for file, expected in zip(uploaded_files.values(), expected_files):
-            if file is not None:
-                df = pd.read_csv(file, sep=',', encoding='utf-8', index_col=False)
-                if 'Unnamed: 0' in df.columns:
-                    df = df.drop('Unnamed: 0', axis=1)
-                dataframes[expected] = df
+        #for file, expected in zip(uploaded_files.values(), expected_files):
+            #if file is not None:
+                #df = pd.read_csv(file, sep=',', encoding='utf-8', index_col=False)
+                #if 'Unnamed: 0' in df.columns:
+                    #df = df.drop('Unnamed: 0', axis=1)
+                #dataframes[expected] = df
+    try:  
+        df = pd.merge(caracteristiques, lieux, on='Num_Acc', how='inner')
+        df = pd.merge(df, usagers, on='Num_Acc', how='inner')
+        df = pd.merge(df, vehicules, on=['Num_Acc', 'id_vehicule', 'num_veh'], how='inner')
         
-        # Fusion
-        df = pd.merge(dataframes['usagers'], dataframes['caracteristiques'], on='Num_Acc', how='left')        
-        df = pd.merge(df, dataframes['lieux'], on='Num_Acc', how='left')
-        df = pd.merge(df, dataframes['vehicules'], on=['Num_Acc', 'num_veh', 'id_vehicule'], how='left')
-        
-        return df
+        #return df
 
     # Configuration du chargement des fichiers (commun aux deux options de preprocessing)
-    st.sidebar.header('Chargement des données')
-    uploaded_files = {
-        'caracteristiques': st.sidebar.file_uploader("Fichier 'caracteristiques'", type=['csv'], key="carac_upload"),
-        'lieux': st.sidebar.file_uploader("Fichier 'lieux'", type=['csv'], key="lieux_upload"),
-        'usagers': st.sidebar.file_uploader("Fichier 'usagers'", type=['csv'], key="usagers_upload"),
-        'vehicules': st.sidebar.file_uploader("Fichier 'vehicules'", type=['csv'], key="vehicules_upload")}
+    #st.sidebar.header('Chargement des données')
+    #uploaded_files = {
+        #'caracteristiques': st.sidebar.file_uploader("Fichier 'caracteristiques'", type=['csv'], key="carac_upload"),
+        #'lieux': st.sidebar.file_uploader("Fichier 'lieux'", type=['csv'], key="lieux_upload"),
+        #'usagers': st.sidebar.file_uploader("Fichier 'usagers'", type=['csv'], key="usagers_upload"),
+        #'vehicules': st.sidebar.file_uploader("Fichier 'vehicules'", type=['csv'], key="vehicules_upload")}
 
-    if not all(uploaded_files.values()):
-        st.info('Veuillez charger tous les fichiers pour commencer le preprocessing')
-    else:
-        try:
+    #if not all(uploaded_files.values()):
+        #st.info('Veuillez charger tous les fichiers pour commencer le preprocessing')
+    #else:
+        #try:
             # Chargement initial des données
-            df = load_and_merge_dataframes(uploaded_files)
+            #df = load_and_merge_dataframes(uploaded_files)
             
-            # Choix du type de preprocessing
-            choix = ['preprocessing basique', 'preprocessing avancé']
-            option = st.radio('Choix du preprocessing', choix)
+        # Choix du type de preprocessing
+        choix = ['preprocessing basique', 'preprocessing avancé']
+        option = st.radio('Choix du preprocessing', choix)
+        
+        if option == 'preprocessing basique':
+            image9 = Image.open("preprocessing_10.png")
+            st.image(image9, caption="Etapes de preprocessing basique", width=800)
+
+            # Prétraitement des données
+            with st.expander(f"Prétraitement des données"):     
+                
+                # Renommer 'Accident_Id' en 'Num_Acc' si nécessaire
+                if 'Accident_Id' in df.columns:
+                    df = df.rename(columns={'Accident_Id': 'Num_Acc'})
+                    
+                # Ajouter 2000 à 'an' si < 2000
+                if 'an' in df.columns:
+                    df.loc[:, 'an'] = df['an'].apply(lambda x: x + 2000 if x < 2000 else x)
+                
+                # Convertir 'hrmn' de 'HHMM' à 'HH:MM'
+                if 'hrmn' in df.columns:
+                    df.loc[:, 'hrmn'] = df['hrmn'].apply(lambda x: f"{str(x).zfill(4)[:2]}:{str(x).zfill(4)[2:]}")
+                
+                # Remplacer les valeurs NaN par -1
+                for col in ['lum', 'int', 'atm', 'col']:
+                    if col in df.columns:
+                        df[col] = df[col].fillna(-1)
+                
+                # Supprimer les colonnes non nécessaires
+                df = df.drop(columns=['adr', 'lat', 'long'], errors='ignore')
+
+                # Remplacer les valeurs NaN par -1
+                for col in ['circ', 'vosp', 'prof', 'pr', 'pr1', 'plan', 'surf', 'infra', 'situ']:
+                    if col in df.columns:
+                        df[col] = df[col].fillna(-1)
+                
+                # Remplacer les valeurs NaN et 0 par -1 pour 'lartpc'
+                if 'lartpc' in df.columns:
+                    df['lartpc'] = df['lartpc'].replace(0, -1).fillna(-1)
+                
+                # Remplacer les valeurs NaN et > 130 par -1 pour 'vma'
+                if 'vma' in df.columns:
+                    df.loc[df['vma'] > 130, 'vma'] = -1
+                    df['vma'] = df['vma'].fillna(-1)
+                    
+                # Supprimer les colonnes 'voie', 'v1', 'v2', 'larrout'
+                df = df.drop(columns=['voie', 'v1', 'v2', 'larrout'], errors='ignore')
+
+                # Remplacer les valeurs NaN par -1
+                for col in ['place', 'catu', 'grav', 'sexe', 'trajet', 'secu1', 'secu2', 'secu3', 'locp', 'actp', 'etatp']:
+                    if col in df.columns:
+                        df[col] = df[col].fillna(-1)
+                
+                # Remplacer les valeurs 4 par -1 pour 'catu'
+                if 'catu' in df.columns:
+                    df['catu'] = df['catu'].replace(4, -1)
+                
+                # Gérer les outliers pour 'an_nais'
+                if 'an_nais' in df.columns:
+                    df.loc[:, 'an_nais'] = df['an_nais'].apply(lambda x: pd.NA if x < 1900 else x)
+
+                for col in ['senc', 'obs', 'obsm', 'choc', 'manv', 'motor']:
+                    if col in df.columns:
+                        df[col] = df[col].fillna(-1)
+                
+                # Remplacer les valeurs NaN par 0 pour 'catv'
+                if 'catv' in df.columns:
+                    df['catv'] = df['catv'].fillna(0)
+                
+                # Supprimer la colonne 'occutc'
+                df = df.drop(columns=['occutc'], errors='ignore')
             
-            if option == 'preprocessing basique':
-                # Prétraitement des données
-                with st.expander(f"Prétraitement des données"):     
+                for col in df.columns:
+                    if df[col].dtype == np.float64 or df[col].dtype == np.int64:
+                        df.loc[:, col] = df[col].fillna(-1)
+
+                # Gestion des cas particuliers
+                if 'lartpc' in df.columns:
+                    df.loc[:, 'lartpc'] = df['lartpc'].replace(0, -1).fillna(-1)
+                if 'catu' in df.columns:
+                    df.loc[:, 'catu'] = df['catu'].replace(4, -1)
+                if 'an_nais' in df.columns:
+                    df.loc[:, 'an_nais'] = df['an_nais'].apply(lambda x: pd.NA if x < 1900 else x)
+                
+            # Vérification des NaN dans le DataFrame final
+            #def check_nan_presence(df):
+                #with st.expander("Vérification des valeurs manquantes"):  
+
+                    #nan_columns = df.columns[df.isna().any()].tolist()
+                    #if nan_columns:
+                        #nan_proportions = df[nan_columns].isna().mean() * 100
+                        #for col, prop in nan_proportions.items():
+                            #st.write(f"Colonne '{col}' contient {prop:.2f}% de NaN.")
+                    #else:
+                        #st.write("Aucune colonne ne contient de NaN.")
+            
+            #check_nan_presence(df)
+
+            # Vérification du nombre de valeurs uniques dans chaque colonne après fusion
+            #def check_nunique(df):
+                #with st.expander("Vérification du nombre de valeurs uniques"):
+
+                    #unique_proportions = df.nunique()
+                    #for col, prop in unique_proportions.items():
+                        #st.write(f"Colonne '{col}' a {prop} valeurs uniques.")
+
+            #check_nunique(df)
+
+            # Prétraitement final après fusion
+            def preprocessing_final_dataframe(df):
+                with st.expander("Vérification des types de données finaux"):
+
+                    # Supprimer les colonnes
+                    df = df.drop(columns=['id_usager', 'Num_Acc', 'com', 'id_vehicule', 'num_veh','lartpc'])
                     
-                    # Renommer 'Accident_Id' en 'Num_Acc' si nécessaire
-                    if 'Accident_Id' in df.columns:
-                        df = df.rename(columns={'Accident_Id': 'Num_Acc'})
-                        
-                    # Ajouter 2000 à 'an' si < 2000
-                    if 'an' in df.columns:
-                        df.loc[:, 'an'] = df['an'].apply(lambda x: x + 2000 if x < 2000 else x)
-                    
-                    # Convertir 'hrmn' de 'HHMM' à 'HH:MM'
+                    # Modifier la colonne 'hrmn' en 'hour' et la passer du format HH:MM au format HH
                     if 'hrmn' in df.columns:
-                        df.loc[:, 'hrmn'] = df['hrmn'].apply(lambda x: f"{str(x).zfill(4)[:2]}:{str(x).zfill(4)[2:]}")
+                        df['hour'] = df['hrmn'].str[:2].astype(int)
+                        df = df.drop(columns=['hrmn'])
                     
-                    # Remplacer les valeurs NaN par -1
-                    for col in ['lum', 'int', 'atm', 'col']:
-                        if col in df.columns:
-                            df[col] = df[col].fillna(-1)
-                    
-                    # Supprimer les colonnes non nécessaires
-                    df = df.drop(columns=['adr', 'lat', 'long'], errors='ignore')
-
-                    # Remplacer les valeurs NaN par -1
-                    for col in ['circ', 'vosp', 'prof', 'pr', 'pr1', 'plan', 'surf', 'infra', 'situ']:
-                        if col in df.columns:
-                            df[col] = df[col].fillna(-1)
-                    
-                    # Remplacer les valeurs NaN et 0 par -1 pour 'lartpc'
-                    if 'lartpc' in df.columns:
-                        df['lartpc'] = df['lartpc'].replace(0, -1).fillna(-1)
-                    
-                    # Remplacer les valeurs NaN et > 130 par -1 pour 'vma'
-                    if 'vma' in df.columns:
-                        df.loc[df['vma'] > 130, 'vma'] = -1
-                        df['vma'] = df['vma'].fillna(-1)
-                        
-                    # Supprimer les colonnes 'voie', 'v1', 'v2', 'larrout'
-                    df = df.drop(columns=['voie', 'v1', 'v2', 'larrout'], errors='ignore')
-
-                    # Remplacer les valeurs NaN par -1
-                    for col in ['place', 'catu', 'grav', 'sexe', 'trajet', 'secu1', 'secu2', 'secu3', 'locp', 'actp', 'etatp']:
-                        if col in df.columns:
-                            df[col] = df[col].fillna(-1)
-                    
-                    # Remplacer les valeurs 4 par -1 pour 'catu'
-                    if 'catu' in df.columns:
-                        df['catu'] = df['catu'].replace(4, -1)
-                    
-                    # Gérer les outliers pour 'an_nais'
+                    # Remplacer les valeurs manquantes de 'an_nais' par le mode de la colonne
                     if 'an_nais' in df.columns:
-                        df.loc[:, 'an_nais'] = df['an_nais'].apply(lambda x: pd.NA if x < 1900 else x)
+                        mode_an_nais = df['an_nais'].mode()[0]
+                        df['an_nais'] = df['an_nais'].fillna(mode_an_nais).astype(int)
 
-                    for col in ['senc', 'obs', 'obsm', 'choc', 'manv', 'motor']:
-                        if col in df.columns:
-                            df[col] = df[col].fillna(-1)
-                    
-                    # Remplacer les valeurs NaN par 0 pour 'catv'
-                    if 'catv' in df.columns:
-                        df['catv'] = df['catv'].fillna(0)
-                    
-                    # Supprimer la colonne 'occutc'
-                    df = df.drop(columns=['occutc'], errors='ignore')
-                
-                    for col in df.columns:
-                        if df[col].dtype == np.float64 or df[col].dtype == np.int64:
-                            df.loc[:, col] = df[col].fillna(-1)
+                    #st.write("- Supression de colonnes : 'id_usager', 'Num_Acc', 'com', 'id_vehicule', 'num_veh','lartpc'")
+                    #st.write("- Modification du format de la colonne 'hrmn'")
+                    #st.write("- Remplacement des valeurs manquantes de 'an_nais' par le mode de la colonne")
+                    #st.write(df.shape)
 
-                    # Gestion des cas particuliers
-                    if 'lartpc' in df.columns:
-                        df.loc[:, 'lartpc'] = df['lartpc'].replace(0, -1).fillna(-1)
-                    if 'catu' in df.columns:
-                        df.loc[:, 'catu'] = df['catu'].replace(4, -1)
-                    if 'an_nais' in df.columns:
-                        df.loc[:, 'an_nais'] = df['an_nais'].apply(lambda x: pd.NA if x < 1900 else x)
+                return df
+            
+            # Encodage du dataframe
+            def encode_dataframe(df):
+                dummy_columns = ['lum', 'agg', 'int', 'atm', 'col', 'catr', 'circ', 'prof', 'place', 'catu', 'sexe', 
+                                'trajet', 'secu1', 'secu2', 'secu3', 'locp', 'actp', 'etatp', 'senc', 'catv', 'obs', 
+                                'obsm', 'choc', 'manv', 'motor', 'plan', 'surf','an','infra','dep','situ','vosp']
+                df = pd.get_dummies(df, columns=dummy_columns, drop_first= True)
 
-                    
-                    st.write("- Renommage de la variable 'Accident_Id' en 'Num_Acc'")
-                    st.write("- Conversion de 'HHMM' à 'HH:MM'")
-                    st.write("- Remplacement des valeurs NaN")
-                    st.write("- Suppression de colonnes non nécessaires")
-                    st.write("- Gestion des outliers pour 'an_nais'")
-                    st.write("- ...")
-                    st.write("Extrait du DataFrame :")   
-                    st.write(df.head())
-                    st.write(df.shape)
+                return df
+                            
+            # Lancement du processus final
+            df = preprocessing_final_dataframe(df)
+            
+            final_merged_df = encode_dataframe(df)
 
-                # Vérification des NaN dans le DataFrame final
-                def check_nan_presence(df):
-                    with st.expander("Vérification des valeurs manquantes"):  
+            #with st.expander("Dataframe prétraité"):
+                #st.write(f"Nombre de valeurs nulles : {final_merged_df.isnull().sum().sum()}")
+                #st.write("Extrait du DataFrame :")
+                #st.write(final_merged_df.head())
+                #st.write(final_merged_df.shape)
+            
+            with st.expander("Colonnes 'objet' restantes"):
+                # Repérage des colonnes 'objet' restantes
+                object_columns = final_merged_df.select_dtypes(include=['object']).columns
+                #st.write("Nombre de colonnes objet restantes:", len(object_columns))
+                #st.write("Liste de colonnes objet restantes:", list(object_columns))
 
-                        nan_columns = df.columns[df.isna().any()].tolist()
-                        if nan_columns:
-                            nan_proportions = df[nan_columns].isna().mean() * 100
-                            for col, prop in nan_proportions.items():
-                                st.write(f"Colonne '{col}' contient {prop:.2f}% de NaN.")
-                        else:
-                            st.write("Aucune colonne ne contient de NaN.")
-                
-                check_nan_presence(df)
-
-                # Vérification du nombre de valeurs uniques dans chaque colonne après fusion
-                def check_nunique(df):
-                    with st.expander("Vérification du nombre de valeurs uniques"):
-
-                        unique_proportions = df.nunique()
-                        for col, prop in unique_proportions.items():
-                            st.write(f"Colonne '{col}' a {prop} valeurs uniques.")
-
-                check_nunique(df)
-
-                # Prétraitement final après fusion
-                def preprocessing_final_dataframe(df):
-                    with st.expander("Vérification des types de données finaux"):
-
-                        # Supprimer les colonnes
-                        df = df.drop(columns=['id_usager', 'Num_Acc', 'com', 'id_vehicule', 'num_veh','lartpc'])
-                        
-                        # Modifier la colonne 'hrmn' en 'hour' et la passer du format HH:MM au format HH
-                        if 'hrmn' in df.columns:
-                            df['hour'] = df['hrmn'].str[:2].astype(int)
-                            df = df.drop(columns=['hrmn'])
-                        
-                        # Remplacer les valeurs manquantes de 'an_nais' par le mode de la colonne
-                        if 'an_nais' in df.columns:
-                            mode_an_nais = df['an_nais'].mode()[0]
-                            df['an_nais'] = df['an_nais'].fillna(mode_an_nais).astype(int)
-
-                        st.write("- Supression de colonnes : 'id_usager', 'Num_Acc', 'com', 'id_vehicule', 'num_veh','lartpc'")
-                        st.write("- Modification du format de la colonne 'hrmn'")
-                        st.write("- Remplacement des valeurs manquantes de 'an_nais' par le mode de la colonne")
-                        st.write(df.shape)
-
-                    return df
-                
-                # Encodage du dataframe
-                def encode_dataframe(df):
-                    dummy_columns = ['lum', 'agg', 'int', 'atm', 'col', 'catr', 'circ', 'prof', 'place', 'catu', 'sexe', 
-                                    'trajet', 'secu1', 'secu2', 'secu3', 'locp', 'actp', 'etatp', 'senc', 'catv', 'obs', 
-                                    'obsm', 'choc', 'manv', 'motor', 'plan', 'surf','an','infra','dep','situ','vosp']
-                    df = pd.get_dummies(df, columns=dummy_columns, drop_first= True)
-
-                    return df
-                              
-                # Lancement du processus final
-                df = preprocessing_final_dataframe(df)
-                
-                final_merged_df = encode_dataframe(df)
-
-                with st.expander("Dataframe prétraité"):
-                    st.write(f"Nombre de valeurs nulles : {final_merged_df.isnull().sum().sum()}")
-                    st.write("Extrait du DataFrame :")
-                    st.write(final_merged_df.head())
-                    st.write(final_merged_df.shape)
-
-                
-                with st.expander("Colonnes 'objet' restantes"):
-                    # Repérage des colonnes 'objet' restantes
-                    object_columns = final_merged_df.select_dtypes(include=['object']).columns
-                    st.write("Nombre de colonnes objet restantes:", len(object_columns))
-                    st.write("Liste de colonnes objet restantes:", list(object_columns))
-
-                    # Boucle de modification des colonnes 'objet' restantes
-                    st.write("Transformation des colonnes 'objet' en 'int'")
-                    for column in object_columns:
+                # Boucle de modification des colonnes 'objet' restantes
+                #st.write("Transformation des colonnes 'objet' en 'int'")
+                for column in object_columns:
+                    try:
+                        final_merged_df[column] = final_merged_df[column].astype('int64')
+                    except ValueError:
                         try:
+                            final_merged_df = final_merged_df[pd.to_numeric(final_merged_df[column], errors='coerce').notnull()]
                             final_merged_df[column] = final_merged_df[column].astype('int64')
                         except ValueError:
-                            try:
-                                final_merged_df = final_merged_df[pd.to_numeric(final_merged_df[column], errors='coerce').notnull()]
-                                final_merged_df[column] = final_merged_df[column].astype('int64')
-                            except ValueError:
-                                st.warning(f"Impossible de convertir la colonne '{column}' en entier.")
-                
-                    # Affichage de la nouvelle dimension du dataframe
-                    st.write("Nouveau shape du dataframe:", final_merged_df.shape)
+                            st.warning(f"Impossible de convertir la colonne '{column}' en entier.")
 
-                # Sauvegarde du DataFrame prétraité
-                st.download_button("💾 Télécharger le DataFrame final", final_merged_df.to_csv(index=False).encode('utf-8'), "basic_processing.csv", "text/csv", key='download-csv')            
-
-
-            elif option == 'preprocessing avancé':
-                def preprocess_data(df):
-                    st.header('1. Fusion des DataFrames')
-                    
-                    with st.expander("1.1 Fusion des DataFrames"):
-                        # La fusion des DataFrames se fait dans la fonction load_and_merge_dataframes
-                        st.write("Extrait du DataFrame fusionné :")
-                        st.write(df.head())
-                        st.write(df.shape)
-
-                    st.header('2. Prétraitement des données')
-                
-                    with st.expander("2.1 Suppression d'observations avec gravité inconnue"):
-                        # Suppression des observations avec gravité inconnue
-                        n_initial = len(df)
-                        df = df[df['grav'] != -1]
-                        n_final = len(df)
-                        st.write(f"{n_initial - n_final} lignes supprimées")
-                        st.write(df.shape)
-
-                    with st.expander("2.2 Création de variables"):
-                        c_initial = df.shape[1]
-
-                        # Création de la variable 'jsem' (jour de la semaine)
-                        df_date = df[["an", "mois", "jour"]]
-                        df_date = df_date.rename({"an": "year", "mois": "month", "jour": "day"}, axis=1)
-                        df_date["ts"] = pd.to_datetime(df_date)
-                        df_date["jsem"] = df_date.ts.apply(lambda x: x.weekday()+1)
-                        df["jsem"] = df_date.jsem
-                        df_date = None
-                                    
-                        # Création de la variable 'ferie'
-                        df['ferie'] = False
-                        jours_feries = [((1, 1), "Jour de l'an"), ((1, 5), "Fête du travail"), ((8, 5), "Victoire 1945"),
-                                    ((14, 7), "Fête nationale"), ((15, 8), "Assomption"), ((1, 11), "Toussaint"),
-                                    ((11, 11), "Armistice"), ((25, 12), "Noël")]
-                        for (mois, jour), nom in jours_feries:
-                            df.loc[(df['mois'] == mois) & (df['jour'] == jour), 'ferie'] = True
-                        
-                        # Calcul de la variable 'age'
-                        df['age'] = df['an'].astype(float) - df['an_nais'].astype(float)
-                        df.loc[df['age'] < 0, 'age'] = -1
-
-                        c_final = df.shape[1]
-
-                        st.write("- 'jsem' (jour de la semaine)")
-                        st.write("- 'ferie' (jour férié)")
-                        st.write("- 'age' (âge)")
-
-                        st.write(f"{c_final - c_initial} colonnes créées")
-                        st.write(df.shape)
-
-                    # Nettoyage préalable des variables catégorielles
-                    variables_a_nettoyer = ['secu1', 'secu2', 'secu3', 'sexe', 'nbv', 'surf',
-                                            'agg', 'grav', 'catv', 'choc', 'circ', 'col', 'etatp',
-                                            'infra', 'int', 'locp', 'lum', 'manv', 'motor', 
-                                            'obs', 'obsm', 'place', 'plan', 'prof', 'senc', 
-                                            'situ', 'trajet', 'vosp']
-
-                    for var in variables_a_nettoyer:
-                        if var in df.columns:  # Vérifier si la variable existe
-                            df[var] = (df[var].astype(str).str.strip().str.replace(r'\s+', ''))
-                            
-                    with st.expander("2.3 Dichotomisation de variables sans fonction"):
-                        c_initial = df.shape[1]
-
-                        # Dichotomisation des équipements de sécurité
-                        for equip in ['ceinture', 'casque', 'dispenfant', 'gilet', 'airbag23RM', 'gants']:
-                            df[f'secu_{equip}'] = False
-                        for i in range(1, 4):
-                            col = f'secu{i}'
-                            if col in df.columns:
-                                df.loc[df[col] == 1, 'secu_ceinture'] = True
-                                df.loc[df[col] == 2, 'secu_casque'] = True
-                                df.loc[df[col] == 3, 'secu_dispenfant'] = True
-                                df.loc[df[col] == 4, 'secu_gilet'] = True
-                                df.loc[df[col].isin([5, 7]), 'secu_airbag23RM'] = True
-                                df.loc[df[col].isin([6, 7]), 'secu_gants'] = True
-                        
-                        # Catégorisation de l'âge
-                        df['age_enfant'] = (df['age'] >= 0) & (df['age'] <= 15)
-                        df['age_jeune'] = (df['age'] > 15) & (df['age'] <= 25)
-                        df['age_adulte'] = (df['age'] > 25) & (df['age'] <= 64)
-                        df['age_3age'] = (df['age'] > 64)
-                        
-                        # Dichotomisation de la période de la journée
-                        df['hrmn'] = df['hrmn'].astype(str).str.zfill(4)
-                        df['hr_matin'] = (df['hrmn'] >= "0600") & (df['hrmn'] < "1200")
-                        df['hr_midi'] = (df['hrmn'] >= "1200") & (df['hrmn'] < "1400")
-                        df['hr_am'] = (df['hrmn'] >= "1400") & (df['hrmn'] < "1800")
-                        df['hr_soir'] = (df['hrmn'] >= "1800") & (df['hrmn'] < "2100")
-                        df['hr_nuit'] = (df['hrmn'] >= "2100") | (df['hrmn'] < "0600")
-
-                        # Dichotomisation du sexe
-                        df["sexe_m"] = df.sexe == '1'
-                        df["sexe_f"] = df.sexe == '2'
-
-                        # Dichotomisation de la gravité
-                        df["grav_grave"]       = df.grav.isin(["2", "3"])
-
-                        # Dichotomisation du nombre de voies de circulation avec regroupement
-                        df["nbv_1"]    = df.nbv == '1'
-                        df["nbv_2"]    = df.nbv == '2'
-                        df["nbv_3"]    = df.nbv == '3'
-                        df["nbv_4"]    = df.nbv == '4'
-                        df["nbv_plus"] = df.nbv.isin(['5', '6', '7', '8', '9', '10','11', '12'])
-
-                        # Dichotomisation de l'état de la surface
-                        df["surf_norm"]  = df.surf == '1'
-                        df["surf_mouil"] = df.surf == '2'
-                        df["surf_gliss"] = df.surf.isin(['3', '4', '5', '6', '7', '8', '9'])
-                        df["surf_autre"] = df.surf == '9'
-
-                        # Dichotomisation de la vitesse maximale autorisée
-                        vma_int = df.vma.astype(int)
-                        df["vma_30m"] = vma_int.isin([10, 20, 30])
-                        df["vma_40"]  = vma_int == 40
-                        df["vma_50"]  = vma_int == 50
-                        df["vma_60"]  = vma_int == 60
-                        df["vma_70"]  = vma_int == 70
-                        df["vma_80"]  = vma_int == 80
-                        df["vma_90"]  = vma_int == 90
-                        df["vma_110"] = vma_int == 110
-                        df["vma_130"] = vma_int == 130
-
-                        # agg : En ou hors agglomération
-                        df['agg_agg'] = df.agg == '1'
-                    
-                        c_final = df.shape[1]
-
-                        st.write("- Equipements de sécurité ('ceinture', 'casque', 'dispenfant', 'gilet', 'airbag23RM', 'gants'')")
-                        st.write("- Âge ('age_enfant', 'age_jeune', 'age_adulte', 'age_3age')")
-                        st.write("- Créneau horaire ('hr_matin', 'hr_midi', 'hr_am', 'hr_soir', 'hr_nuit')")
-                        st.write("- Sexe ('sexe_m', 'sexe_f')")
-                        st.write("- Gravité ('grav_grave')")
-                        st.write("- Nombre de voies de circulation ('nbv_1', 'nbv_2', 'nbv_3', 'nbv_4', 'nbv_plus')")
-                        st.write("- Etat de la surface ('surf_norm', 'surf_mouil', 'surf_gliss', 'surf_autre')")
-                        st.write("- En ou hors agglomération ('agg')")    
-
-                        st.write(f"{c_final - c_initial} colonnes créées")
-                        st.write(df.shape)
-
-                
-                    with st.expander('2.4 Dichotomisation de variables avec fonction'):
-                        c_initial = df.shape[1]
-
-                        # Initialisation de desc_vars
-                        desc_vars = {"columns": []}
-
-                        # Initialisation de la liste des variables écartées
-                        var_ecartees = []
-                
-                        # Fonction de dichotomisation
-                        def dichotomisation (df, column, var_ecartees, desc_vars=None, dummies=None, mod_ecartees = None):
-                            """
-                            Cette fonction fait la dichotomisation des seules modalités de la
-                            liste fournie par dummies. Elle permet de ne pas dichotomiser les
-                            modalités : "non renseigné", "Autre", "Non applicable", ...
-                            Elle utilise si possible les infos de desc_vars pour nommer les colonnes.
-                            et elle complète desc_vars.
-                            """
-                            try :
-                                desc_vars = desc_vars.get("columns")
-                                col_desc = {}
-                                for c in desc_vars :
-                                    if c.get("name") == column:
-                                        col_desc = c
-                                        break
-                            except :
-                                col_desc = {}
-
-                            if dummies is None:
-                                dum = list(df[column].unique())
-                            else:
-                                dum = dummies
-                            if mod_ecartees is not None:
-                                dum = [x for x in dum if x not in mod_ecartees]
-                            print()
-                            
-                            # Pour chaque variable correspondant à une modalité
-                            for c in dum: # c : modalité
-                                
-                                # Le nom de la nvle variable est le nom de la var. et la modalité
-                                new_col_name = column + "_" + str(c)
-                                
-                                # Création de la nouvelle variable (colonne)
-                                df[new_col_name] = df[column] == c
-                                
-                                # Recherche d'une description existante dans la liste des descriptions
-                                # les descriptions sont dans un tableau qu'il faut adresser avec un entier
-                                desc_new_col = None
-                                for ic in range(len(desc_vars)):
-                                    if desc_vars[ic].get("name") == new_col_name:
-                                        desc_new_col = desc_vars[ic]
-                                        break
-                                    
-                                if desc_new_col is None:
-                                    desc_new_col = {}
-                                    desc_new_col["name"] = new_col_name
-                                    desc_new_col["dtype"] = "bool"
-                                    values = col_desc.get("values")
-                                    if values is not None and values.get(c) is not None:
-                                        desc_new_col["label"] = col_desc.get("label") + " : " + values.get(c)
-                                    else :
-                                        desc_new_col["label"] = col_desc.get("label")
-                                    desc_vars.append(desc_new_col)
-
-                            var_ecartees.append ((column, "Dichotomisation"))           
-                            return
-                        
-                        # actp : action du piéton
-                        dummies = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B']
-                        dichotomisation(df, "actp", var_ecartees, desc_vars, dummies = dummies)
-
-                        # atm : Conditions atmosphériques
-                        dummies = ['1', '2', '3', '4', '5', '6', '7', '8']
-                        dichotomisation(df, "atm", var_ecartees, desc_vars, dummies = dummies)
-
-                        # catr : Catégorie de route
-                        dummies = ['1', '2', '3', '4', '5', '6', '7']
-                        dichotomisation(df, "catr", var_ecartees, desc_vars, dummies = dummies)
-
-                        # catu : Catégorie d'usager
-                        dummies = ['1', '2', '3']
-                        dichotomisation(df, "catu", var_ecartees, desc_vars, dummies = dummies)
-
-                        # catv : Catégorie de véhicule
-                        dichotomisation(df, "catv", var_ecartees, desc_vars, dummies = None, mod_ecartees=[0, -1, '-1', ' -1'])
-
-                        # choc : Point de choc initial
-                        dichotomisation(df, "choc", var_ecartees, desc_vars, dummies = None, mod_ecartees=[0, '0', -1, '-1', ' -1'])
-
-                        # circ : Circulation
-                        dichotomisation(df, "circ", var_ecartees, desc_vars, dummies = None, mod_ecartees=[-1, '-1', ' -1'])
+            st.write("")
+            with st.expander("Quelques actions réalisées"):
+                st.write("- Renommage de la variable 'Accident_Id' en 'Num_Acc'")
+                st.write("- Conversion de 'HHMM' à 'HH:MM'")
+                st.write("- Remplacement des valeurs NaN par -1 : ['lum', 'int', 'atm', 'col', 'circ', 'vosp', 'prof', 'pr', 'pr1', \
+                        'plan', 'surf', 'infra', 'situ', 'lartpc', 'vma', 'place', 'catu', 'grav', 'sexe', 'trajet', 'secu1', 'secu2', \
+                        'secu3', 'locp', 'actp', 'etatp', 'senc', 'obs', 'obsm', 'choc', 'manv', 'motor']")
+                st.write("- Remplacement des valeurs NaN par 0 : ['catv']")
+                st.write("- Remplacement des valeurs 0 par -1 : ['lartpc']")
+                st.write("- Remplacement des valeurs 4 par -1 : ['catu']")
+                st.write("- Remplacement des valeurs > 130 par -1 : ['vma']")
+                st.write("- Suppression de colonnes : ['adr', 'lat', 'long', 'voie', 'v1', 'v2', 'larrout', occutc, 'id_usager', 'Num_Acc', 'com', 'id_vehicule', 'num_veh', 'lartpc']")
+                st.write("- Gestion des outliers pour 'an_nais'")
+                st.write("- Encode de variables : ['lum', 'agg', 'int', 'atm', 'col', 'catr', 'circ', 'prof', 'place', 'catu', 'sexe', \
+                        'trajet', 'secu1', 'secu2', 'secu3', 'locp', 'actp', 'etatp', 'senc', 'catv', 'obs', 'obsm', 'choc', 'manv', 'motor', \
+                        'plan', 'surf', 'an', 'infra', 'dep', 'situ', 'vosp']")
+                st.write("- Conversion des colonnes 'object' en 'int'")
+                st.write("- ...")
             
-                        # col : Type de collision
-                        dichotomisation(df, "col", var_ecartees, desc_vars, dummies = None, mod_ecartees=[-1, '-1', ' -1'])
+            st.write("")
+            st.write("Extrait du DataFrame :")   
+            st.write(final_merged_df.head(10))
+            
+            # Affichage de la nouvelle dimension du dataframe
+            st.write("Nouveau shape du dataframe:", final_merged_df.shape)
 
-                        # etatp: Piéton seul
-                        dichotomisation(df, "etatp", var_ecartees, desc_vars, dummies = ['1', '2', '3'])
+            st.write("")
+            # Sauvegarde du DataFrame prétraité
+            st.download_button("💾 Télécharger le DataFrame final", final_merged_df.to_csv(index=False).encode('utf-8'), "basic_processing.csv", "text/csv", key='download-csv')            
 
-                        # infra : Aménagement - infrastructure
-                        dichotomisation(df, "infra", var_ecartees, desc_vars, dummies = None, mod_ecartees=[0, '0', -1, '-1', ' -1'])
 
-                        # int : type d'intersection
-                        dichotomisation(df, "int", var_ecartees, desc_vars, dummies = None, mod_ecartees=[-1, '-1', ' -1'])
+        elif option == 'preprocessing avancé':
 
-                        # jsem : Jour de la semaine
-                        dichotomisation(df, "jsem", var_ecartees, desc_vars, dummies = None, mod_ecartees=None)
+            image10 = Image.open("preprocessing_21.png")
+            st.image(image10, caption="Etapes préparatoires du preprocessing avancé", width=600)
 
-                        # locp : Localisation du piéton
-                        dichotomisation(df, "locp", var_ecartees, desc_vars, dummies = None, mod_ecartees = [0, '0', -1, '-1', ' -1'])
-
-                        # lum : Lumière modalité
-                        dichotomisation(df, "lum", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
-
-                        # manv : Manœuvre
-                        dichotomisation(df, "manv", var_ecartees, desc_vars, dummies = None, mod_ecartees = [0, '0', -1, '-1', ' -1'])
-
-                        # mois : Mois
-                        dichotomisation(df, "mois", var_ecartees, desc_vars, dummies = None, mod_ecartees = None)
-
-                        # motor : Motorisation
-                        dichotomisation(df, "motor", var_ecartees, desc_vars, dummies = None, mod_ecartees = [0, '0', -1, '-1', ' -1'])
-
-                        # obs : Obstacle fixe heurté
-                        dichotomisation(df, "obs", var_ecartees, desc_vars, dummies = None, mod_ecartees = [0, '0', -1, '-1', ' -1'])
-
-                        # obsm : Obstacle mobile heurté
-                        dichotomisation(df, "obsm", var_ecartees, desc_vars, dummies = None, mod_ecartees = [0, '0', -1, '-1', ' -1'])
-
-                        # place : Place de l'usager dans le véhicule
-                        dichotomisation(df, "place", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
-
-                        # plan : Tracé en plan
-                        dichotomisation(df, "plan", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
-
-                        # prof : Déclivité
-                        dichotomisation(df, "prof", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
-
-                        # senc : sens de circulation
-                        dichotomisation(df, "senc", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
-
-                        # situ : Situation de l'accident
-                        dichotomisation(df, "situ", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
-
-                        # trajet : Motif du trajet
-                        dichotomisation(df, "trajet", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
-
-                        # vosp : Présence d'une voie réservée
-                        dichotomisation(df, "vosp", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
-
-                        c_final = df.shape[1]
-
-                        st.write("- Action du piéton : 'actp'")
-                        st.write("- Conditions atmosphériques : 'atm'")
-                        st.write("- Catégorie de route : 'catr'")
-                        st.write("- Catégorie d'usager : 'catu'")
-                        st.write("- Catégorie de véhicule : 'catv'")
-                        st.write("- Point de choc initial : 'choc'")
-                        st.write("- Circulation : 'circ'")
-                        st.write("- Type de collision : 'col'")
-                        st.write("- Piéton seul : 'etatp'")
-                        st.write("- Aménagement - infrastructure : 'infra'")
-                        st.write("- Type d'intersection : 'int'")
-                        st.write("- Jour de la semaine : 'jsem'")
-                        st.write("- Localisation du piéton : 'locp'")
-                        st.write("- Lumière modalité : 'lum'")
-                        st.write("- Manoeuvre : 'manv'")
-                        st.write("- Mois : 'mois'")
-                        st.write("- Motorisation : 'motor'")
-                        st.write("- Obstable fixe heurté : 'obs'")
-                        st.write("- Ostable mobile heurté : 'obsm'")
-                        st.write("- Place de l'usager dans le véhicule : 'place'")
-                        st.write("- Tracé en plan : 'plan'")
-                        st.write("- Déclivité : 'prof'")
-                        st.write("- Sens de la circulation : 'senc'")
-                        st.write("- Situation de l'accident : 'situ'")
-                        st.write("- Motif du trajet : 'trajet'")
-                        st.write("- Présence d'une voie réservée : 'vosp'")
-                                
-                        st.write(f"{c_final - c_initial} colonnes créées")
-                        st.write(df.shape)
-                
-
-                    st.header('3. Nettoyage final')
-                    with st.expander("3.1 Suppression des variables"):
-                        # Suppression des variables
-                        var_to_drop = [
-                            'adr', 'an', 'an_nais', 'atm', 'catr', 'com', 'dep', 'grav', 'id_usager', 'id_vehicule',
-                            'jour', 'larrout', 'lartpc', 'lat', 'long', 'lum', 'Num_Acc', 'num_veh', 'occutc', 'pr', 
-                            'pr1', 'secu1', 'secu2', 'secu3', 'surf', 'voie', 'v1', 'v2',
-                            
-                            'actp', 'age', 'agg', 'catu', 'catv', 'choc', 'circ', 'col', 'etatp', 'hrmn',
-                            'infra', 'int', 'jsem', 'locp', 'manv', 'mois', 'motor', 'nbv', 'obs', 'obsm', 
-                            'place', 'plan', 'place', 'plan', 'prof', 'senc', 'sexe', 'situ', 'trajet', 'vma', 
-                            'vosp']
-                        
-                        st.session_state.df_shape = len(var_to_drop)
-                        st.write(f"Nombre de variables supprimées :", st.session_state.df_shape)
-                        df = df.drop(columns=var_to_drop)
-                        st.write("Nombre de colonnes restantes :", df.shape[1])
-
-                    with st.expander("3.2 Suppression des doublons"):
-                        # Suppression des doublons
-                        n_before = len(df)
-                        df = df.drop_duplicates()
-                        n_after = len(df)
-                        st.write(f"Nombre de doublons supprimés : {n_before - n_after}")
-                        st.write("Nombre de lignes restantes :", df.shape[0])
-
-                    st.write(df.shape)
+            with st.expander("Voir un extrait du DataFrame fusionné"):
                     st.write(df.head())
+                    st.write(df.shape)
 
-                    st.header('4. Équilibrage et finalisation')
-                    with st.expander("4.1 Répartition des modalités 'grav'"):
-                        st.write("Répartition des modalités avant réduction :")
-                        st.write(df.value_counts("grav_grave"))
-                        st.write(f"total : {df.shape[0]:6d}")
-                        X = df.drop("grav_grave", axis = 1)
-                        y = df.grav_grave
-                        rus = RandomUnderSampler(random_state = 8421)
-                        X, y = rus.fit_resample(X, y)
-                        df = pd.concat([X, y], axis = 1)
-                        st.write("Répartition des modalités après réduction :")
-                        st.write(df.value_counts("grav_grave"))
-                        st.write(f"total : {df.shape[0]:6d}")
-
-                    st.header('5. Résultat final')
-                    
-                    if st.checkbox("Afficher le DataFrame final"):
-                        st.dataframe(df)
-                    
-                    st.download_button("💾 Télécharger le DataFrame final", df.to_csv(index=False).encode('utf-8'), "advanced_processing.csv", "text/csv", key='download-csv')
+            def preprocess_data(df):
+                #st.header('1. Fusion des DataFrames')
                 
-                preprocess_data(df)
+                #with st.expander("Voir un extrait du DataFrame fusionné"):
+                    # La fusion des DataFrames se fait dans la fonction load_and_merge_dataframes
+                    #st.write("Extrait du DataFrame fusionné :")
+                    #st.write(df.head())
+                    #st.write(df.shape)
 
-        except Exception as e:
-            st.error(f"Une erreur s'est produite : {str(e)}")
-            st.exception(e)
+                #st.header('2. Prétraitement des données')
+            
+                with st.expander("2.1 Suppression d'observations avec gravité inconnue"):
+                    # Suppression des observations avec gravité inconnue
+                    n_initial = len(df)
+                    df = df[df['grav'] != -1]
+                    n_final = len(df)
+                    #st.write(f"{n_initial - n_final} lignes supprimées")
+                    #st.write(df.shape)
+
+                with st.expander("2.2 Création de variables"):
+                    c_initial = df.shape[1]
+
+                    # Création de la variable 'jsem' (jour de la semaine)
+                    df_date = df[["an", "mois", "jour"]]
+                    df_date = df_date.rename({"an": "year", "mois": "month", "jour": "day"}, axis=1)
+                    df_date["ts"] = pd.to_datetime(df_date)
+                    df_date["jsem"] = df_date.ts.apply(lambda x: x.weekday()+1)
+                    df["jsem"] = df_date.jsem
+                    df_date = None
+                                
+                    # Création de la variable 'ferie'
+                    df['ferie'] = False
+                    jours_feries = [((1, 1), "Jour de l'an"), ((1, 5), "Fête du travail"), ((8, 5), "Victoire 1945"),
+                                ((14, 7), "Fête nationale"), ((15, 8), "Assomption"), ((1, 11), "Toussaint"),
+                                ((11, 11), "Armistice"), ((25, 12), "Noël")]
+                    for (mois, jour), nom in jours_feries:
+                        df.loc[(df['mois'] == mois) & (df['jour'] == jour), 'ferie'] = True
+                    
+                    # Calcul de la variable 'age'
+                    df['age'] = df['an'].astype(float) - df['an_nais'].astype(float)
+                    df.loc[df['age'] < 0, 'age'] = -1
+
+                    c_final = df.shape[1]
+
+                    #st.write("- 'jsem' (jour de la semaine)")
+                    #st.write("- 'ferie' (jour férié)")
+                    #st.write("- 'age' (âge)")
+
+                    #st.write(f"{c_final - c_initial} colonnes créées")
+                    #st.write(df.shape)
+
+                # Nettoyage préalable des variables catégorielles
+                variables_a_nettoyer = ['secu1', 'secu2', 'secu3', 'sexe', 'nbv', 'surf',
+                                        'agg', 'grav', 'catv', 'choc', 'circ', 'col', 'etatp',
+                                        'infra', 'int', 'locp', 'lum', 'manv', 'motor', 
+                                        'obs', 'obsm', 'place', 'plan', 'prof', 'senc', 
+                                        'situ', 'trajet', 'vosp']
+
+                for var in variables_a_nettoyer:
+                    if var in df.columns:  # Vérifier si la variable existe
+                        df[var] = (df[var].astype(str).str.strip().str.replace(r'\s+', ''))
+                        
+                with st.expander("2.3 Dichotomisation de variables sans fonction"):
+                    c_initial = df.shape[1]
+
+                    # Dichotomisation des équipements de sécurité
+                    for equip in ['ceinture', 'casque', 'dispenfant', 'gilet', 'airbag23RM', 'gants']:
+                        df[f'secu_{equip}'] = False
+                    for i in range(1, 4):
+                        col = f'secu{i}'
+                        if col in df.columns:
+                            df.loc[df[col] == 1, 'secu_ceinture'] = True
+                            df.loc[df[col] == 2, 'secu_casque'] = True
+                            df.loc[df[col] == 3, 'secu_dispenfant'] = True
+                            df.loc[df[col] == 4, 'secu_gilet'] = True
+                            df.loc[df[col].isin([5, 7]), 'secu_airbag23RM'] = True
+                            df.loc[df[col].isin([6, 7]), 'secu_gants'] = True
+                    
+                    # Catégorisation de l'âge
+                    df['age_enfant'] = (df['age'] >= 0) & (df['age'] <= 15)
+                    df['age_jeune'] = (df['age'] > 15) & (df['age'] <= 25)
+                    df['age_adulte'] = (df['age'] > 25) & (df['age'] <= 64)
+                    df['age_3age'] = (df['age'] > 64)
+                    
+                    # Dichotomisation de la période de la journée
+                    df['hrmn'] = df['hrmn'].astype(str).str.zfill(4)
+                    df['hr_matin'] = (df['hrmn'] >= "0600") & (df['hrmn'] < "1200")
+                    df['hr_midi'] = (df['hrmn'] >= "1200") & (df['hrmn'] < "1400")
+                    df['hr_am'] = (df['hrmn'] >= "1400") & (df['hrmn'] < "1800")
+                    df['hr_soir'] = (df['hrmn'] >= "1800") & (df['hrmn'] < "2100")
+                    df['hr_nuit'] = (df['hrmn'] >= "2100") | (df['hrmn'] < "0600")
+
+                    # Dichotomisation du sexe
+                    df["sexe_m"] = df.sexe == '1'
+                    df["sexe_f"] = df.sexe == '2'
+
+                    # Dichotomisation de la gravité
+                    df["grav_grave"]       = df.grav.isin(["2", "3"])
+
+                    # Dichotomisation du nombre de voies de circulation avec regroupement
+                    df["nbv_1"]    = df.nbv == '1'
+                    df["nbv_2"]    = df.nbv == '2'
+                    df["nbv_3"]    = df.nbv == '3'
+                    df["nbv_4"]    = df.nbv == '4'
+                    df["nbv_plus"] = df.nbv.isin(['5', '6', '7', '8', '9', '10','11', '12'])
+
+                    # Dichotomisation de l'état de la surface
+                    df["surf_norm"]  = df.surf == '1'
+                    df["surf_mouil"] = df.surf == '2'
+                    df["surf_gliss"] = df.surf.isin(['3', '4', '5', '6', '7', '8', '9'])
+                    df["surf_autre"] = df.surf == '9'
+
+                    # Dichotomisation de la vitesse maximale autorisée
+                    vma_int = df.vma.astype(int)
+                    df["vma_30m"] = vma_int.isin([10, 20, 30])
+                    df["vma_40"]  = vma_int == 40
+                    df["vma_50"]  = vma_int == 50
+                    df["vma_60"]  = vma_int == 60
+                    df["vma_70"]  = vma_int == 70
+                    df["vma_80"]  = vma_int == 80
+                    df["vma_90"]  = vma_int == 90
+                    df["vma_110"] = vma_int == 110
+                    df["vma_130"] = vma_int == 130
+
+                    # agg : En ou hors agglomération
+                    df['agg_agg'] = df.agg == '1'
+                
+                    c_final = df.shape[1]
+
+                    #st.write("- Equipements de sécurité ('ceinture', 'casque', 'dispenfant', 'gilet', 'airbag23RM', 'gants'')")
+                    #st.write("- Âge ('age_enfant', 'age_jeune', 'age_adulte', 'age_3age')")
+                    #st.write("- Créneau horaire ('hr_matin', 'hr_midi', 'hr_am', 'hr_soir', 'hr_nuit')")
+                    #st.write("- Sexe ('sexe_m', 'sexe_f')")
+                    #st.write("- Gravité ('grav_grave')")
+                    #st.write("- Nombre de voies de circulation ('nbv_1', 'nbv_2', 'nbv_3', 'nbv_4', 'nbv_plus')")
+                    #st.write("- Etat de la surface ('surf_norm', 'surf_mouil', 'surf_gliss', 'surf_autre')")
+                    #st.write("- En ou hors agglomération ('agg')")    
+
+                    #st.write(f"{c_final - c_initial} colonnes créées")
+                    #st.write(df.shape)
+
+            
+                with st.expander('2.4 Dichotomisation de variables avec fonction'):
+                    c_initial = df.shape[1]
+
+                    # Initialisation de desc_vars
+                    desc_vars = {"columns": []}
+
+                    # Initialisation de la liste des variables écartées
+                    var_ecartees = []
+            
+                    # Fonction de dichotomisation
+                    def dichotomisation (df, column, var_ecartees, desc_vars=None, dummies=None, mod_ecartees = None):
+                        """
+                        Cette fonction fait la dichotomisation des seules modalités de la
+                        liste fournie par dummies. Elle permet de ne pas dichotomiser les
+                        modalités : "non renseigné", "Autre", "Non applicable", ...
+                        Elle utilise si possible les infos de desc_vars pour nommer les colonnes.
+                        et elle complète desc_vars.
+                        """
+                        try :
+                            desc_vars = desc_vars.get("columns")
+                            col_desc = {}
+                            for c in desc_vars :
+                                if c.get("name") == column:
+                                    col_desc = c
+                                    break
+                        except :
+                            col_desc = {}
+
+                        if dummies is None:
+                            dum = list(df[column].unique())
+                        else:
+                            dum = dummies
+                        if mod_ecartees is not None:
+                            dum = [x for x in dum if x not in mod_ecartees]
+                        print()
+                        
+                        # Pour chaque variable correspondant à une modalité
+                        for c in dum: # c : modalité
+                            
+                            # Le nom de la nvle variable est le nom de la var. et la modalité
+                            new_col_name = column + "_" + str(c)
+                            
+                            # Création de la nouvelle variable (colonne)
+                            df[new_col_name] = df[column] == c
+                            
+                            # Recherche d'une description existante dans la liste des descriptions
+                            # les descriptions sont dans un tableau qu'il faut adresser avec un entier
+                            desc_new_col = None
+                            for ic in range(len(desc_vars)):
+                                if desc_vars[ic].get("name") == new_col_name:
+                                    desc_new_col = desc_vars[ic]
+                                    break
+                                
+                            if desc_new_col is None:
+                                desc_new_col = {}
+                                desc_new_col["name"] = new_col_name
+                                desc_new_col["dtype"] = "bool"
+                                values = col_desc.get("values")
+                                if values is not None and values.get(c) is not None:
+                                    desc_new_col["label"] = col_desc.get("label") + " : " + values.get(c)
+                                else :
+                                    desc_new_col["label"] = col_desc.get("label")
+                                desc_vars.append(desc_new_col)
+
+                        var_ecartees.append ((column, "Dichotomisation"))           
+                        return
+                    
+                    # actp : action du piéton
+                    dummies = ['1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B']
+                    dichotomisation(df, "actp", var_ecartees, desc_vars, dummies = dummies)
+
+                    # atm : Conditions atmosphériques
+                    dummies = ['1', '2', '3', '4', '5', '6', '7', '8']
+                    dichotomisation(df, "atm", var_ecartees, desc_vars, dummies = dummies)
+
+                    # catr : Catégorie de route
+                    dummies = ['1', '2', '3', '4', '5', '6', '7']
+                    dichotomisation(df, "catr", var_ecartees, desc_vars, dummies = dummies)
+
+                    # catu : Catégorie d'usager
+                    dummies = ['1', '2', '3']
+                    dichotomisation(df, "catu", var_ecartees, desc_vars, dummies = dummies)
+
+                    # catv : Catégorie de véhicule
+                    dichotomisation(df, "catv", var_ecartees, desc_vars, dummies = None, mod_ecartees=[0, -1, '-1', ' -1'])
+
+                    # choc : Point de choc initial
+                    dichotomisation(df, "choc", var_ecartees, desc_vars, dummies = None, mod_ecartees=[0, '0', -1, '-1', ' -1'])
+
+                    # circ : Circulation
+                    dichotomisation(df, "circ", var_ecartees, desc_vars, dummies = None, mod_ecartees=[-1, '-1', ' -1'])
+        
+                    # col : Type de collision
+                    dichotomisation(df, "col", var_ecartees, desc_vars, dummies = None, mod_ecartees=[-1, '-1', ' -1'])
+
+                    # etatp: Piéton seul
+                    dichotomisation(df, "etatp", var_ecartees, desc_vars, dummies = ['1', '2', '3'])
+
+                    # infra : Aménagement - infrastructure
+                    dichotomisation(df, "infra", var_ecartees, desc_vars, dummies = None, mod_ecartees=[0, '0', -1, '-1', ' -1'])
+
+                    # int : type d'intersection
+                    dichotomisation(df, "int", var_ecartees, desc_vars, dummies = None, mod_ecartees=[-1, '-1', ' -1'])
+
+                    # jsem : Jour de la semaine
+                    dichotomisation(df, "jsem", var_ecartees, desc_vars, dummies = None, mod_ecartees=None)
+
+                    # locp : Localisation du piéton
+                    dichotomisation(df, "locp", var_ecartees, desc_vars, dummies = None, mod_ecartees = [0, '0', -1, '-1', ' -1'])
+
+                    # lum : Lumière modalité
+                    dichotomisation(df, "lum", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
+
+                    # manv : Manœuvre
+                    dichotomisation(df, "manv", var_ecartees, desc_vars, dummies = None, mod_ecartees = [0, '0', -1, '-1', ' -1'])
+
+                    # mois : Mois
+                    dichotomisation(df, "mois", var_ecartees, desc_vars, dummies = None, mod_ecartees = None)
+
+                    # motor : Motorisation
+                    dichotomisation(df, "motor", var_ecartees, desc_vars, dummies = None, mod_ecartees = [0, '0', -1, '-1', ' -1'])
+
+                    # obs : Obstacle fixe heurté
+                    dichotomisation(df, "obs", var_ecartees, desc_vars, dummies = None, mod_ecartees = [0, '0', -1, '-1', ' -1'])
+
+                    # obsm : Obstacle mobile heurté
+                    dichotomisation(df, "obsm", var_ecartees, desc_vars, dummies = None, mod_ecartees = [0, '0', -1, '-1', ' -1'])
+
+                    # place : Place de l'usager dans le véhicule
+                    dichotomisation(df, "place", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
+
+                    # plan : Tracé en plan
+                    dichotomisation(df, "plan", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
+
+                    # prof : Déclivité
+                    dichotomisation(df, "prof", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
+
+                    # senc : sens de circulation
+                    dichotomisation(df, "senc", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
+
+                    # situ : Situation de l'accident
+                    dichotomisation(df, "situ", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
+
+                    # trajet : Motif du trajet
+                    dichotomisation(df, "trajet", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
+
+                    # vosp : Présence d'une voie réservée
+                    dichotomisation(df, "vosp", var_ecartees, desc_vars, dummies = None, mod_ecartees = [-1, '-1', ' -1'])
+
+                    c_final = df.shape[1]
+
+                    #st.write("- Action du piéton : 'actp'")
+                    #st.write("- Conditions atmosphériques : 'atm'")
+                    #st.write("- Catégorie de route : 'catr'")
+                    #st.write("- Catégorie d'usager : 'catu'")
+                    #st.write("- Catégorie de véhicule : 'catv'")
+                    #st.write("- Point de choc initial : 'choc'")
+                    #st.write("- Circulation : 'circ'")
+                    #st.write("- Type de collision : 'col'")
+                    #st.write("- Piéton seul : 'etatp'")
+                    #st.write("- Aménagement - infrastructure : 'infra'")
+                    #st.write("- Type d'intersection : 'int'")
+                    #st.write("- Jour de la semaine : 'jsem'")
+                    #st.write("- Localisation du piéton : 'locp'")
+                    #st.write("- Lumière modalité : 'lum'")
+                    #st.write("- Manoeuvre : 'manv'")
+                    #st.write("- Mois : 'mois'")
+                    #st.write("- Motorisation : 'motor'")
+                    #st.write("- Obstable fixe heurté : 'obs'")
+                    #st.write("- Ostable mobile heurté : 'obsm'")
+                    #st.write("- Place de l'usager dans le véhicule : 'place'")
+                    #st.write("- Tracé en plan : 'plan'")
+                    #st.write("- Déclivité : 'prof'")
+                    #st.write("- Sens de la circulation : 'senc'")
+                    #st.write("- Situation de l'accident : 'situ'")
+                    #st.write("- Motif du trajet : 'trajet'")
+                    #st.write("- Présence d'une voie réservée : 'vosp'")
+                            
+                    #st.write(f"{c_final - c_initial} colonnes créées")
+                    #st.write(df.shape)
+            
+
+                #st.header('3. Nettoyage final')
+                with st.expander("3.1 Suppression des variables"):
+                    # Suppression des variables
+                    var_to_drop = [
+                        'adr', 'an', 'an_nais', 'atm', 'catr', 'com', 'dep', 'grav', 'id_usager', 'id_vehicule',
+                        'jour', 'larrout', 'lartpc', 'lat', 'long', 'lum', 'Num_Acc', 'num_veh', 'occutc', 'pr', 
+                        'pr1', 'secu1', 'secu2', 'secu3', 'surf', 'voie', 'v1', 'v2',
+                        
+                        'actp', 'age', 'agg', 'catu', 'catv', 'choc', 'circ', 'col', 'etatp', 'hrmn',
+                        'infra', 'int', 'jsem', 'locp', 'manv', 'mois', 'motor', 'nbv', 'obs', 'obsm', 
+                        'place', 'plan', 'place', 'plan', 'prof', 'senc', 'sexe', 'situ', 'trajet', 'vma', 
+                        'vosp']
+                    
+                    #st.session_state.df_shape = len(var_to_drop)
+                    #st.write(f"Nombre de variables supprimées :", st.session_state.df_shape)
+                    df = df.drop(columns=var_to_drop)
+                    #st.write("Nombre de colonnes restantes :", df.shape[1])
+
+                with st.expander("3.2 Suppression des doublons"):
+                    # Suppression des doublons
+                    n_before = len(df)
+                    df = df.drop_duplicates()
+                    n_after = len(df)
+                    #st.write(f"Nombre de doublons supprimés : {n_before - n_after}")
+                    #st.write("Nombre de lignes restantes :", df.shape[0])
+
+                #st.write(df.shape)
+                #st.write(df.head())
+            
+                st.write("")            
+                image11 = Image.open("preprocessing_22.png")
+                st.image(image11, caption="Etapes préparatoires du preprocessing avancé", width=600)
+        
+                st.subheader('Finalisation')
+                with st.expander("Répartition des modalités 'grav'"):
+                    st.write("Répartition des modalités avant réduction :")
+                    st.write(df.value_counts("grav_grave"))
+                    st.write(f"total : {df.shape[0]:6d}")
+                    X = df.drop("grav_grave", axis = 1)
+                    y = df.grav_grave
+                    rus = RandomUnderSampler(random_state = 8421)
+                    X, y = rus.fit_resample(X, y)
+                    df = pd.concat([X, y], axis = 1)
+                    st.write("Répartition des modalités après réduction :")
+                    st.write(df.value_counts("grav_grave"))
+                    st.write(f"total : {df.shape[0]:6d}")
+
+                #st.header('5. Résultat final')
+                
+                if st.checkbox("Afficher le DataFrame final"):
+                    st.dataframe(df)
+                
+                st.download_button("💾 Télécharger le DataFrame final", df.to_csv(index=False).encode('utf-8'), "advanced_processing.csv", "text/csv", key='download-csv')
+            
+            preprocess_data(df)
+
+            
+            
+
+    except Exception as e:
+        st.error(f"Une erreur s'est produite : {str(e)}")
+        st.exception(e)
 
 ##############################################################################
 #
@@ -880,7 +954,7 @@ if page == pages[2]:
 #
 ##############################################################################
 
-if page == pages[3]:
+if page == pages[4]:
     st.header("Modélisations")
 
     # Choix du type de preprocessing
@@ -1367,7 +1441,7 @@ if page == pages[3]:
 #
 ##############################################################################
 
-if page == pages[4]:
+if page == pages[5]:
     st.header("Prédiction (démo)")
 
 
@@ -1645,7 +1719,7 @@ if page == pages[4]:
                     if prediction[0] == 1:
                         st.error(f"⚠️ Risque élevé d'accident grave (Probabilité : {proba_grave:.1%})")
                     else:
-                        st.success(f"✅ Risque faible d'accident grave (Probabilité : {proba_grave:.1%})")
+                        st.success(f"Risque faible d'accident grave (Probabilité : {proba_grave:.1%})")
 
                 
                 except Exception as e:
