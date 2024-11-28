@@ -3,8 +3,8 @@ import json
 import pandas as pd
 #import numpy as np
 
-from sklearn.decomposition         import PCA
-from sklearn.preprocessing         import StandardScaler
+#from sklearn.decomposition         import PCA
+#from sklearn.preprocessing         import StandardScaler
 
 import seaborn as sns
 import matplotlib.pyplot as plt
@@ -13,6 +13,8 @@ import matplotlib.pyplot as plt
 # import tensorflow as tf
 
 import joblib
+
+import st_demo
 
 rep_raw = "data/raw/"
 rep_processed = "data/processed/"
@@ -27,7 +29,8 @@ pages=["Présentation",      # 0
        "Visualizations",    # 2
        "Preprocessing",     # 3
        "Modélisations",     # 4
-       "Démonstration"]     # 5
+       "Essai SVC",         # 5
+       "Démonstration"]     # 6
 page=st.sidebar.radio("Aller vers", pages)                #
 st.sidebar.write("Erika Méronville\n&\nEmmanuel Gautier")
 
@@ -301,7 +304,14 @@ if page == pages[3]:
 
     if choix_preprocessing == liste_preprocessing[1]:
         st.write(liste_preprocessing[1])
-
+        st.write("""
+    La faible proportion de tués (2,64%) nous incite à regrouper les modalité de la cible
+    en deux modalités "grave" et "non grave", la modalité grave correspond alors au Tués et hospitalisés plus de 24h.
+    La modalité grave est plus équilibrée et représente alors 18% des observations. 
+    Nous décidons d'équilibrer notre jeux de données pour que chaque modalité de la cible soit également représentée
+    en échantillonnant (avec RandomUnderSampler()) les observations "non graves".
+    Cet équilibrage permet aussi de réduire les temps d'entraînement.
+        """)
         with st.expander("Preprocessing") :
             st.image (rep_figures + "preprocessing_21.png")
 
@@ -317,37 +327,76 @@ if page == pages[3]:
 
 if page == pages[4] :
 
+    st.header("Un problème de classification")
     st.write ("""
-    Notre objectif est de déterminer la gravité avec deux modalités : grave ou "non grave".
-    Notre variable cible comporte 4 modalités 
-    C'est un problème de classification binaire. Nous cherchons à entraîner de modèles de classification.
-    Le premier essai est réalisé avec une régression logistique (LR ) et les 4 modalités de notre variable cible.
+    Notre objectif est de déterminer la gravité des accidents de la circulation 
+    pour les usagers en fonction des circonstances. 
+    Notre variable cible (grav) indique la gravité et comporte 4 les modalités suivantes :
+    "Indemne", "Hospitalisé moins de 24h", "hospitalité plus de 24h" et "Tué". 
+    De nombreuses variables explicatives sont des variables catégorielles.
+    C'est un problème de classification et entreprenons l'entraînement de modèles de classification.
+    """)
+    st.header("régression logistique : premier essai")
+    st.write("""
+    Nous réalisons un premier essai avec une régression logistique (LR) et les 4 modalités de notre variable cible.
     Cette modélisation obtient des scores insuffisants avec des scores faibles de 59% seulement.
     """)
+    st.header("Machine learning : la recherche de performance ")
+    st.write("""
+    Nous utilisons le jeu de données issu du deuxième preprocessing avec un cible binaire
+    ("grave" ou "non grave") et équilibrée et des variables explicatives dichotomisées.
+    Le nombre important de variables explicatives ()
+    
+    Un premier essai avec lazypredict, pour voir, nous donne quelques indications sur les performances.
+    Nous essayons 11 modèles : des modèles découverts dans les cours, LGBM et même dummy proposés par lazypredict,
+    dummy est essayé pour comparaisons.
+    
+    Le jeu de données contient environ 260 variables explicatives, ce nombre est très important
+    nous décidons alors d'appliquer une PCA.
+    Après avoir appliqué la PCA nous normalisons le jeu de données de dimension réduite.
+    Deux graphiques nous aident à choisir le nombre de composantes
+    en affichant la variance expliquée par nombre de composantes.
+    Nous choisissons 100 composantes afin afin d'avoir au moins 90% de variance expliquée
+    pour ne pas diminuer les performances des modèles. 
+    """)
+    st.image(rep_figures + "choix_PCA.png")
 
-    # Choix du type de preprocessing
-    liste_preprocessing = ['Première modélisation  : LR',
-                           'Deuxième modélisation  : classifications',
-                           'Troisième modélisation : deep learning']
-    choix_preprocessing = st.radio('Choix du Preprocessing', liste_preprocessing)
+    st.write("""
+    Nous entraînons alors les modèles. Le code utilise un dictionnaire des modèles avec les paramètres à essayer
+    une boucle d'essais avec GridSearchCV et des affichages de nombreuses métriques. Le dictionnaire a permis
+    très simplement d'ajouter des modèles et de faire des essais de paramètres. Nous affichons de nombreuses métriques
+    pour les étudier, finalement le graphe des vrais/faux positifs/négatifs nous paraît le plus clair.
+    """)
+    st.write("""
+    Le modèle SVC semble le plus performant pour trouver "le plus sûrement"
+    les causes d'accident graves pour les usagers, il a le meilleur recall (82%) la plus faible proportion de
+    faux négatifs; il présente toutefois un surapprentissage trop important.
+    le modèle LGBM a des score proches et un faible surapprentissage; il a l'avantage d'être très rapide à entraîner
+    et d'occuper peu de place sur le disque.
+    """)
+    st.image(rep_figures + "comparaison_scores.png")
+    st.image(rep_figures + "evaluation_performances.png")
 
-    if choix_preprocessing == liste_preprocessing[0]:
-        st.write(liste_preprocessing[0])
+    st.write ("""
+    Enfin, pour évaluer les modèles et vérifier la cohérence des prédictions avec les variables explicatives
+    nous utilisons SHAP pour afficher leurs liens sur un graphique.
+    Il apparaît très clairement que le port du casque ou de la ceinture de sécurité
+    sont les éléments les plus importants pour éviter les conséquences graves. 
+    """)
+    st.image(rep_figures + "shap_summary_LGBM.png")
 
-    if choix_preprocessing == liste_preprocessing[1]:
-        st.write ("""
-        """)
-        st.write(liste_preprocessing[1])
+    st.header("Machine learning : un modèle plus efficace")
+    st.write("""
+    
+    """)
 
-    if choix_preprocessing == liste_preprocessing[2]:
-        st.write(liste_preprocessing[2])
-
-
-
+    st.image(rep_figures + "feature_importance.png")
+    st.image(rep_figures + "shap_summary_plot.png")
+    st.image(rep_figures + "training_history.png")
 
 ##############################################################################
 #
-# Page : Démonstration
+# Page : Démonstration ML
 #
 # Cette page présente :
 #  - des choix de circonstances;
@@ -358,7 +407,7 @@ if page == pages[4] :
 #
 ##############################################################################
 
-if page == pages[5]:
+if page == pages[6]:
     st.write("### Modélisation par Deep Learning")
 
     SVC, pca, scaler_ml, scaler_DP = read_models()
@@ -455,3 +504,18 @@ if page == pages[5]:
 
     #st.write(f"Prédiction : {ypred}")
 
+##############################################################################
+#
+# Page : Démonstration avec deep learning
+#
+# Cette page présente :
+#  - des choix de circonstances;
+#  - ? ? ? le choix du modèle  ? ? ?;
+#  - Les valeurs données au modèle ;
+#  - la prédiction de la gravité avec le ou les modèles;
+#  - la probabilité de la gravité
+#
+##############################################################################
+
+if page == pages[6]:
+   st_demo()
