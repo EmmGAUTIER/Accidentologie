@@ -293,7 +293,11 @@ if page == pages[3]:
     with st.expander("Le premier preprocessing") :
         st.image (rep_figures + "preprocessing_10.png")
 
+    with st.expander("Preprocessing") :
+        st.image (rep_figures + "preprocessing_21.png")
 
+    with st.expander("Preprocessing") :
+        st.image (rep_figures + "preprocessing_22.png")
 
 
 
