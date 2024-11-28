@@ -22,8 +22,13 @@ rep_ref = "references/"
 
 st.sidebar.title("Sommaire")
 
-pages=["Présentation", "Data Vizualization", "Modélisation pas SVC", "Modélisation par Deep Learning"]
-page=st.sidebar.radio("Aller vers", pages)
+pages=["Présentation",      # 0
+       "Le jeu de données", # 1
+       "Visualizations",    # 2
+       "Preprocessing",     # 3
+       "Modélisations",     # 4
+       "Démonstration"]     # 5
+page=st.sidebar.radio("Aller vers", pages)                #
 st.sidebar.write("Erika Méronville\n&\nEmmanuel Gautier")
 
 
@@ -47,7 +52,7 @@ def read_models():
         SVC       = joblib.load(rep_models + "SVC.mdl")
         pca       = joblib.load(rep_models + "pca_ml.mdl")
         scaler_ml = joblib.load(rep_models + "acc_scaler.mdl")
-        scaler_DP = joblib.load(rep_models + "/scaler_DP.joblib")
+        scaler_DP = joblib.load(rep_models + "scaler_DP.joblib")
 
     except Exception as e:
         st.error(f"Erreur lors du chargement du modèle: {str(e)}")
@@ -73,18 +78,22 @@ def read_df_zero():
 # Lecture du jeu de données avec une observation à zero
 
 @st.cache_data
-def read_stats():
+def read_stats_ech():
 
     df_evol_grav, stats_expl_var = None, None
 
     try:
-        df_evol_grav   = pd.read_csv(rep_processed + "evol_grav.csv",      sep='\t')
+        df_evol_grav   = pd.read_csv(rep_processed + "evol_grav.csv", sep='\t')
         stats_expl_var = pd.read_csv(rep_processed + "stats_expl_var.csv", sep='\t')
+        ech_dfc = pd.read_csv(rep_raw + "ech_caracteristiques.csv", sep = ',')
+        ech_dfl = pd.read_csv(rep_raw + "ech_lieux.csv", sep = ',')
+        ech_dfu = pd.read_csv(rep_raw + "ech_usagers.csv", sep = ',')
+        ech_dfv = pd.read_csv(rep_raw + "ech_vehicules.csv", sep = ',')
 
     except Exception as e:
-        st.error(f"Erreur lors du chargement du jeu de données vide : {str(e)}")
+        st.error(f"Erreur lors du chargement du jeu de données : {str(e)}")
 
-    return df_evol_grav, stats_expl_var
+    return df_evol_grav, stats_expl_var, ech_dfc, ech_dfl, ech_dfu, ech_dfv
 
 @st.cache_data
 def read_info():
@@ -149,15 +158,39 @@ la gravité des accidents routiers en fonction des circonstances qui les entoure
 """
 )
 
+
+##############################################################################
+#
+#  Le jeu de données
+#
+##############################################################################
+
+if page == pages[1]:
+    st.header("Le jeu de données")
+    st.markdown(
+"""
+Ces données concernent 72 dataframes au total, soit 1 dataframe par année et par rubrique.
+Un changement de codage de la gravité entre 2018 et 2019 nous contraint
+à ne retenir que les données de 2019 à 2022, soit les quatre dernières années.
+Les données sont réparties dans les 4 rubriques suivante :
+
+* caracteristiques : qui prend en compte les circonstances générales de l’accident.
+* lieux : qui décrit l’endroit de l’accident.
+* vehicules : qui énonce les véhicules impliqués dans l’accident.
+* usagers : qui relate les usagers impliqués dans l’accident.
+"""
+    )
+    st.image("reports/figures/diagramme.svg", caption = "Diagramme données", width = 1000)
+
 ##############################################################################
 #
 # Page : Visualisation des données
 #
 ##############################################################################
 
-if page == pages[1]:
+if page == pages[2]:
 
-    df_evol_grav, stats_expl_var = read_stats()
+    df_evol_grav, stats_expl_var, ech_dfc, ech_dfl, ech_dfu, ech_dfv = read_stats_ech()
 
     st.header("Visualisation du jeu de données")
 
@@ -209,44 +242,62 @@ if page == pages[1]:
     st.pyplot(fig)
 
     #
-    # Affichage de répartitions de modalités par variables
+    # Affichages pour chaque rubrique d'un échantillon et de quelques statistiques
     #
 
-    st.subheader("Répartitions par modalités")
+    lst_rub = {"usagers": {"df" : ech_dfu, "label" : "usagers"},
+               "caracteristiques": {"df" : ech_dfc, "label" : "caractéristiques"},
+               "lieux": {"df" : ech_dfl, "label" : "lieux"},
+               "vehicules": {"df" : ech_dfv, "label" : "véhicules"}}
 
-    # TODO : trier la liste des rubriques par ordre alphabétique
-    rubriques = stats_expl_var["rubrique"].unique()
-    chx_rubrique = st.selectbox("Rubrique : ", rubriques)
-    variables = stats_expl_var[stats_expl_var["rubrique"] == chx_rubrique]["variable"].unique()
-    variables_lib = [] # Liste des variables avec les libellés explicites
-    for v in variables:
-        if desc_vars[v].get("label") is not None:
-            variables_lib.append(v + " : " + desc_vars[v].get("label"))
-        else:
-            variables_lib.append(v + " : ")
-    chx_variable = st.selectbox("Variable : ", variables_lib)
-    variable_df   = chx_variable.split(" : ")[0]
-    variable_expl = chx_variable.split(" : ")[1]
+    for rub_clef, rub_desc in lst_rub.items():
+        st.subheader(rub_clef)
 
-    df1 = stats_expl_var[(stats_expl_var["rubrique"] == chx_rubrique) & (stats_expl_var["variable"] == variable_df)]
-    df1["count"] = df1["count"].astype("int")
-    df1 = df1[["modalite", "count"]]
-    # st.dataframe (df1) # pour mise au point, à supprimer
+        # Affichage de l'échantillon de données de la rubrique
+        st.write("Échantillon des données de la rubrique")
+        st.dataframe(rub_desc["df"])
 
-    fig = plt.figure(figsize=(10, 6))
-    plt.title(f"Répartition selon {chx_variable}")
+        # Affichage d'un graphique de répartition d'une modalité
+        variables = stats_expl_var[stats_expl_var["rubrique"] == rub_desc["label"]]["variable"].unique()
+        variables_lib = [] # Liste des variables avec les libellés explicites
+        for v in variables:
+            if desc_vars[v].get("label") is not None:
+                variables_lib.append(v + " : " + desc_vars[v].get("label"))
+            else:
+                variables_lib.append(v + " : ")
+        chx_variable = st.selectbox("Variable : ", variables_lib)
+        variable_df   = chx_variable.split(" : ")[0]
+        variable_expl = chx_variable.split(" : ")[1]
 
-    sns.barplot (df1, y = "modalite", x= "count", orient = "h")
+        df1 = stats_expl_var[(stats_expl_var["rubrique"] == rub_desc["label"]) & (stats_expl_var["variable"] == variable_df)]
+        df1["count"] = df1["count"].astype("int")
+        df1 = df1[["modalite", "count"]]
+        # st.dataframe (df1) # pour mise au point, à supprimer
 
-    st.pyplot(fig)
+        fig = plt.figure(figsize=(10, 6))
+        plt.title(f"Répartition selon {chx_variable}")
+
+        sns.barplot (df1, y = "modalite", x= "count", orient = "h")
+
+        st.pyplot(fig)
+
 
 ##############################################################################
 #
-# Modélisation : SVC
+# Page : Pré processing
 #
 ##############################################################################
 
-if page == pages[2] :
+if page == pages[3]:
+    st.header("Le préprocessing")
+
+##############################################################################
+#
+# Modélisations : LR, SVC et DP
+#
+##############################################################################
+
+if page == pages[4] :
 
     X_zero = read_df_zero()
 
@@ -289,18 +340,18 @@ if page == pages[2] :
 
 ##############################################################################
 #
-# Modélisation : Deep Learning
+# Page : Démonstration
 #
 # Cette page présente :
 #  - des choix de circonstances;
 #  - ? ? ? le choix du modèle  ? ? ?;
 #  - Les valeurs données au modèle ;
 #  - la prédiction de la gravité avec le ou les modèles;
-#  - la probalité de la gravité
+#  - la probabilité de la gravité
 #
 ##############################################################################
 
-if page == pages[3] :
+if page == pages[5]:
     st.write("### Modélisation par Deep Learning")
 
     SVC, pca, scaler_ml, scaler_DP = read_models()
