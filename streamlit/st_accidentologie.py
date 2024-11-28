@@ -290,6 +290,13 @@ if page == pages[2]:
 
 if page == pages[3]:
     st.header("Le préprocessing")
+    with st.expander("Le premier preprocessing") :
+        st.image (rep_figures + "preprocessing_10.png")
+
+
+
+
+
 
 ##############################################################################
 #
