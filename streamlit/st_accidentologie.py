@@ -289,17 +289,24 @@ if page == pages[2]:
 ##############################################################################
 
 if page == pages[3]:
-    st.header("Le préprocessing")
-    with st.expander("Le premier preprocessing") :
-        st.image (rep_figures + "preprocessing_10.png")
 
-    with st.expander("Preprocessing") :
-        st.image (rep_figures + "preprocessing_21.png")
+    # Choix du type de preprocessing
+    liste_preprocessing = ['Première Preprocessing', 'Deuxième Preprocessing']
+    choix_preprocessing = st.radio('Choix du Preprocessing', liste_preprocessing)
 
-    with st.expander("Preprocessing") :
-        st.image (rep_figures + "preprocessing_22.png")
+    if choix_preprocessing == liste_preprocessing[0]:
+        st.write(liste_preprocessing[0])
+        with st.expander("Le premier preprocessing"):
+            st.image (rep_figures + "preprocessing_10.png")
 
+    if choix_preprocessing == liste_preprocessing[1]:
+        st.write(liste_preprocessing[1])
 
+        with st.expander("Preprocessing") :
+            st.image (rep_figures + "preprocessing_21.png")
+
+        with st.expander("Preprocessing") :
+            st.image (rep_figures + "preprocessing_22.png")
 
 
 ##############################################################################
@@ -310,43 +317,32 @@ if page == pages[3]:
 
 if page == pages[4] :
 
-    X_zero = read_df_zero()
+    st.write ("""
+    Notre objectif est de déterminer la gravité avec deux modalités : grave ou "non grave".
+    Notre variable cible comporte 4 modalités 
+    C'est un problème de classification binaire. Nous cherchons à entraîner de modèles de classification.
+    Le premier essai est réalisé avec une régression logistique (LR ) et les 4 modalités de notre variable cible.
+    Cette modélisation obtient des scores insuffisants avec des scores faibles de 59% seulement.
+    """)
 
-    st.header("Modélisation par SVC")
-    st.subheader("Performances du modèle")
+    # Choix du type de preprocessing
+    liste_preprocessing = ['Première modélisation  : LR',
+                           'Deuxième modélisation  : classifications',
+                           'Troisième modélisation : deep learning']
+    choix_preprocessing = st.radio('Choix du Preprocessing', liste_preprocessing)
 
-    Xp = X_zero.copy()
+    if choix_preprocessing == liste_preprocessing[0]:
+        st.write(liste_preprocessing[0])
 
-    choix = ["Conducteur", "Passager", "Piéton"]
-    catu = st.selectbox("Catégorie d'usager", choix)
-    st.write(f"Catégorie d'usager {catu}")
-    if catu == choix[0] : 
-        Xp["catu_1"]  = 1
-    elif catu== choix[1] : 
-        Xp["catu_2"]  = 1
-    else:
-        Xp["catu_3"]  = 1
+    if choix_preprocessing == liste_preprocessing[1]:
+        st.write ("""
+        """)
+        st.write(liste_preprocessing[1])
 
-    #choix = ["Normale", "Mouillée", "glissante", "autre"]
-    #chps = ["surf_norm", "surf_mouil", "surf_gliss", "surf_autre"]
-    #surf = st.selectbox("Catégorie d'usager", choix)
-    #chp = chps[choix.index(surf)]
-    #Xp[chp] = 1
-    #st.write (f"choix : {surf} champ : {chp}")
-    # st.dataframe(df_0)
-  
-    st.write ("Développement en cours.")
-    st.write ("Affichage du DataFrame avec une seule 'observation' destiné à la prédiction")
+    if choix_preprocessing == liste_preprocessing[2]:
+        st.write(liste_preprocessing[2])
 
-    st.dataframe(Xp)
- 
-    #st.write ("Avec la prédiction réalisée nous afficherons le résultat")
 
-    #Xp = pca.transform(df_0)
-    #Xp = scaler.transform(Xp)
-    #ypred = SVC.predict(Xp)
-
-    #st.write(f"Prédiction : {ypred}")
 
 
 ##############################################################################
