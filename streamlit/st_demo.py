@@ -25,6 +25,9 @@ def read_models_DP():
     scaler = None
 
     try:
+        # Charge l'architectire du modèle
+        with open(rep_models + "model_architecture.json", 'r') as f:
+            model_json = f.read()
         pass
 
     except Exception as e:
