@@ -28,6 +28,7 @@ def read_models_DP():
         # Charge l'architectire du modèle
         with open(rep_models + "model_architecture.json", 'r') as f:
             model_json = f.read()
+        loaded_model = model_from_json(model_json)
         pass
 
     except Exception as e:
