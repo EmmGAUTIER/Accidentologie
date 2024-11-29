@@ -21,6 +21,9 @@ def read_models_DP():
     rep_figures = "reports/figures/"
     rep_ref = "references/"
 
+    loaded_model = None
+    scaler = None
+
     return None, None
 
 """        
