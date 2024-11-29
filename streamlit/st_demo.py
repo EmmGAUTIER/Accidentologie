@@ -8,6 +8,8 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.models import Sequential, model_from_json
 from tensorflow.keras.layers import Dense, Dropout
+from tensorflow.keras.saving import register_keras_serializable
+
 import seaborn as sns
 import matplotlib.pyplot as plt
 import tensorflow as tf
