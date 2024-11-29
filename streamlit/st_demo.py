@@ -13,6 +13,9 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import joblib
 
+def read_models_DP():
+    return None, None
+"""        
 @st.cache_data
 def read_models_DP():
 
@@ -25,7 +28,6 @@ def read_models_DP():
     loaded_model = None
     scaler = None
 
-"""        
     try:
         # Charger l'architecture du modèle
         with open(rep_models + "model_architecture.json", 'r') as f:
@@ -43,9 +45,9 @@ def read_models_DP():
     except Exception as e:
         st.error(f"Erreur lors du chargement du modèle: {str(e)}")
 
-"""        
 
     return loaded_model, scaler
+"""        
 
 """
 def create_and_compile_model(input_shape):
