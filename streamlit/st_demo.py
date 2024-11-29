@@ -31,7 +31,7 @@ def read_models_DP():
         st.error(f"Erreur lors du chargement du modèle: {str(e)}")
 
 
-    return None, None
+    return loaded_model, scaler
 
 """        
 @st.cache_data
