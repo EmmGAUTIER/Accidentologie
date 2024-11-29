@@ -15,7 +15,14 @@ import joblib
 
 @st.cache_data
 def read_models_DP():
+    rep_raw = "data/raw/"
+    rep_processed = "data/processed/"
+    rep_models = "models/"
+    rep_figures = "reports/figures/"
+    rep_ref = "references/"
+
     return None, None
+
 """        
 @st.cache_data
 def read_models_DP():
