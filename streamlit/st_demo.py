@@ -21,6 +21,8 @@ def read_models_DP():
     rep_figures = "reports/figures/"
     rep_ref = "references/"
 
+    loaded_model = None
+    scaler = None
 
     try:
         # Charger l'architecture du modèle
@@ -40,8 +42,6 @@ def read_models_DP():
         st.success("Modèle chargé avec succès!")
     except Exception as e:
         st.error(f"Erreur lors du chargement du modèle: {str(e)}")
-        loaded_model = None
-        scaler = None
 
 
     return loaded_model, scaler
