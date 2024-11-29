@@ -15,6 +15,8 @@ import joblib
 
 @st.cache_data
 def read_models_DP():
+    global rep_raw, rep_processed, rep_models, rep_figures, rep_ref
+
     model_arch, model_weights, scaler_DP = None, None, None
     try:
         model_arch = joblib.load(rep_models + "model_architecture.json")
