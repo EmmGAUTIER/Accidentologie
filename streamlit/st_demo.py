@@ -14,8 +14,12 @@ import tensorflow as tf
 import joblib
 
 @st.cache_data
-def read_models_DP():
-    global rep_raw, rep_processed, rep_models, rep_figures, rep_ref
+    def read_models_DP():
+    rep_raw = "data/raw/"
+    rep_processed = "data/processed/"
+    rep_models = "models/"
+    rep_figures = "reports/figures/"
+    rep_ref = "references/"
 
     model_arch, model_weights, scaler_DP = None, None, None
     try:
