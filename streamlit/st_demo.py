@@ -21,20 +21,30 @@ def read_models_DP():
     rep_figures = "reports/figures/"
     rep_ref = "references/"
 
-    model_arch, model_weights, scaler_DP = None, None, None
+
     try:
-        model_arch = joblib.load(rep_models + "model_architecture.json")
+        # Charger l'architecture du modèle
+        with open(rep_models + "model_architecture.json", 'r') as f:
+            model_json = f.read()
+        loaded_model = model_from_json(model_json)
+        
+        # Charger les poids
+        loaded_model.load_weights(rep_models + "model_weights.h5")
+        
+        # Compiler le modèle
+        loaded_model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+        
+        # Charger le scaler
+        scaler = joblib.load(rep_models + "scaler_DP.joblib")
+        
+        st.success("Modèle chargé avec succès!")
     except Exception as e:
-        st.error(f"Erreur lors du chargement de model_architecture.json: {str(e)}")
-    try:
-        model_weights = joblib.load(rep_models + "model_weights.h5")
-    except Exception as e:
-        st.error(f"Erreur lors du chargement de model_weights.h5: {str(e)}")
-    try:
-        scaler_DP = joblib.load(rep_models + "scaler_DP.joblib")
-    except Exception as e:
-        st.error(f"Erreur lors du chargement de scaler_DP.joblib: {str(e)}")
-    return model_arch, model_weights, scaler_DP
+        st.error(f"Erreur lors du chargement du modèle: {str(e)}")
+        loaded_model = None
+        scaler = None
+
+
+    return model_arch, model_weights #, scaler_DP
 
 """
 def create_and_compile_model(input_shape):
