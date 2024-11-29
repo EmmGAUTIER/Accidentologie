@@ -24,10 +24,16 @@ def read_models_DP():
     model_arch, model_weights, scaler_DP = None, None, None
     try:
         model_arch = joblib.load(rep_models + "model_architecture.json")
+    except Exception as e:
+        st.error(f"Erreur lors du chargement de model_architecture.json: {str(e)}")
+    try:
         model_weights = joblib.load(rep_models + "model_weights.h5")
+    except Exception as e:
+        st.error(f"Erreur lors du chargement de model_weights.h5: {str(e)}")
+    try:
         scaler_DP = joblib.load(rep_models + "scaler_DP.joblib")
     except Exception as e:
-        st.error(f"Erreur lors du chargement du modèle: {str(e)}")
+        st.error(f"Erreur lors du chargement de scaler_DP.joblib: {str(e)}")
     return model_arch, model_weights, scaler_DP
 
 """
