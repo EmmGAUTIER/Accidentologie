@@ -24,6 +24,13 @@ def read_models_DP():
     loaded_model = None
     scaler = None
 
+    try:
+        pass
+
+    except Exception as e:
+        st.error(f"Erreur lors du chargement du modèle: {str(e)}")
+
+
     return None, None
 
 """        
@@ -81,7 +88,7 @@ def st_demo():
     warnings.filterwarnings('ignore')
 
 
-    #model, scaler = read_models_DP()
+    model, scaler = read_models_DP()
 
 """
     try:
