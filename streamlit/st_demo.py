@@ -27,7 +27,7 @@ def read_models_DP():
         with open(rep_models + "model_architecture.json", 'r') as f:
             model_json = f.read()
         loaded_model = model_from_json(model_json)
-        
+"""        
         # Charger les poids
         loaded_model.load_weights(rep_models + "model_weights.h5")
         
@@ -36,7 +36,7 @@ def read_models_DP():
         
         # Charger le scaler
         scaler = joblib.load(rep_models + "scaler_DP.joblib")
-        
+"""        
         st.success("Modèle chargé avec succès!")
     except Exception as e:
         st.error(f"Erreur lors du chargement du modèle: {str(e)}")
