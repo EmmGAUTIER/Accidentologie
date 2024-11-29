@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import joblib
 
+@st.cache_data
 def read_models_DP():
     return None, None
 """        
