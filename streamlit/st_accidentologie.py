@@ -407,7 +407,7 @@ if page == pages[4] :
 #
 ##############################################################################
 
-if page == pages[6]:
+if page == pages[5]:
     st.write("### Modélisation par Deep Learning")
 
     SVC, pca, scaler_ml, scaler_DP = read_models()
