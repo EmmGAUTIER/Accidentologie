@@ -14,7 +14,7 @@ import matplotlib.pyplot as plt
 
 import joblib
 
-import st_demo
+from st_demo import st_demo
 
 rep_raw = "data/raw/"
 rep_processed = "data/processed/"
