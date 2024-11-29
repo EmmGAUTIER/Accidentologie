@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import joblib
 
-#@st.cache_data
+@st.cache_data
 def read_models_DP():
     rep_raw = "data/raw/"
     rep_processed = "data/processed/"
@@ -67,7 +67,7 @@ def st_demo():
     warnings.filterwarnings('ignore')
 
 
-    model, scaler = read_models_DP()
+    #model, scaler = read_models_DP()
 
 """
     try:
