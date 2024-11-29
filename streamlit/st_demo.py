@@ -26,8 +26,8 @@ def read_models_DP():
         # Charger l'architecture du modèle
         with open(rep_models + "model_architecture.json", 'r') as f:
             model_json = f.read()
-        loaded_model = model_from_json(model_json)
 """        
+        loaded_model = model_from_json(model_json)
         # Charger les poids
         loaded_model.load_weights(rep_models + "model_weights.h5")
         
