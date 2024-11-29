@@ -14,7 +14,7 @@ import tensorflow as tf
 import joblib
 
 @st.cache_data
-def read_models():
+def read_models_DP():
     model_arch, model_weights, scaler_DP = None, None, None
     try:
         model_arch = joblib.load(rep_models + "model_architecture.json")
@@ -24,6 +24,7 @@ def read_models():
         st.error(f"Erreur lors du chargement du modèle: {str(e)}")
     return model_arch, model_weights, scaler_DP
 
+"""
 def create_and_compile_model(input_shape):
     model = Sequential([
         Dense(64, activation='relu', input_shape=(input_shape,)),
@@ -37,10 +38,16 @@ def create_and_compile_model(input_shape):
     model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
     return model
 
+"""
+
 def st_demo():
     st.header("Prédiction (démo)")
     warnings.filterwarnings('ignore')
 
+
+    model_arch, model_weights, scaler_DP = read_models_DP()
+
+"""
     try:
         # Charger les données
         # data_path = os.path.join(os.path.dirname(__file__), "data.csv")
@@ -113,9 +120,10 @@ def st_demo():
                     # Sauvegarder le scaler
                     joblib.dump(scaler, 'scaler_DP.joblib')
                     
-                    st.success("Modèle entraîné et sauvegardé avec succès!")
+                     st.success("Modèle entraîné et sauvegardé avec succès!")
 
         if loaded_model is not None:
+
             # Interface de prédiction
             features = pd.DataFrame(0, index=[0], columns=X.columns)
             
@@ -306,8 +314,5 @@ def st_demo():
                     st.error(f"Erreur lors de la prédiction : {str(e)}")
                     st.write("Debug - Features utilisées:", features.columns[features.iloc[0] == 1].tolist())
 
-    except Exception as e:
-        st.error(f"Erreur lors du chargement des données: {str(e)}")
+###
 
-if __name__ == "__main__":
-    st_demo()
